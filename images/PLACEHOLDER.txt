@@ -1,0 +1,8 @@
+Place your photo gallery images in this folder.
+Recommended filenames:
+- photo1.jpg
+- photo2.jpg
+- photo3.jpg
+
+After placing them here, you can update the CONFIG.memories array in the index.html script block to match these filenames if you want to use local files instead of the Unsplash illustration URLs. For example:
+url: 'images/photo1.jpg'

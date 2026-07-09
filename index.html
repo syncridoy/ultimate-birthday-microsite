@@ -1,0 +1,2653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ultimate Birthday Surprise for Madam Jii</title>
+  <!-- Google Fonts & Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@200;400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            champagne: {
+              light: '#FCFAF7',
+              DEFAULT: '#FAF7F2',
+              dark: '#EAE2D5',
+            },
+            rosegold: {
+              light: '#F8E2D7',
+              DEFAULT: '#E0A899',
+              dark: '#C88775',
+            },
+            crimson: {
+              light: '#D35D6E',
+              DEFAULT: '#9E2A2B',
+              dark: '#6E1E1E',
+            },
+            gold: {
+              light: '#F8E4A0',
+              DEFAULT: '#D4AF37',
+              dark: '#AA8811',
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['Outfit', 'sans-serif'],
+            cursive: ['"Great Vibes"', 'cursive']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Premium Glassmorphic Styling Utilities */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: 0 8px 32px 0 rgba(224, 168, 153, 0.15);
+    }
+    
+    .glass-card-dark {
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .glow-rose {
+      box-shadow: 0 0 25px rgba(224, 168, 153, 0.35), inset 0 0 12px rgba(255, 255, 255, 0.3);
+    }
+    
+    .glow-gold {
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.45);
+    }
+    
+    .pulse-slow {
+      animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.02); }
+    }
+    
+    /* Background blob floating keyframes */
+    @keyframes floatBlob {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.15); }
+    }
+    .floating-blob {
+      animation: floatBlob 10s ease-in-out infinite;
+    }
+
+    /* Heart particle keyframes */
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) translateX(0) scale(0.5);
+        opacity: 0;
+      }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% {
+        transform: translateY(-10vh) translateX(var(--drift)) scale(1.2);
+        opacity: 0;
+      }
+    }
+    .floating-heart {
+      position: absolute;
+      bottom: -50px;
+      pointer-events: none;
+      animation: floatUp 8s linear infinite;
+    }
+
+    /* Envelope Wax-Seal animations */
+    .envelope-3d {
+      perspective: 1000px;
+    }
+    .envelope-flap {
+      transform-origin: top center;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .envelope-flap.open {
+      transform: rotateX(180deg);
+      z-index: 10;
+    }
+    .letter-body {
+      transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.6s;
+    }
+    .letter-body.extracted {
+      transform: translateY(-90%);
+      z-index: 20;
+    }
+
+    /* Smooth spawning & realistic twinkling stars */
+    .constellation-star {
+      transform-origin: center;
+      transform-box: fill-box;
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                  transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  cx 2.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                  cy 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .constellation-path {
+      stroke: rgba(255, 255, 255, 0.45);
+      stroke-width: 2.2;
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      animation: drawPath 3.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    
+    @keyframes drawPath {
+      to { stroke-dashoffset: 0; }
+    }
+    
+    /* Realistic 3D Balloon styles */
+    .real-balloon {
+      width: 50px;
+      height: 65px;
+      border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+      position: absolute;
+      cursor: pointer;
+      box-shadow: inset -6px -6px 12px rgba(0,0,0,0.25), 
+                  inset 4px 4px 10px rgba(255,255,255,0.4),
+                  0 8px 20px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+      pointer-events: auto;
+      z-index: 15;
+    }
+    
+    .balloon-highlight {
+      position: absolute;
+      top: 6px;
+      left: 10px;
+      width: 9px;
+      height: 15px;
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 50%;
+      transform: rotate(-15deg);
+      pointer-events: none;
+    }
+    
+    .balloon-knot {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 7px solid currentColor;
+      margin-top: 64px; /* Align with bottom edge */
+      pointer-events: none;
+      position: absolute;
+    }
+    
+    .balloon-string {
+      width: 1px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.35);
+      margin-top: 70px; /* Below the knot */
+      pointer-events: none;
+      position: absolute;
+    }
+    
+    /* Floating Love Note Bubble style (Apple HUD Toast) */
+    .love-note-bubble {
+      position: absolute;
+      transform: translateX(-50%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: #ffffff;
+      background: rgba(15, 23, 42, 0.85); /* Dark slate translucent */
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      padding: 6px 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+      z-index: 30;
+      white-space: nowrap; /* Prevent line wrapping */
+      animation: floatAndFadeLoveNote 4.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    
+    @keyframes floatAndFadeLoveNote {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 0) scale(0.85);
+      }
+      8% {
+        opacity: 1;
+        transform: translate(-50%, -15px) scale(1);
+      }
+      75% {
+        opacity: 1;
+        transform: translate(-50%, -70px) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -110px) scale(0.9);
+      }
+    }
+    
+    .constellation-star.spawned {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .constellation-star.twinkle {
+      animation: starTwinkle var(--twinkle-duration, 2s) infinite ease-in-out;
+    }
+    
+    @keyframes starTwinkle {
+      0%, 100% { opacity: 0.45; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.25); }
+    }
+
+    /* iPhone Slide Track flashing arrow text */
+    @keyframes textSlideGlow {
+      0% { background-position: -150px 0; }
+      100% { background-position: 150px 0; }
+    }
+    .slide-text-glow {
+      background: linear-gradient(to right, #6b7280 20%, #ffffff 40%, #ffffff 60%, #6b7280 80%);
+      background-size: 200% auto;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: textSlideGlow 2.5s linear infinite;
+    }
+
+    /* Waveform visualizer bars animation */
+    @keyframes pulseBar1 { 0%, 100% { height: 4px; } 50% { height: 16px; } }
+    @keyframes pulseBar2 { 0%, 100% { height: 8px; } 50% { height: 20px; } }
+    @keyframes pulseBar3 { 0%, 100% { height: 6px; } 50% { height: 18px; } }
+    @keyframes pulseBar4 { 0%, 100% { height: 10px; } 50% { height: 14px; } }
+
+    .animate-pulse-bar-1 { animation: pulseBar1 0.8s infinite ease-in-out; }
+    .animate-pulse-bar-2 { animation: pulseBar2 0.7s infinite ease-in-out; }
+    .animate-pulse-bar-3 { animation: pulseBar3 0.9s infinite ease-in-out; }
+    .animate-pulse-bar-4 { animation: pulseBar4 0.6s infinite ease-in-out; }
+
+    /* iOS 17 Mesh Gradient animations */
+    .animate-blob1 {
+      animation: iosBlob1 22s ease-in-out infinite alternate;
+    }
+    .animate-blob2 {
+      animation: iosBlob2 26s ease-in-out infinite alternate;
+    }
+    .animate-blob3 {
+      animation: iosBlob3 20s ease-in-out infinite alternate;
+    }
+    .animate-blob4 {
+      animation: iosBlob4 29s ease-in-out infinite alternate;
+    }
+    
+    @keyframes iosBlob1 {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      100% { transform: translate(80px, 50px) scale(1.2) rotate(180deg); }
+    }
+    @keyframes iosBlob2 {
+      0% { transform: translate(0, 0) scale(1.15) rotate(0deg); }
+      100% { transform: translate(-60px, -80px) scale(0.85) rotate(-120deg); }
+    }
+    @keyframes iosBlob3 {
+      0% { transform: translate(0, 0) scale(0.9) rotate(0deg); }
+      100% { transform: translate(60px, -60px) scale(1.25) rotate(90deg); }
+    }
+    @keyframes iosBlob4 {
+      0% { transform: translate(0, 0) scale(1.05) rotate(0deg); }
+      100% { transform: translate(-40px, 60px) scale(1.15) rotate(-90deg); }
+    }
+  </head>
+<body class="bg-slate-950 text-white font-sans overflow-hidden min-h-screen flex flex-col items-center justify-center relative select-none">
+
+  <!-- Full-screen Background Overlay (for Phase 2 cinematic look) -->
+  <div id="fullscreen-bg" class="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-[1000ms] opacity-0 pointer-events-none z-0"></div>
+
+  <!-- Full-screen transparent click overlay (only active in Phase 2) -->
+  <div id="star-click-overlay" class="fixed inset-0 z-30 hidden cursor-crosshair"></div>
+
+  <!-- Constellation SVG Overlay covering the entire screen viewport -->
+  <svg id="constellation-svg" class="fixed inset-0 w-full h-full pointer-events-none z-20 hidden"></svg>
+
+  <!-- Aesthetic Premium iOS Mesh Gradient Background -->
+  <div id="ambient-bg" class="absolute inset-0 overflow-hidden pointer-events-none z-0" style="filter: blur(90px) saturate(140%);">
+    <div class="absolute -top-[10%] -left-[10%] w-[380px] h-[380px] rounded-full opacity-60 animate-blob1" style="background-color: #fecfef;"></div>
+    <div class="absolute -bottom-[10%] -right-[10%] w-[420px] h-[420px] rounded-full opacity-50 animate-blob2" style="background-color: #a1c4fd;"></div>
+    <div class="absolute top-[30%] left-[20%] w-[350px] h-[350px] rounded-full opacity-55 animate-blob3" style="background-color: #fddb92;"></div>
+    <div class="absolute top-[10%] right-[10%] w-[380px] h-[380px] rounded-full opacity-45 animate-blob4" style="background-color: #e8dbfc;"></div>
+  </div>
+
+  <!-- Music Toggle Control -->
+  <div id="music-control" class="fixed top-4 right-4 z-50 hidden">
+    <button onclick="toggleMusic()" class="bg-white/40 backdrop-blur-md border border-white/50 text-crimson rounded-full w-10 h-10 flex items-center justify-center shadow-lg focus:outline-none hover:bg-white/70 transition-all">
+      <i id="music-icon" class="fas fa-music"></i>
+    </button>
+  </div>
+
+  <!-- ULTRA-MINIMALIST APPLE-STYLE MUSIC SELECTOR ENTRANCE OVERLAY -->
+  <div id="entrance-overlay" class="fixed inset-0 bg-slate-950/95 backdrop-blur-3xl z-50 flex flex-col items-center justify-center text-center p-6 transition-all duration-700 select-none">
+    <div class="w-full max-w-sm flex flex-col items-center px-4">
+      <h1 class="font-sans text-white text-3xl font-light tracking-wide mb-2">Choose a Soundtrack</h1>
+      <p class="text-slate-400 text-xs leading-relaxed mb-8 px-2">
+        Select a background track to make this experience even more special.
+      </p>
+      
+      <!-- iOS style settings group header -->
+      <div class="w-full text-left mb-2 pl-4">
+        <span class="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Choose Music</span>
+      </div>
+
+      <!-- iOS voice list layout style container -->
+      <div class="w-full flex flex-col space-y-3 mb-10">
+        
+        <!-- Soundtrack 1 (Kasoor) -->
+        <div onclick="selectSoundtrack('music1.mp3', this)" class="soundtrack-option bg-transparent border border-white/10 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/5">
+          <div class="flex items-center space-x-3.5">
+            <!-- Music DP / Album Art circle -->
+            <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 relative flex-shrink-0 bg-slate-800">
+              <img src="music1_dp.jpeg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100%\' height=\'100%\' fill=\'url(%23g)\'/><defs><linearGradient id=\'g\' x1=\'0%\' y1=\'0%\' x2=\'100%\' y2=\'100%\\'><stop offset=\'0%\' stop-color=\'%23ff758c\'/><stop offset=\'100%\' stop-color=\'%23ff7eb3\'/></linearGradient></defs><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'35\' fill=\'%23fff\'>🎵</text></svg>'" class="w-full h-full object-cover">
+            </div>
+            <!-- Music Labels -->
+            <div class="text-left">
+              <h3 class="font-sans font-bold text-white text-sm tracking-wide">Kasoor</h3>
+              <p class="text-[11px] text-slate-400 font-semibold tracking-wide">Prateek Kuhad</p>
+            </div>
+          </div>
+          <!-- Waveform Blue Indicator (hidden initially) -->
+          <div class="waveform-indicator flex items-end space-x-0.5 h-5 pr-2 transition-all duration-300 opacity-0">
+            <div class="w-1 bg-blue-500 rounded-full h-4 animate-pulse-bar-1"></div>
+            <div class="w-1 bg-blue-500 rounded-full h-2 animate-pulse-bar-2"></div>
+            <div class="w-1 bg-blue-500 rounded-full h-5 animate-pulse-bar-3"></div>
+            <div class="w-1 bg-blue-500 rounded-full h-3 animate-pulse-bar-4"></div>
+          </div>
+        </div>
+        
+        <!-- Soundtrack 2 (Kinna Sona) -->
+        <div onclick="selectSoundtrack('music2.mp3', this)" class="soundtrack-option bg-transparent border border-white/10 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/5">
+          <div class="flex items-center space-x-3.5">
+            <!-- Music DP / Album Art circle -->
+            <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 relative flex-shrink-0 bg-slate-800">
+              <img src="music2_dp.jpeg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100%\' height=\'100%\' fill=\'url(%23g)\'/><defs><linearGradient id=\'g\' x1=\'0%\' y1=\'0%\' x2=\'100%\' y2=\'100%\\'><stop offset=\'0%\' stop-color=\'%234facfe\'/><stop offset=\'100%\' stop-color=\'%2300f2fe\'/></linearGradient></defs><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'35\' fill=\'%23fff\'>🎵</text></svg>'" class="w-full h-full object-cover">
+            </div>
+            <!-- Music Labels -->
+            <div class="text-left">
+              <h3 class="font-sans font-bold text-white text-sm tracking-wide">Kinna Sona</h3>
+              <p class="text-[11px] text-slate-400 font-semibold tracking-wide max-w-[200px] truncate">Amitabh Verma, Mithoon, and Sunil Kamath</p>
+            </div>
+          </div>
+          <!-- Waveform Blue Indicator (hidden initially) -->
+          <div class="waveform-indicator flex items-end space-x-0.5 h-5 pr-2 transition-all duration-300 opacity-0">
+            <div class="w-1 bg-blue-500 rounded-full h-4 animate-pulse-bar-1"></div>
+            <div class="w-1 bg-blue-500 rounded-full h-2 animate-pulse-bar-2"></div>
+            <div class="w-1 bg-blue-500 rounded-full h-5 animate-pulse-bar-3"></div>
+            <div class="w-1 bg-blue-500 rounded-full h-3 animate-pulse-bar-4"></div>
+          </div>
+        </div>
+
+        <!-- Soundtrack 3 (Dariya) -->
+        <div onclick="selectSoundtrack('music3.mp3', this)" class="soundtrack-option bg-transparent border border-white/10 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/5">
+          <div class="flex items-center space-x-3.5">
+            <!-- Music DP / Album Art circle -->
+            <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 relative flex-shrink-0 bg-slate-800">
+              <img src="music3_dp.jpeg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100%\' height=\'100%\' fill=\'url(%23g)\'/><defs><linearGradient id=\'g\' x1=\'0%\' y1=\'0%\' x2=\'100%\' y2=\'100%\\'><stop offset=\'0%\' stop-color=\'%23f5576c\'/><stop offset=\'100%\' stop-color=\'%23f093fb\'/></linearGradient></defs><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'35\' fill=\'%23fff\'>🎵</text></svg>'" class="w-full h-full object-cover">
+            </div>
+            <!-- Music Labels -->
+            <div class="text-left">
+              <h3 class="font-sans font-bold text-white text-sm tracking-wide">Dariya</h3>
+              <p class="text-[11px] text-slate-400 font-semibold tracking-wide">Arko Pravo Mukherjee ‧ 2016</p>
+            </div>
+          </div>
+          <!-- Waveform Blue Indicator (hidden initially) -->
+          <div class="waveform-indicator flex items-end space-x-0.5 h-5 pr-2 transition-all duration-300 opacity-0">
+            <div class="w-1 bg-blue-500 rounded-full h-4 animate-pulse-bar-1"></div>
+            <div class="w-1 bg-blue-500 rounded-full h-2 animate-pulse-bar-2"></div>
+            <div class="w-1 bg-blue-500 rounded-full h-5 animate-pulse-bar-3"></div>
+            <div class="w-1 bg-blue-500 rounded-full h-3 animate-pulse-bar-4"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Action Button (Disabled by default) -->
+      <button id="btn-start-experience" onclick="startMicrosite()" class="w-full bg-white/20 text-white/40 pointer-events-none font-sans font-semibold py-3.5 rounded-2xl border border-white/10 transition-all text-sm tracking-wide text-center" disabled>
+        Choose a Soundtrack to Start
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN SCENARIO WRAPPER -->
+  <main class="w-full max-w-md px-4 z-10 flex flex-col items-center justify-center min-h-screen py-10 relative">
+
+    <!-- PHASE 1: iPhone Calling UI (Intro Wizard - Full Screen Viewport) -->
+    <section id="phase-1" class="fixed inset-0 w-full h-full min-h-screen bg-slate-950/60 backdrop-blur-2xl flex flex-col justify-between items-center text-center p-6 transition-all duration-500 text-white z-30 select-none">
+      
+      <!-- SCREEN A: Incoming Call Layout -->
+      <div id="call-screen-incoming" class="w-full h-full flex flex-col items-center justify-between flex-grow pb-36 pt-16">
+        <!-- Caller details -->
+        <div class="mt-6">
+          <p class="text-xs uppercase tracking-widest text-slate-400 mb-1">FaceTime Audio</p>
+          <h1 class="font-sans text-[32px] font-bold tracking-wide text-white">Ridoy 🤍</h1>
+          <p class="text-slate-400 text-xs mt-1 animate-pulse">Incoming Call...</p>
+        </div>
+
+        <!-- Clean iOS Caller Image Profile Picture -->
+        <div class="relative my-8 flex items-center justify-center">
+          <div class="w-32 h-32 rounded-full overflow-hidden border border-white/20 shadow-xl z-10 select-none bg-slate-800">
+            <img src="Call_Dp.jpeg" alt="Caller Photo" class="w-full h-full object-cover">
+          </div>
+          <!-- Pulse wave effects -->
+          <div class="absolute inset-0 bg-white/5 rounded-full animate-ping pointer-events-none scale-100"></div>
+          <div class="absolute inset-0 bg-white/5 rounded-full animate-ping pointer-events-none scale-125" style="animation-delay: 0.6s;"></div>
+        </div>
+
+        <!-- Slide To Answer Drag Track (Thick iOS Style) -->
+        <div class="w-full flex flex-col items-center mt-auto">
+          <div id="slide-container" class="relative w-[310px] h-[74px] bg-white/10 backdrop-blur-xl border border-white/15 rounded-full flex items-center p-[6px] select-none shadow-lg">
+            <div id="slide-button" class="bg-white hover:bg-slate-100 text-green-500 rounded-full w-[62px] h-[62px] flex items-center justify-center shadow-md cursor-grab active:cursor-grabbing text-2xl z-25 absolute left-[6px] transition-all">
+              <i class="fas fa-phone rotate-90"></i>
+            </div>
+            <span class="slide-text-glow text-[11px] font-bold tracking-wider uppercase select-none w-full text-center pr-2 pl-[68px]">
+              slide to answer
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN B: Active Call Layout (Hidden by default - Elevated layout) -->
+      <div id="call-screen-active" class="w-full h-full flex flex-col items-center justify-between flex-grow pt-10 pb-6 hidden">
+        <!-- Caller details & timer -->
+        <div class="mt-6">
+          <h1 class="font-sans text-[32px] font-bold tracking-wide text-white">Ridoy 🤍</h1>
+          <p id="call-timer" class="text-white text-[13px] font-mono font-medium tracking-widest mt-1">00:00</p>
+        </div>
+
+        <!-- Clean iOS Caller Image Profile Picture (Matches Screen A) -->
+        <div class="relative my-6 flex items-center justify-center">
+          <div class="w-28 h-28 rounded-full overflow-hidden border border-white/20 shadow-xl z-10 select-none bg-slate-800">
+            <img src="Call_Dp.jpeg" alt="Caller Photo" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <!-- In-Call iOS Grid Panel (6 buttons - Enlarged & Proportioned) -->
+        <div id="call-controls-grid" class="grid grid-cols-3 gap-y-5 gap-x-8 w-full max-w-[300px] my-4 select-none">
+          <!-- Button 1: Mute -->
+          <div class="flex flex-col items-center">
+            <button onclick="toggleInCallBtn(this)" class="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl hover:bg-white/25 active:bg-white/40 transition-all text-white">
+              <i class="fas fa-microphone-slash"></i>
+            </button>
+            <span class="text-[9px] text-slate-400 font-bold uppercase mt-1">Mute</span>
+          </div>
+          <!-- Button 2: Keypad (Triggers keypad slide-up) -->
+          <div class="flex flex-col items-center">
+            <button onclick="showKeypadPanel()" class="w-16 h-16 rounded-full bg-white/20 border border-white/40 flex items-center justify-center text-2xl hover:bg-white/30 active:bg-white/40 transition-all shadow-md text-white">
+              <i class="fas fa-th"></i>
+            </button>
+            <span class="text-[9px] text-white font-bold uppercase mt-1 animate-pulse">Keypad</span>
+          </div>
+          <!-- Button 3: Speaker -->
+          <div class="flex flex-col items-center">
+            <button onclick="toggleInCallBtn(this)" class="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl hover:bg-white/25 active:bg-white/40 transition-all text-white">
+              <i class="fas fa-volume-high"></i>
+            </button>
+            <span class="text-[9px] text-slate-400 font-bold uppercase mt-1">Speaker</span>
+          </div>
+          <!-- Button 4: Add Call -->
+          <div class="flex flex-col items-center opacity-30 pointer-events-none">
+            <button class="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl text-white">
+              <i class="fas fa-plus"></i>
+            </button>
+            <span class="text-[9px] text-slate-500 font-bold uppercase mt-1">Add Call</span>
+          </div>
+          <!-- Button 5: FaceTime -->
+          <div class="flex flex-col items-center opacity-30 pointer-events-none">
+            <button class="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl text-white">
+              <i class="fas fa-video"></i>
+            </button>
+            <span class="text-[9px] text-slate-500 font-bold uppercase mt-1">FaceTime</span>
+          </div>
+          <!-- Button 6: Contacts -->
+          <div class="flex flex-col items-center opacity-30 pointer-events-none">
+            <button class="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl text-white">
+              <i class="fas fa-address-book"></i>
+            </button>
+            <span class="text-[9px] text-slate-500 font-bold uppercase mt-1">Contacts</span>
+          </div>
+        </div>
+
+        <!-- Red End Call Button (Solid Red Fill & white icon) -->
+        <button onclick="restartSurprise()" class="rounded-full flex items-center justify-center shadow-lg hover:opacity-90 active:scale-95 transition-all mb-2 cursor-pointer" style="width: 72px; height: 72px; background-color: #ff3b30; color: #ffffff;">
+          <i class="fas fa-phone rotate-[135deg]" style="font-size: 28px;"></i>
+        </button>
+        
+        <!-- Bottom Layout Spacer to elevate elements and decline button -->
+        <div class="h-14 w-full pointer-events-none"></div>
+
+        <!-- Dynamic Slide-up Keypad Panel overlay (Slide-up Sheet) -->
+        <div id="call-keypad-panel" class="absolute inset-x-0 bottom-0 bg-slate-950/95 backdrop-blur-xl border-t border-white/20 rounded-t-[32px] pt-5 pb-14 px-6 hidden flex flex-col items-center z-40 transform translate-y-full transition-transform duration-500">
+          <!-- Top text layout -->
+          <div class="text-center mb-3">
+            <p class="text-xs text-white/80 font-semibold tracking-wider animate-pulse">
+              Tap 1 To Proceed
+            </p>
+          </div>
+          
+          <!-- Keypad Grid (Compact & optimized to fit all phone displays) -->
+          <div class="grid grid-cols-3 gap-y-3 gap-x-6 mb-3 select-none">
+            <!-- 1 -->
+            <button onclick="tapKeypadDigit('1')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex items-center justify-center text-xl font-light text-white transition-all">
+              1
+            </button>
+            <!-- 2 -->
+            <button onclick="tapKeypadDigit('2')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+              <span class="text-xl font-light leading-none -mt-0.5">2</span>
+              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">ABC</span>
+            </button>
+            <!-- 3 -->
+            <button onclick="tapKeypadDigit('3')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+              <span class="text-xl font-light leading-none -mt-0.5">3</span>
+              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">DEF</span>
+            </button>
+            
+            <!-- 4 -->
+            <button onclick="tapKeypadDigit('4')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+              <span class="text-xl font-light leading-none -mt-0.5">4</span>
+              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">GHI</span>
+            </button>
+            <!-- 5 -->
+            <button onclick="tapKeypadDigit('5')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+              <span class="text-xl font-light leading-none -mt-0.5">5</span>
+              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">JKL</span>
+            </button>
+            <!-- 6 -->
+            <button onclick="tapKeypadDigit('6')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+              <span class="text-xl font-light leading-none -mt-0.5">6</span>
+              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">MNO</span>
+            </button>
+            
+            <!-- 7 -->
+            <button onclick="tapKeypadDigit('7')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+              <span class="text-xl font-light leading-none -mt-0.5">7</span>
+              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">PQRS</span>
+            </button>
+            <!-- 8 -->
+            <button onclick="tapKeypadDigit('8')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+              <span class="text-xl font-light leading-none -mt-0.5">8</span>
+              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">TUV</span>
+            </button>
+            <!-- 9 -->
+            <button onclick="tapKeypadDigit('9')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+              <span class="text-xl font-light leading-none -mt-0.5">9</span>
+              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">WXYZ</span>
+            </button>
+            
+            <!-- * -->
+            <button onclick="tapKeypadDigit('*')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex items-center justify-center text-2xl font-light text-white pt-1.5 transition-all">
+              *
+            </button>
+            <!-- 0 -->
+            <button onclick="tapKeypadDigit('0')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+              <span class="text-xl font-light leading-none -mt-0.5">0</span>
+              <span class="text-[9px] text-white/60 font-medium mt-0.5">+</span>
+            </button>
+            <!-- # -->
+            <button onclick="tapKeypadDigit('#')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex items-center justify-center text-lg font-light text-white transition-all">
+              #
+            </button>
+          </div>
+          
+          <!-- Hide keypad button -->
+          <button onclick="hideKeypadPanel()" class="text-xs text-rosegold hover:text-white transition-colors tracking-widest uppercase font-bold py-1">
+            Back to Call
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 2: Starry Sky Wish (Cinematic Full Screen experience) -->
+    <section id="phase-2" class="w-full flex flex-col justify-between items-center text-center text-white hidden relative min-h-[520px] select-none">
+      
+      <!-- Upper sky drawing board area indicator / placeholder (Only handles coordinate clicks, transparent) -->
+      <div id="star-instruction" class="absolute inset-x-0 top-12 text-center text-white/45 text-xs tracking-wider uppercase font-semibold pointer-events-none select-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)] z-20">
+        Tap the Sky to place stars (0 / 5)
+      </div>
+
+      <!-- Spacer to push text content to the bottom -->
+      <div class="flex-grow w-full pointer-events-none" style="height: 250px;"></div>
+      
+      <!-- BOTTOM PANEL: Grouping all text, indicators, and buttons with transparent styling (no background, no blur) -->
+      <div class="w-full p-5 flex flex-col items-center z-40 relative pointer-events-auto">
+        <h1 class="font-sans text-2xl font-bold mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] tracking-wide">Make a Wish Under the Stars</h1>
+        <p class="text-slate-200 text-xs mb-5 leading-relaxed max-w-[280px] drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.95)]">
+          The sky is quiet, but magic is in the air. Tap the Sky 5 times to place 5 wishing stars.
+        </p>
+        
+        <!-- Star count indicators (Apple Style: White active, semi-transparent white inactive) -->
+        <div class="flex space-x-2.5 mb-6" id="star-indicators">
+          <div class="w-2.5 h-2.5 rounded-full border border-white/15 bg-white/20 transition-all duration-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full border border-white/15 bg-white/20 transition-all duration-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full border border-white/15 bg-white/20 transition-all duration-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full border border-white/15 bg-white/20 transition-all duration-300"></div>
+          <div class="w-2.5 h-2.5 rounded-full border border-white/15 bg-white/20 transition-all duration-300"></div>
+        </div>
+        
+        <!-- Next button (Apple Style: Clean White Pill) -->
+        <button id="btn-stars-next" onclick="nextPhase()" class="bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2 hidden">
+          Unlock your Path <i class="fas fa-chevron-right ml-1"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- PHASE 3: Balloon Pop & Love Notes (Frosted Glass Full Screen experience) -->
+    <section id="phase-3" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-slate-950/60 backdrop-blur-2xl">
+      
+      <!-- Top header container -->
+      <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
+        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide">Let's Play a Game!</h1>
+        <p class="text-white/70 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
+          Pop 5 floating balloons to unlock Next Step in This Series!
+        </p>
+        
+        <!-- Progress Bar -->
+        <div class="w-full bg-white/10 border border-white/5 rounded-full h-2 overflow-hidden relative mb-2">
+          <div id="balloon-progress" class="bg-white h-full w-0 transition-all duration-300 shadow-[0_0_8px_#fff]"></div>
+        </div>
+        <div id="balloon-counter" class="text-[10px] text-white/40 font-bold uppercase tracking-wider">
+          Balloons Popped: 0 / 5
+        </div>
+      </div>
+      
+      <!-- Game board container: Invisible, covers the entire viewport, allows click interaction on balloons -->
+      <div id="balloon-board" class="absolute inset-0 w-full h-full z-10 overflow-hidden pointer-events-none">
+        <!-- Spawned balloons with pointer-events-auto will float here -->
+      </div>
+      
+      <!-- Bottom button container -->
+      <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
+        <!-- Next button (Clean Apple-Style White Pill) -->
+        <button id="btn-balloons-next" onclick="nextPhase()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
+          Step Into the Bakery <i class="fas fa-chevron-right ml-1"></i>
+        </button>
+      </div>
+      
+    </section>
+
+    <!-- PHASE 4: Interactive Cake Baking & Cutting Ceremony -->
+    <section id="phase-4" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-slate-950/60 backdrop-blur-2xl">
+      
+      <!-- Top header container -->
+      <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
+        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide">The Secret Recipe</h1>
+        <p id="cake-instruction" class="text-white/70 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
+          Let's bake something special for you. Tap the ingredients to add them to the bowl!
+        </p>
+      </div>
+
+      <!-- Middle arena container -->
+      <div class="w-full max-w-sm flex-grow flex flex-col items-center justify-center z-15 py-4 pointer-events-auto">
+        <!-- Mixing Bowl Area -->
+        <div id="baking-arena" class="w-full relative h-48 flex items-center justify-center mb-6">
+          <!-- Flour, Sugar, Love Jars -->
+          <div id="ingredients-container" class="absolute inset-x-0 top-0 flex justify-between px-4">
+            <div id="ing-flour" onclick="addIngredient('flour')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90">
+              <span class="text-3xl text-amber-300"><i class="fas fa-cookie"></i></span>
+              <span class="text-[10px] font-bold text-white/50 uppercase mt-1">Sweet Base</span>
+            </div>
+            <div id="ing-sugar" onclick="addIngredient('sugar')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90">
+              <span class="text-3xl text-pink-300"><i class="fas fa-heart"></i></span>
+              <span class="text-[10px] font-bold text-white/50 uppercase mt-1">Pure Love</span>
+            </div>
+            <div id="ing-essence" onclick="addIngredient('essence')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90">
+              <span class="text-3xl text-yellow-300"><i class="fas fa-magic"></i></span>
+              <span class="text-[10px] font-bold text-white/50 uppercase mt-1">Magic Essence</span>
+            </div>
+          </div>
+
+          <!-- Central Bowl -->
+          <div id="mixing-bowl" class="text-7xl text-white/40 mt-16 transition-all duration-500 relative">
+            <i class="fas fa-blender"></i>
+            <!-- Mix indicator dots inside bowl -->
+            <div id="bowl-mix-status" class="absolute -top-2 left-1/2 -translate-x-1/2 flex space-x-1"></div>
+          </div>
+
+          <!-- Baked Cake (Hidden Initially) -->
+          <div id="baked-cake" class="hidden flex flex-col items-center relative mt-8">
+            <!-- 3 candles SVG container -->
+            <div class="flex justify-center space-x-4 mb-2 absolute -top-8 left-1/2 -translate-x-1/2 z-10 w-24">
+              <div id="candle-1" onclick="lightCandle(1)" class="w-6 flex flex-col items-center cursor-pointer">
+                <!-- flame -->
+                <span id="flame-1" class="hidden text-red-500 text-sm animate-pulse"><i class="fas fa-fire"></i></span>
+                <div class="w-2 h-8 bg-blue-300 rounded"></div>
+              </div>
+              <div id="candle-2" onclick="lightCandle(2)" class="w-6 flex flex-col items-center cursor-pointer">
+                <span id="flame-2" class="hidden text-red-500 text-sm animate-pulse"><i class="fas fa-fire"></i></span>
+                <div class="w-2 h-8 bg-pink-300 rounded"></div>
+              </div>
+              <div id="candle-3" onclick="lightCandle(3)" class="w-6 flex flex-col items-center cursor-pointer">
+                <span id="flame-3" class="hidden text-red-500 text-sm animate-pulse"><i class="fas fa-fire"></i></span>
+                <div class="w-2 h-8 bg-green-300 rounded"></div>
+              </div>
+            </div>
+            <!-- 3 Tier Cake SVG -->
+            <svg class="w-32 h-24" viewBox="0 0 100 80">
+              <!-- Tier 3 -->
+              <rect x="15" y="55" width="70" height="20" rx="3" fill="#E0A899" />
+              <path d="M15 60 Q 50 63 85 60" fill="none" stroke="#FAF7F2" stroke-width="2"/>
+              <!-- Tier 2 -->
+              <rect x="25" y="35" width="50" height="20" rx="3" fill="#FCF6BA" />
+              <path d="M25 40 Q 50 43 75 40" fill="none" stroke="#E0A899" stroke-width="2"/>
+              <!-- Tier 1 -->
+              <rect x="35" y="15" width="30" height="20" rx="3" fill="#D4AF37" />
+              <!-- Frosting -->
+              <path d="M35 20 Q 50 23 65 20" fill="none" stroke="#FAF7F2" stroke-width="2"/>
+              <!-- Cherries -->
+              <circle cx="50" cy="15" r="3" fill="#9E2A2B"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Cake Cutting Knife Slider -->
+        <div id="knife-slider-area" class="hidden w-full flex flex-col items-center px-4">
+          <p class="text-xs text-white/60 font-bold mb-4 blink">
+            🕯️ Light all 3 candles by tapping them to unlock the knife!
+          </p>
+          <div id="knife-track" class="relative w-full h-12 bg-white/10 border border-white/20 rounded-full flex items-center px-2 mb-4 pointer-events-none opacity-40">
+            <div id="drag-knife" class="bg-white text-slate-950 rounded-full w-10 h-10 flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing text-lg z-20 absolute left-2 transition-all">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <span id="knife-track-text" class="text-[10px] text-white/50 font-bold tracking-wider uppercase select-none w-full text-center pl-10 pr-2">
+              Slide knife right to cut cake
+            </span>
+          </div>
+        </div>
+
+        <!-- Happy Birthday Overlay Card inside phase -->
+        <div id="birthday-celebration-card" class="hidden w-full flex flex-col items-center px-4">
+          <h2 class="font-sans text-3xl font-extrabold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] animate-bounce mb-2">Happy Birthday!</h2>
+          <p class="text-white/70 text-xs mb-6">
+            Make a wish, blow out the candles, and let's check your memory lane...
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom button container -->
+      <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
+        <!-- Bake button -->
+        <button id="btn-bake-action" onclick="bakeCake()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
+          <i class="fas fa-fire-burner mr-1"></i> Bake the Cake
+        </button>
+        <!-- Proceed button (Happy Birthday) -->
+        <button id="btn-celebration-next" onclick="nextPhase()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
+          Reveal Memories <i class="fas fa-chevron-right ml-1"></i>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- PHASE 5: Scratch-Card Polaroid Gallery -->
+    <section id="phase-5" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-slate-950/60 backdrop-blur-2xl">
+      
+      <!-- Top header container -->
+      <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
+        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide">Memory Lane</h1>
+        <p id="scratch-prompt" class="text-white/70 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
+          Scratch off the golden foil coating on the polaroid below to unlock a sweet memory.
+        </p>
+      </div>
+
+      <!-- Middle polaroid container -->
+      <div class="w-full max-w-sm flex-grow flex flex-col items-center justify-center z-15 py-4 pointer-events-auto">
+        <div class="relative w-64 bg-white p-3 pb-8 shadow-2xl border border-white/50 rounded-lg transform rotate-2 mb-6">
+          <div class="relative w-58 h-58 bg-slate-100 rounded overflow-hidden flex items-center justify-center">
+            <!-- Polaroid Image placeholder / source -->
+            <img id="polaroid-image" class="w-full h-full object-cover hidden" src="" alt="Memory">
+            <!-- Loading icon while scratch is present -->
+            <div id="image-loader" class="absolute text-slate-300 text-3xl">
+              <i class="fas fa-image animate-pulse"></i>
+            </div>
+            <!-- Canvas Gold Foil Scratch Overlay -->
+            <canvas id="scratch-canvas" class="absolute inset-0 w-full h-full cursor-crosshair z-10"></canvas>
+          </div>
+          <!-- Typewriter Caption -->
+          <p id="polaroid-caption" class="font-serif text-xs text-slate-700 mt-4 h-8 flex items-center justify-center text-center px-2 italic">
+            Scratch to reveal caption...
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom container -->
+      <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto">
+        <div class="w-full flex justify-between items-center">
+          <span id="gallery-counter" class="text-[10px] text-white/40 font-bold uppercase tracking-wider">Photo 1 / 3</span>
+          <button id="btn-gallery-next" onclick="nextGalleryPhoto()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-6 py-2.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase">
+            Next Photo <i class="fas fa-chevron-right ml-1"></i>
+          </button>
+          <button id="btn-gallery-finish" onclick="nextPhase()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-6 py-2.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase">
+            View Secret Letter <i class="fas fa-chevron-right ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- PHASE 6: Royal 3D Wax-Sealed Letter -->
+    <section id="phase-6" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-slate-950/60 backdrop-blur-2xl">
+      
+      <!-- Top header container -->
+      <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
+        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide">A Secret Letter</h1>
+        <p id="letter-prompt" class="text-white/70 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
+          A royal letter sealed with love. Tap the red wax heart seal to melt it and open the letter.
+        </p>
+      </div>
+      
+      <!-- Middle envelope container -->
+      <div class="w-full max-w-sm flex-grow flex flex-col items-center justify-center z-15 py-4 pointer-events-auto">
+        <div class="envelope-3d relative w-full h-72 flex items-center justify-center mb-6">
+          <!-- Envelope Back / Base -->
+          <div id="envelope-wrapper" class="absolute w-80 h-48 bg-rosegold/80 border border-white/30 rounded-b-2xl shadow-xl flex items-center justify-center z-0">
+            
+            <!-- Envelope Front Flap -->
+            <div id="envelope-flap" class="envelope-flap absolute inset-x-0 top-0 h-24 bg-rosegold-dark/90 rounded-b-xl border-t border-white/20 origin-top flex items-center justify-center z-30">
+              <!-- Wax Seal stamp inside flap -->
+              <div id="wax-seal" onclick="breakWaxSeal()" class="w-14 h-14 bg-crimson hover:bg-crimson-dark rounded-full border-4 border-gold shadow-lg flex items-center justify-center cursor-pointer transform -translate-y-2 active:scale-95 transition-all text-gold z-40">
+                <i class="fas fa-heart text-xl animate-pulse"></i>
+              </div>
+            </div>
+            
+            <!-- Outer Envelope Sides decoration -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-rosegold-dark/20 to-transparent pointer-events-none rounded-b-2xl"></div>
+            
+            <!-- Inside Letter Scroll -->
+            <div id="letter-scroll" class="letter-body absolute bottom-0 bg-white/95 backdrop-blur-xl border border-white/50 rounded-lg shadow-2xl p-6 w-72 h-80 overflow-y-auto text-left transform translate-y-0 opacity-0 pointer-events-none z-10 transition-all select-text">
+              <h3 class="font-serif font-bold text-crimson mb-3 border-b pb-2 text-center text-sm uppercase tracking-wider">Dear Madam Jii...</h3>
+              <p id="secret-letter-text" class="font-sans text-xs text-slate-700 leading-relaxed space-y-2 mb-4">
+                <!-- Configured letter goes here -->
+              </p>
+              <p class="font-serif text-right text-xs text-crimson font-bold italic mt-4">
+                Yours, Always & Forever ❤️
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom container -->
+      <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
+        <!-- Letter Next Button -->
+        <button id="btn-letter-next" onclick="nextPhase()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
+          Accept My Love <i class="fas fa-heart ml-1"></i>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- PHASE 7: The Final Love Storm & Touch-Responsive Hearts -->
+    <section id="phase-7" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-slate-950/60 backdrop-blur-2xl">
+      
+      <!-- Top header container -->
+      <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
+        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide">Happy Birthday!</h1>
+        <p class="text-white/70 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
+          You have successfully completed all the steps!
+        </p>
+      </div>
+
+      <!-- Middle final content container -->
+      <div class="w-full max-w-sm flex-grow flex flex-col items-center justify-center z-15 py-4 pointer-events-auto">
+        <!-- Big golden animated medal/gift -->
+        <div class="text-6xl text-white mb-6 animate-bounce">
+          <i class="fas fa-heart-circle-check"></i>
+        </div>
+        <p class="text-white text-sm leading-relaxed mb-6 font-medium px-4">
+          I hope this little microsite brought a big smile to your beautiful face.
+        </p>
+        <!-- Interactive storm note -->
+        <div class="bg-white/10 border border-white/20 rounded-xl p-4 text-xs text-white/60 italic leading-normal mx-4">
+          ✨ Hover or tap anywhere on the screen now to spawn custom floating kisses (💋) and sweet hearts (❤️) wherever you touch!
+        </div>
+      </div>
+
+      <!-- Bottom container -->
+      <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
+        <!-- Replay button -->
+        <button onclick="restartSurprise()" class="bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
+          <i class="fas fa-redo mr-1"></i> Replay Surprise
+        </button>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Canvas for final touch particle system & flying kisses storm -->
+  <canvas id="storm-canvas" class="absolute inset-0 pointer-events-auto z-40 hidden"></canvas>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas" class="absolute inset-0 pointer-events-none z-30"></canvas>
+
+  <script>
+    /* =========================================================================
+       1. GLOBAL CONFIGURATION (Edit details here)
+       ========================================================================= */
+    const CONFIG = {
+      // Synced voiceover MP3 (Plays automatically on Slide Answer)
+      voiceoverUrl: 'voiceover.mp3', // Direct asset pointer
+      // Background music URLs matching other phases
+      musicUrls: {
+        lofiIntro: 'https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3',      // Soft lofi intro
+        birthday: 'https://assets.mixkit.co/music/preview/mixkit-happy-birthday-music-box-126.mp3',// Upbeat birthday chimes
+        nostalgic: 'https://assets.mixkit.co/music/preview/mixkit-tender-affection-495.mp3'     // Romantic nostalgic piano
+      },
+      // Love notes revealed on balloon pop
+      loveNotes: [
+        "You make my heart smile... ✨",
+        "I'm so incredibly lucky to have you. ❤️",
+        "You are my favorite notification. 📱",
+        "Wishing you a world of happiness today! 🌸",
+        "To the one who holds my heart, Happy Birthday! 🎂"
+      ],
+      // Memory lane Polaroid images
+      memories: [
+        {
+          url: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80',
+          caption: "Remembering our first conversations, where the magic began..."
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80',
+          caption: "For every smile you give me, you make my whole day shine..."
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1494972308805-463bc619b34e?auto=format&fit=crop&w=600&q=80',
+          caption: "Hand in hand, heart to heart, today and all my tomorrows..."
+        }
+      ],
+      // The royal secret letter content
+      secretLetter: `Hey Madam Jii,<br><br>
+        On this beautiful and special day, I want to write this little note to tell you how incredibly much you mean to me.<br><br>
+        You are the warmth in my mornings, the laughter in my days, and the brightest star in my night sky. May this birthday bring you infinite joy, laughter, and all the magical dreams your heart can hold.<br><br>
+        Thank you for being you, and for gracing my life with your love. Let's celebrate many more birthdays together!`
+    };
+
+    /* =========================================================================
+       2. SOUND EFFECT SYNTHESIZER ENGINE (Web Audio API)
+       ========================================================================= */
+    class SoundSynthesizer {
+      constructor() {
+        this.ctx = null;
+      }
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+      playChime(multiplier = 1) {
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(523.25 * multiplier, now); // C5
+        osc.frequency.exponentialRampToValueAtTime(1046.5 * multiplier, now + 0.15); // C6
+        
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.25);
+      }
+      playPop() {
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(450, now);
+        osc.frequency.exponentialRampToValueAtTime(60, now + 0.1);
+        
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.linearRampToValueAtTime(0.001, now + 0.1);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.1);
+      }
+      playUnlock() {
+        this.init();
+        const now = this.ctx.currentTime;
+        
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(180, now);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.04);
+        
+        setTimeout(() => this.playChime(1.3), 30);
+      }
+      playOvenDing() {
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(987.77, now);
+        
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.6);
+      }
+      playMatchStrike() {
+        this.init();
+        const now = this.ctx.currentTime;
+        const bufferSize = this.ctx.sampleRate * 0.12;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+        
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = buffer;
+        
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 1200;
+        
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+        
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+        noise.start(now);
+        noise.stop(now + 0.12);
+      }
+      playScratch() {
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(150, now);
+        osc.frequency.setValueAtTime(300, now + 0.03);
+        
+        gain.gain.setValueAtTime(0.015, now);
+        gain.gain.linearRampToValueAtTime(0.001, now + 0.04);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.04);
+      }
+      playPaperFlip() {
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(120, now);
+        osc.frequency.exponentialRampToValueAtTime(250, now + 0.15);
+        
+        gain.gain.setValueAtTime(0.04, now);
+        gain.gain.linearRampToValueAtTime(0.001, now + 0.15);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.15);
+      }
+      playDtmf(digit) {
+        this.init();
+        const dtmfFreqs = {
+          '1': [697, 1209], '2': [697, 1336], '3': [697, 1477],
+          '4': [770, 1209], '5': [770, 1336], '6': [770, 1477],
+          '7': [852, 1209], '8': [852, 1336], '9': [852, 1477],
+          '*': [941, 1209], '0': [941, 1336], '#': [941, 1477]
+        };
+        if (!dtmfFreqs[digit]) return;
+        
+        const now = this.ctx.currentTime;
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(dtmfFreqs[digit][0], now);
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(dtmfFreqs[digit][1], now);
+        
+        gain.gain.setValueAtTime(0.05, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+        
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + 0.12);
+        osc2.stop(now + 0.12);
+      }
+    }
+
+    /* =========================================================================
+       3. BACKGROUND MUSIC & RINGTONE PLAYER
+       ========================================================================= */
+    class AmbientMusicPlayer {
+      constructor() {
+        this.audio = new Audio();
+        this.audio.loop = false; // Disable direct loop to support sequential playlist queue
+        this.currentTrack = null;
+        this.isMuted = false;
+        
+        // Playlist order matching local custom tracks
+        this.playlist = ['music1.mp3', 'music2.mp3', 'music3.mp3'];
+        
+        // Auto-advance to next song in queue when current soundtrack finishes
+        this.audio.addEventListener('ended', () => {
+          this.playNext();
+        });
+      }
+      play(url) {
+        if (this.currentTrack === url) return;
+        this.currentTrack = url;
+        
+        if (this.audio.src) {
+          let volume = this.audio.volume;
+          const fadeOut = setInterval(() => {
+            if (volume > 0.05) {
+              volume -= 0.05;
+              this.audio.volume = volume;
+            } else {
+              clearInterval(fadeOut);
+              this.audio.pause();
+              this.audio.src = url;
+              this.audio.load();
+              this.audio.volume = 0;
+              if (!this.isMuted) {
+                this.audio.play().catch(e => console.log("Music play blocked:", e));
+                this.fadeIn();
+              }
+            }
+          }, 30);
+        } else {
+          this.audio.src = url;
+          this.audio.volume = 0;
+          if (!this.isMuted) {
+            this.audio.play().catch(e => console.log("Music play blocked:", e));
+            this.fadeIn();
+          }
+        }
+      }
+      playNext() {
+        if (!this.currentTrack) return;
+        
+        // Find index of current song in queue
+        let currentIndex = this.playlist.indexOf(this.currentTrack);
+        if (currentIndex === -1) {
+          // If ended song was an overlay (like happy birthday), return to default selected track
+          this.play(selectedMusicUrl || 'music1.mp3');
+          return;
+        }
+        
+        // Calculate next index, looping back sequentially
+        const nextIndex = (currentIndex + 1) % this.playlist.length;
+        const nextTrackUrl = this.playlist[nextIndex];
+        
+        console.log("Track ended. Playing next track sequentially:", nextTrackUrl);
+        
+        // Update selectedMusicUrl and lastPlaylistTrack to align queue states across page phases
+        selectedMusicUrl = nextTrackUrl;
+        lastPlaylistTrack = nextTrackUrl;
+        
+        this.play(nextTrackUrl);
+      }
+      fadeIn() {
+        let volume = 0;
+        const fadeInInterval = setInterval(() => {
+          if (volume < 0.35) {
+            volume += 0.03;
+            this.audio.volume = volume;
+          } else {
+            clearInterval(fadeInInterval);
+          }
+        }, 50);
+      }
+      stop() {
+        this.audio.pause();
+      }
+      setMuted(muted) {
+        this.isMuted = muted;
+        if (muted) {
+          this.audio.pause();
+        } else {
+          this.audio.play().catch(e => console.log("Play error:", e));
+          this.audio.volume = 0.35;
+        }
+      }
+    }
+
+    const sound = new SoundSynthesizer();
+    const music = new AmbientMusicPlayer();
+
+    // Voiceover Audio Setup
+    let voiceoverAudio = new Audio();
+    voiceoverAudio.src = CONFIG.voiceoverUrl;
+    voiceoverAudio.loop = false;
+    voiceoverAudio.volume = 0.95;
+
+    // Upgraded high-fidelity, loud Apple marimba ringtone sequence
+    class RingtonePlayer {
+      constructor(synth) {
+        this.synth = synth;
+        this.interval = null;
+      }
+      start() {
+        if (this.interval) return;
+        const playNotes = () => {
+          if (currentPhase !== 1 || isUnlocked) return;
+          this.synth.init();
+          
+          // iPhone Marimba arpeggio notes
+          const notes = [1318.51, 987.77, 1318.51, 987.77, 1318.51, 1567.98, 1318.51];
+          const delays = [0, 140, 280, 420, 560, 700, 840];
+          
+          notes.forEach((freq, idx) => {
+            setTimeout(() => {
+              if (isUnlocked || currentPhase !== 1) return;
+              const t = this.synth.ctx.currentTime;
+              
+              // Woody Marimba timbre (Triangle fundamental + Sine 2nd harmonic resonance)
+              const osc1 = this.synth.ctx.createOscillator();
+              const osc2 = this.synth.ctx.createOscillator();
+              const gain = this.synth.ctx.createGain();
+              
+              osc1.type = 'triangle';
+              osc1.frequency.setValueAtTime(freq, t);
+              
+              osc2.type = 'sine';
+              osc2.frequency.setValueAtTime(freq * 2, t); // 2nd harmonic resonance
+              
+              // Louder gain (increased from 0.08 to 0.28)
+              gain.gain.setValueAtTime(0.28, t);
+              gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+              
+              osc1.connect(gain);
+              osc2.connect(gain);
+              gain.connect(this.synth.ctx.destination);
+              
+              osc1.start(t);
+              osc2.start(t);
+              osc1.stop(t + 0.35);
+              osc2.stop(t + 0.35);
+            }, delays[idx]);
+          });
+        };
+        playNotes();
+        this.interval = setInterval(playNotes, 2400);
+      }
+      stop() {
+        if (this.interval) {
+          clearInterval(this.interval);
+          this.interval = null;
+        }
+      }
+    }
+    const ringtone = new RingtonePlayer(sound);
+
+    /* =========================================================================
+       4. CONFETTI PARTICLES ENGINE
+       ========================================================================= */
+    class ConfettiEngine {
+      constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        this.ctx = this.canvas.getContext('2d');
+        this.particles = [];
+        this.active = false;
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+      }
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+      spawn() {
+        this.particles = [];
+        const colors = ['#E0A899', '#FAF7F2', '#D4AF37', '#9E2A2B', '#FCF6BA', '#F8E2D7'];
+        for (let i = 0; i < 150; i++) {
+          this.particles.push({
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * -this.canvas.height - 20,
+            size: Math.random() * 8 + 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            speed: Math.random() * 4 + 3,
+            rotation: Math.random() * 360,
+            rotationSpeed: Math.random() * 4 - 2,
+            drift: Math.random() * 2 - 1
+          });
+        }
+        this.active = true;
+        this.animate();
+      }
+      animate() {
+        if (!this.active) return;
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        let stillVisible = false;
+        this.particles.forEach(p => {
+          p.y += p.speed;
+          p.x += p.drift;
+          p.rotation += p.rotationSpeed;
+          
+          if (p.y < this.canvas.height + 20) {
+            stillVisible = true;
+          }
+          
+          this.ctx.save();
+          this.ctx.translate(p.x, p.y);
+          this.ctx.rotate((p.rotation * Math.PI) / 180);
+          this.ctx.fillStyle = p.color;
+          this.ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          this.ctx.restore();
+        });
+        
+        if (stillVisible) {
+          requestAnimationFrame(() => this.animate());
+        } else {
+          this.active = false;
+          this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+      }
+    }
+    const confetti = new ConfettiEngine('confetti-canvas');
+
+    /* =========================================================================
+       5. STATE MACHINE & GENERAL FLOW CONTROL
+       ========================================================================= */
+    let currentPhase = 1;
+
+    function changePhase(newPhase) {
+      const currentEl = document.getElementById(`phase-${currentPhase}`);
+      const nextEl = document.getElementById(`phase-${newPhase}`);
+      
+      if (currentEl) {
+        currentEl.classList.add('transition-all', 'duration-500', 'opacity-0');
+        setTimeout(() => {
+          currentEl.classList.add('hidden');
+          nextEl.classList.remove('hidden');
+          nextEl.classList.add('opacity-0');
+          nextEl.offsetHeight;
+          nextEl.classList.add('transition-all', 'duration-700');
+          nextEl.classList.remove('opacity-0');
+          nextEl.classList.add('opacity-100');
+          currentPhase = newPhase;
+          initializePhase(newPhase);
+        }, 500);
+      } else {
+        nextEl.classList.remove('hidden');
+        currentPhase = newPhase;
+        initializePhase(newPhase);
+      }
+    }
+
+    function nextPhase() {
+      changePhase(currentPhase + 1);
+    }
+
+    function initializePhase(phaseNum) {
+      if (phaseNum === 1) {
+        document.getElementById('music-control').classList.add('hidden');
+      } else {
+        document.getElementById('music-control').classList.remove('hidden');
+      }
+      
+      // Hide full-screen star overlay elements unless we are in Phase 2
+      const fsBg = document.getElementById('fullscreen-bg');
+      const clickOverlay = document.getElementById('star-click-overlay');
+      const constellationSvg = document.getElementById('constellation-svg');
+      
+      if (phaseNum === 2) {
+        if (clickOverlay) clickOverlay.classList.remove('hidden');
+        if (constellationSvg) constellationSvg.classList.remove('hidden');
+        
+        // Show full-screen night sky background
+        if (fsBg) {
+          fsBg.style.backgroundImage = "url('night_view.jpeg')";
+          fsBg.classList.remove('opacity-0');
+          fsBg.classList.add('opacity-100');
+        }
+      } else {
+        if (clickOverlay) clickOverlay.classList.add('hidden');
+        if (constellationSvg) constellationSvg.classList.add('hidden');
+        
+        if (fsBg) {
+          fsBg.classList.remove('opacity-100');
+          fsBg.classList.add('opacity-0');
+        }
+      }
+      
+      switch(phaseNum) {
+        case 2:
+          clearInterval(callTimerInterval);
+          voiceoverAudio.pause();
+          music.play(lastPlaylistTrack || selectedMusicUrl); // Play selected queue track
+          initPhase2StarSky();
+          break;
+        case 3:
+          initPhase3Balloons();
+          break;
+        case 4:
+          initPhase4BakeCake();
+          break;
+        case 5:
+          music.play(lastPlaylistTrack || selectedMusicUrl); // Resume correct playlist track
+          initPhase5ScratchGallery();
+          break;
+        case 6:
+          initPhase6Letter();
+          break;
+        case 7:
+          initPhase7LoveStorm();
+          break;
+      }
+    }
+
+    function toggleMusic() {
+      const icon = document.getElementById('music-icon');
+      music.isMuted = !music.isMuted;
+      music.setMuted(music.isMuted);
+      
+      if (music.isMuted) {
+        icon.className = 'fas fa-volume-mute';
+      } else {
+        icon.className = 'fas fa-volume-up';
+      }
+    }
+
+    /* =========================================================================
+       PHASE 1 LOGIC: ENTRANCE SCREEN & IPHONE CALL SLIDE
+       ========================================================================= */
+    const slideButton = document.getElementById('slide-button');
+    const slideContainer = document.getElementById('slide-container');
+    let isSliding = false;
+    let slideStartX = 0;
+    let slideOffsetX = 0;
+    let audioStarted = false;
+    let selectedMusicUrl = null; // Initialized as null (forces user choice to unlock audio)
+    let lastPlaylistTrack = null; // Cache to track playlist state dynamically
+    let previewAudio = new Audio();
+
+    // Select soundtrack option in settings block
+    function selectSoundtrack(url, element) {
+      sound.init();
+      selectedMusicUrl = url;
+      lastPlaylistTrack = url; // Initialize tracker
+      
+      // Update background and visualizer indicators
+      const options = document.querySelectorAll('.soundtrack-option');
+      options.forEach(opt => {
+        opt.className = 'soundtrack-option bg-transparent border border-white/10 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/5';
+        opt.querySelector('.waveform-indicator').classList.add('opacity-0');
+      });
+      
+      element.className = 'soundtrack-option bg-white/10 border border-white/20 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/15';
+      element.querySelector('.waveform-indicator').classList.remove('opacity-0');
+      
+      // Play a quick audio preview of the selected track
+      previewAudio.pause();
+      previewAudio.src = url;
+      previewAudio.volume = 0.35;
+      previewAudio.play().catch(e => console.log("Preview audio blocked:", e));
+      
+      // Enable Action Pill Button
+      const startBtn = document.getElementById('btn-start-experience');
+      if (startBtn) {
+        startBtn.disabled = false;
+        startBtn.innerText = "Start Experience";
+        startBtn.className = "w-full bg-white text-slate-950 font-sans font-semibold py-3.5 rounded-2xl shadow-lg hover:bg-slate-100 active:scale-98 transition-all text-sm tracking-wide text-center cursor-pointer";
+      }
+    }
+
+    // Triggered by the "Start Experience" button on the clean music selector overlay
+    function startMicrosite() {
+      if (!selectedMusicUrl) return; // Prevent start if no selection exists
+      previewAudio.pause(); // Stop preview track
+      sound.init();
+      audioStarted = true;
+      
+      // Start Marimba ringtone immediately on user gesture
+      ringtone.start();
+      
+      // Fade out and remove entrance overlay
+      const overlay = document.getElementById('entrance-overlay');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        overlay.remove();
+      }, 700);
+    }
+
+    slideButton.addEventListener('mousedown', startSlide);
+    window.addEventListener('mousemove', slide);
+    window.addEventListener('mouseup', stopSlide);
+
+    slideButton.addEventListener('touchstart', startSlide, { passive: true });
+    window.addEventListener('touchmove', slide, { passive: false });
+    window.addEventListener('touchend', stopSlide);
+
+    function startSlide(e) {
+      sound.init();
+      isSliding = true;
+      const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+      slideStartX = clientX - slideOffsetX;
+      slideButton.style.transition = 'none';
+    }
+
+    function slide(e) {
+      if (!isSliding) return;
+      if (e.type === 'touchmove') e.preventDefault();
+      
+      const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+      const trackRect = slideContainer.getBoundingClientRect();
+      const btnRect = slideButton.getBoundingClientRect();
+      const maxDelta = trackRect.width - btnRect.width - 12;
+      
+      let deltaX = clientX - slideStartX;
+      if (deltaX < 0) deltaX = 0;
+      if (deltaX > maxDelta) deltaX = maxDelta;
+      
+      slideOffsetX = deltaX;
+      slideButton.style.transform = `translateX(${slideOffsetX}px)`;
+      
+      if (slideOffsetX >= maxDelta - 5) {
+        triggerCallAnswer();
+      }
+    }
+
+    function stopSlide() {
+      if (!isSliding) return;
+      isSliding = false;
+      
+      const trackRect = slideContainer.getBoundingClientRect();
+      const btnRect = slideButton.getBoundingClientRect();
+      const maxDelta = trackRect.width - btnRect.width - 12;
+      
+      if (slideOffsetX < maxDelta - 5) {
+        slideButton.style.transition = 'transform 0.4s ease';
+        slideOffsetX = 0;
+        slideButton.style.transform = 'translateX(0px)';
+      }
+    }
+
+    let isUnlocked = false;
+    let callTimerInterval = null;
+    let callSeconds = 0;
+
+    function triggerCallAnswer() {
+      if (isUnlocked) return;
+      isUnlocked = true;
+      isSliding = false;
+      
+      // Stop Ringtone loop
+      ringtone.stop();
+      sound.playUnlock();
+      
+      // Transition Call UI to screen B (Active Call) with smooth zoom/fade
+      const screenIncoming = document.getElementById('call-screen-incoming');
+      const screenActive = document.getElementById('call-screen-active');
+      
+      screenIncoming.classList.add('transition-all', 'duration-500', 'opacity-0', 'scale-90');
+      setTimeout(() => {
+        screenIncoming.classList.add('hidden');
+        screenActive.classList.remove('hidden');
+        screenActive.classList.add('opacity-0', 'scale-95');
+        screenActive.offsetHeight;
+        screenActive.classList.add('transition-all', 'duration-500');
+        screenActive.classList.remove('opacity-0', 'scale-95');
+        screenActive.classList.add('opacity-100', 'scale-100');
+        
+        // Start Call timer & play Voiceover Audio clip in background
+        startActiveCallTimer();
+        voiceoverAudio.play().catch(err => console.log("Voiceover autoplay error:", err));
+      }, 500);
+    }
+
+    function startActiveCallTimer() {
+      callSeconds = 0;
+      const timerEl = document.getElementById('call-timer');
+      timerEl.innerText = "00:00";
+      clearInterval(callTimerInterval);
+      callTimerInterval = setInterval(() => {
+        callSeconds++;
+        const mins = Math.floor(callSeconds / 60).toString().padStart(2, '0');
+        const secs = (callSeconds % 60).toString().padStart(2, '0');
+        timerEl.innerText = `${mins}:${secs}`;
+      }, 1000);
+    }
+
+    // Auto-show keypad dialer panel when Voiceover Audio ends
+    voiceoverAudio.addEventListener('ended', () => {
+      showKeypadPanel();
+    });
+
+    function bypassUnlock() {
+      triggerCallAnswer();
+    }
+
+    /* IN-CALL UTILITIES: Tapping toggles style to white with dark icon */
+    function toggleInCallBtn(btnEl) {
+      sound.playChime(1.1);
+      btnEl.classList.toggle('bg-white/10');
+      btnEl.classList.toggle('bg-white');
+      btnEl.classList.toggle('text-white');
+      btnEl.classList.toggle('text-slate-900');
+    }
+
+    function showKeypadPanel() {
+      sound.playPaperFlip();
+      const panel = document.getElementById('call-keypad-panel');
+      panel.classList.remove('hidden');
+      panel.offsetHeight;
+      panel.style.transform = 'translateY(0%)';
+    }
+
+    function hideKeypadPanel() {
+      sound.playPaperFlip();
+      const panel = document.getElementById('call-keypad-panel');
+      panel.style.transform = 'translateY(100%)';
+      setTimeout(() => {
+        panel.classList.add('hidden');
+      }, 500);
+    }
+
+    function tapKeypadDigit(digit) {
+      sound.playDtmf(digit);
+      
+      // Core Unlock Rule: Tap '1' triggers next phase transition
+      if (digit === '1') {
+        setTimeout(() => {
+          nextPhase();
+        }, 350);
+      }
+    }
+
+    /* =========================================================================
+       PHASE 2 LOGIC: STARRY SKY CONSTELLATION DRAWING
+       ========================================================================= */
+    const starBoard = document.getElementById('star-click-overlay'); // Bind clicks to the full screen viewport overlay!
+    const constellationSvg = document.getElementById('constellation-svg');
+    const starInstruction = document.getElementById('star-instruction');
+    const starsPlaced = [];
+    const maxStars = 5;
+
+    function initPhase2StarSky() {
+      starsPlaced.length = 0;
+      constellationSvg.innerHTML = '';
+      starInstruction.innerHTML = `Tap the Sky to place stars (0 / ${maxStars})`;
+      document.getElementById('btn-stars-next').classList.add('hidden');
+      document.getElementById('star-click-overlay').classList.remove('hidden');
+      updateStarIndicators();
+    }
+
+    starBoard.addEventListener('click', (e) => {
+      if (currentPhase !== 2) return;
+      if (starsPlaced.length >= maxStars) return;
+      
+      const x = e.clientX;
+      const y = e.clientY;
+      
+      // Restrict star placement to the sky (upper 40% of the screen height)
+      const targetHeight = window.innerHeight * 0.40;
+      if (y > targetHeight) {
+        sound.playChime(0.5); // Warn user
+        starInstruction.innerHTML = `<span class="text-rose-400 font-bold drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">Tap in the sky (upper 40%) to place a star!</span>`;
+        setTimeout(() => {
+          if (starsPlaced.length < maxStars) {
+            starInstruction.innerHTML = `Tap the Sky to place stars (${starsPlaced.length} / ${maxStars})`;
+          }
+        }, 1600);
+        return;
+      }
+      
+      sound.playChime(1 + (starsPlaced.length * 0.15));
+      
+      const star = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      star.setAttribute('cx', x);
+      star.setAttribute('cy', y);
+      star.setAttribute('r', '3.5'); // Reduced radius from 6 to 3.5 for delicate real stars!
+      star.setAttribute('fill', '#FFFDF0');
+      // Set random twinkle animation duration & delay for organic feel
+      star.style.setProperty('--twinkle-duration', `${Math.random() * 1.5 + 1.2}s`);
+      star.setAttribute('class', 'constellation-star');
+      constellationSvg.appendChild(star);
+      
+      // Store DOM reference
+      starsPlaced.push(star);
+      
+      // Trigger reflow & smooth scale spawn transition
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          star.classList.add('spawned');
+        });
+      });
+      
+      // Transition to looping twinkle animation after spawn completes
+      setTimeout(() => {
+        star.classList.remove('spawned');
+        star.classList.add('twinkle');
+      }, 550);
+      
+      starInstruction.innerHTML = `Tap the Sky to place stars (${starsPlaced.length} / ${maxStars})`;
+      updateStarIndicators();
+      
+      if (starsPlaced.length === maxStars) {
+        starInstruction.innerHTML = "Connecting wishes...";
+        setTimeout(animateToHeartConstellation, 800);
+      }
+    });
+
+    function updateStarIndicators() {
+      const indicators = document.getElementById('star-indicators').children;
+      for (let i = 0; i < indicators.length; i++) {
+        if (i < starsPlaced.length) {
+          indicators[i].className = "w-2.5 h-2.5 rounded-full bg-white border border-white scale-110 shadow-[0_0_8px_#fff] transition-all duration-300";
+        } else {
+          indicators[i].className = "w-2.5 h-2.5 rounded-full border border-white/15 bg-white/20 transition-all duration-300";
+        }
+      }
+    }
+
+    function animateToHeartConstellation() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      
+      // Symmetrical 5 heart target coordinates (Left Peak, Left Middle, Bottom Tip, Right Middle, Right Peak)
+      const heartPoints = [
+        { x: w * 0.5 - 40, y: h * 0.15 }, // Star 1 -> Left Peak
+        { x: w * 0.5 - 74, y: h * 0.23 }, // Star 2 -> Left Middle
+        { x: w * 0.5,      y: h * 0.34 }, // Star 3 -> Bottom Tip
+        { x: w * 0.5 + 74, y: h * 0.23 }, // Star 4 -> Right Middle
+        { x: w * 0.5 + 40, y: h * 0.15 }  // Star 5 -> Right Peak
+      ];
+      
+      // Smoothly move each star to its heart target coordinate
+      starsPlaced.forEach((starEl, idx) => {
+        setTimeout(() => {
+          sound.playChime(1.1 + (idx * 0.12));
+          starEl.setAttribute('cx', heartPoints[idx].x);
+          starEl.setAttribute('cy', heartPoints[idx].y);
+          starEl.setAttribute('r', '4.5'); // Make them slightly larger for the final constellation
+          starEl.setAttribute('fill', '#FCF6BA');
+        }, idx * 80);
+      });
+      
+      // After stars are midway through flight (1.2s), begin drawing the curved heart path outline
+      setTimeout(() => {
+        sound.playChime(1.5);
+        
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        
+        // Curved heart path equation using cubic bezier curves
+        const pathD = `M ${w * 0.5} ${h * 0.34} ` +
+                      `C ${w * 0.5 - 110} ${h * 0.27}, ${w * 0.5 - 90} ${h * 0.14}, ${w * 0.5 - 40} ${h * 0.15} ` +
+                      `C ${w * 0.5 - 20} ${h * 0.16}, ${w * 0.5 - 10} ${h * 0.19}, ${w * 0.5} ${h * 0.20} ` +
+                      `C ${w * 0.5 + 10} ${h * 0.19}, ${w * 0.5 + 20} ${h * 0.16}, ${w * 0.5 + 40} ${h * 0.15} ` +
+                      `C ${w * 0.5 + 90} ${h * 0.14}, ${w * 0.5 + 110} ${h * 0.27}, ${w * 0.5} ${h * 0.34}`;
+        
+        path.setAttribute('d', pathD);
+        path.setAttribute('class', 'constellation-path');
+        
+        // Prepend path so stars remain visible on top
+        constellationSvg.insertBefore(path, constellationSvg.firstChild);
+        
+        // Reveal success text and next button after path is almost fully drawn (2.5s drawing time elapsed)
+        setTimeout(() => {
+          starInstruction.innerHTML = `<span class="text-white font-sans text-sm drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] tracking-wide">Your wish has been written in the stars ✨</span>`;
+          document.getElementById('btn-stars-next').classList.remove('hidden');
+          // Hide overlay to make the next button clickable
+          document.getElementById('star-click-overlay').classList.add('hidden');
+        }, 2500);
+      }, 1200);
+    }
+
+    /* =========================================================================
+       PHASE 3 LOGIC: BALLOON POPPING & FLOATING LOVE NOTES
+       ========================================================================= */
+    const balloonBoard = document.getElementById('balloon-board');
+    let balloonsPoppedCount = 0;
+    const requiredPops = 5;
+    let balloonInterval = null;
+
+    function initPhase3Balloons() {
+      balloonsPoppedCount = 0;
+      balloonBoard.innerHTML = '';
+      document.getElementById('balloon-counter').innerText = `Balloons Popped: 0 / ${requiredPops}`;
+      document.getElementById('balloon-progress').style.width = '0%';
+      document.getElementById('btn-balloons-next').classList.add('hidden');
+      
+      if (balloonInterval) clearInterval(balloonInterval);
+      balloonInterval = setInterval(spawnBalloon, 1400);
+      spawnBalloon();
+      spawnBalloon();
+    }
+
+    function spawnBalloon() {
+      if (currentPhase !== 3) {
+        clearInterval(balloonInterval);
+        return;
+      }
+      
+      // Beautiful 3D pastel colors and matching knot colors (vibrant against light glass)
+      const colors = [
+        { primary: '#ff5a79', knot: '#d83a56' }, // Saturated Pink
+        { primary: '#ff609f', knot: '#d83b79' }, // Saturated Rose
+        { primary: '#359aff', knot: '#1c75cc' }, // Sky Blue
+        { primary: '#e59d8c', knot: '#c67b6a' }, // Peach Gold
+        { primary: '#3adcd6', knot: '#21b2ac' }  // Saturated Mint
+      ];
+      
+      const colorOption = colors[Math.floor(Math.random() * colors.length)];
+      
+      // Create balloon element
+      const balloon = document.createElement('div');
+      balloon.className = 'real-balloon';
+      balloon.style.backgroundColor = colorOption.primary;
+      
+      // Add glossy 3D highlight oval
+      const highlight = document.createElement('div');
+      highlight.className = 'balloon-highlight';
+      balloon.appendChild(highlight);
+      
+      // Add knot triangle at the bottom
+      const knot = document.createElement('div');
+      knot.className = 'balloon-knot';
+      knot.style.borderBottomColor = colorOption.knot;
+      balloon.appendChild(knot);
+      
+      // Add thin string hanging down
+      const string = document.createElement('div');
+      string.className = 'balloon-string';
+      balloon.appendChild(string);
+      
+      // Spawn at random horizontal position across the full viewport
+      const boardWidth = window.innerWidth;
+      const left = Math.random() * (boardWidth - 70) + 10;
+      balloon.style.left = `${left}px`;
+      balloon.style.bottom = `-90px`;
+      
+      // Slow float speed (approx. 0.6 - 1.2 pixels per frame)
+      const speed = Math.random() * 0.6 + 0.6;
+      let bottom = -90;
+      
+      balloon.addEventListener('touchstart', popAction, { passive: true });
+      balloon.addEventListener('mousedown', popAction);
+      
+      function popAction(e) {
+        e.stopPropagation();
+        popBalloon(balloon);
+      }
+      
+      balloonBoard.appendChild(balloon);
+      
+      function moveUp() {
+        if (!balloon.parentElement) return;
+        bottom += speed;
+        balloon.style.bottom = `${bottom}px`;
+        
+        if (bottom < window.innerHeight + 90) {
+          requestAnimationFrame(moveUp);
+        } else {
+          balloon.remove();
+        }
+      }
+      requestAnimationFrame(moveUp);
+    }
+
+    function popBalloon(balloonEl) {
+      sound.playPop();
+      
+      // Disable interaction to prevent double-clicking
+      balloonEl.style.pointerEvents = 'none';
+      
+      const rect = balloonEl.getBoundingClientRect();
+      const relativeX = rect.left + rect.width / 2;
+      const relativeY = rect.top + rect.height / 2;
+      
+      // Trigger burst particles
+      const color = balloonEl.style.backgroundColor;
+      createBurstSparks(relativeX, relativeY, color);
+      
+      // Pop scale-up & fade-out animation
+      balloonEl.style.transform = 'scale(1.4)';
+      balloonEl.style.opacity = '0';
+      setTimeout(() => {
+        balloonEl.remove();
+      }, 150);
+      
+      const noteText = CONFIG.loveNotes[balloonsPoppedCount % CONFIG.loveNotes.length];
+      triggerLoveNote(relativeX, relativeY, noteText);
+      
+      balloonsPoppedCount++;
+      const progressPercent = Math.min((balloonsPoppedCount / requiredPops) * 100, 100);
+      document.getElementById('balloon-progress').style.width = `${progressPercent}%`;
+      document.getElementById('balloon-counter').innerText = `Balloons Popped: ${balloonsPoppedCount} / ${requiredPops}`;
+      
+      if (balloonsPoppedCount >= requiredPops) {
+        clearInterval(balloonInterval);
+        document.getElementById('btn-balloons-next').classList.remove('hidden');
+      }
+    }
+
+    // Spark particles burst animation helper
+    function createBurstSparks(x, y, color) {
+      const sparksCount = 10;
+      for (let i = 0; i < sparksCount; i++) {
+        const spark = document.createElement('div');
+        const angle = (i / sparksCount) * 2 * Math.PI;
+        const velocity = Math.random() * 45 + 35; // distance
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity;
+        
+        spark.style.position = 'absolute';
+        spark.style.width = '6px';
+        spark.style.height = '6px';
+        spark.style.borderRadius = '50%';
+        spark.style.backgroundColor = color;
+        spark.style.pointerEvents = 'none';
+        spark.style.zIndex = '30';
+        spark.style.left = `${x}px`;
+        spark.style.top = `${y}px`;
+        spark.style.transform = 'translate(-50%, -50%)';
+        spark.style.transition = 'all 0.7s cubic-bezier(0.25, 1, 0.5, 1)';
+        spark.style.opacity = '1';
+        
+        balloonBoard.appendChild(spark);
+        
+        // Trigger explosion transition
+        requestAnimationFrame(() => {
+          spark.offsetHeight; // trigger layout
+          spark.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0.3)`;
+          spark.style.opacity = '0';
+        });
+        
+        setTimeout(() => {
+          spark.remove();
+        }, 800);
+      }
+    }
+
+    function triggerLoveNote(x, y, text) {
+      // Clamp x position to prevent love note text from getting cut off on left/right screen edges.
+      // Safety margin of 85px accommodates standard toast width centered at clampedX.
+      const margin = 85;
+      const clampedX = Math.max(margin, Math.min(x, window.innerWidth - margin));
+      
+      const note = document.createElement('div');
+      note.className = 'love-note-bubble';
+      note.style.left = `${clampedX}px`;
+      note.style.top = `${y}px`;
+      note.innerText = text;
+      
+      balloonBoard.appendChild(note);
+      
+      // Clean up bubble from DOM after CSS fade-out animation completes
+      setTimeout(() => {
+        note.remove();
+      }, 4200);
+    }
+
+    /* =========================================================================
+       PHASE 4 LOGIC: CAKE BAKING AND CAKE CUTTING CEREMONY
+       ========================================================================= */
+    const addedIngredients = [];
+    const requiredIngredients = ['flour', 'sugar', 'essence'];
+    let candlesLit = [false, false, false];
+
+    function initPhase4BakeCake() {
+      addedIngredients.length = 0;
+      candlesLit = [false, false, false];
+      
+      document.getElementById('ingredients-container').classList.remove('hidden');
+      document.getElementById('mixing-bowl').classList.remove('hidden');
+      document.getElementById('baked-cake').classList.add('hidden');
+      document.getElementById('btn-bake-action').classList.add('hidden');
+      document.getElementById('knife-slider-area').classList.add('hidden');
+      document.getElementById('birthday-celebration-card').classList.add('hidden');
+      
+      document.getElementById('flame-1').classList.add('hidden');
+      document.getElementById('flame-2').classList.add('hidden');
+      document.getElementById('flame-3').classList.add('hidden');
+      
+      document.getElementById('bowl-mix-status').innerHTML = '';
+      document.getElementById('cake-instruction').innerText = "Let's bake something special for you. Tap the ingredients to add them to the bowl!";
+      
+      const dragKnife = document.getElementById('drag-knife');
+      dragKnife.style.transform = 'translateX(0px)';
+      dragKnife.innerHTML = '<i class="fas fa-utensils"></i>';
+      dragKnife.className = "bg-white text-slate-950 rounded-full w-10 h-10 flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing text-lg z-20 absolute left-2 transition-all";
+      document.getElementById('knife-track').className = "relative w-full h-12 bg-white/10 border border-white/20 rounded-full flex items-center px-2 mb-4 pointer-events-none opacity-40";
+      
+      isKnifeDragged = false;
+      knifeOffsetX = 0;
+    }
+
+    function addIngredient(ing) {
+      if (addedIngredients.includes(ing)) return;
+      
+      sound.playPaperFlip();
+      addedIngredients.push(ing);
+      
+      const bowl = document.getElementById('mixing-bowl');
+      bowl.classList.add('animate-bounce', 'text-rosegold');
+      setTimeout(() => bowl.classList.remove('animate-bounce'), 500);
+      
+      document.getElementById(`ing-${ing}`).style.opacity = '0.3';
+      document.getElementById(`ing-${ing}`).style.pointerEvents = 'none';
+      
+      const indicator = document.createElement('div');
+      indicator.className = "w-3 h-3 bg-rosegold rounded-full animate-ping";
+      document.getElementById('bowl-mix-status').appendChild(indicator);
+      
+      if (addedIngredients.length === requiredIngredients.length) {
+        document.getElementById('cake-instruction').innerText = "Ingredients mixed successfully! Press Bake to prepare the cake.";
+        document.getElementById('btn-bake-action').classList.remove('hidden');
+      }
+    }
+
+    function bakeCake() {
+      sound.playChime(0.8);
+      document.getElementById('btn-bake-action').classList.add('hidden');
+      document.getElementById('ingredients-container').classList.add('hidden');
+      
+      const bowl = document.getElementById('mixing-bowl');
+      bowl.className = "text-7xl text-gold-dark mt-16 transition-all duration-[2000ms] transform rotate-[720deg] scale-75";
+      document.getElementById('cake-instruction').innerText = "Baking in progress...";
+      
+      setTimeout(() => {
+        sound.playOvenDing();
+        bowl.classList.add('hidden');
+        document.getElementById('baked-cake').classList.remove('hidden');
+        document.getElementById('knife-slider-area').classList.remove('hidden');
+        document.getElementById('cake-instruction').innerText = "🕯️ Tap the candles to light them up!";
+      }, 2100);
+    }
+
+    function lightCandle(idx) {
+      if (candlesLit[idx - 1]) return;
+      
+      sound.playMatchStrike();
+      candlesLit[idx - 1] = true;
+      document.getElementById(`flame-${idx}`).classList.remove('hidden');
+      
+      if (candlesLit.every(val => val === true)) {
+        document.getElementById('cake-instruction').innerText = "🎂 Cut the cake by sliding the knife right!";
+        unlockKnifeSlider();
+      }
+    }
+
+    /* KNIFE DRAG LOGIC */
+    let isKnifeDragged = false;
+    let knifeOffsetX = 0;
+    let dragKnifeStartX = 0;
+    const dragKnife = document.getElementById('drag-knife');
+    const knifeTrack = document.getElementById('knife-track');
+
+    dragKnife.addEventListener('mousedown', startKnifeDrag);
+    window.addEventListener('mousemove', knifeDrag);
+    window.addEventListener('mouseup', stopKnifeDrag);
+
+    dragKnife.addEventListener('touchstart', startKnifeDrag, { passive: true });
+    window.addEventListener('touchmove', knifeDrag, { passive: false });
+    window.addEventListener('touchend', stopKnifeDrag);
+
+    function unlockKnifeSlider() {
+      knifeTrack.classList.remove('pointer-events-none', 'opacity-40');
+      knifeTrack.classList.add('glow-gold');
+      document.querySelector('#knife-slider-area p').className = "text-xs text-green-500 font-bold mb-4 animate-pulse";
+      document.querySelector('#knife-slider-area p').innerText = "✨ The knife is unlocked! Slide it right to cut.";
+    }
+
+    function startKnifeDrag(e) {
+      if (candlesLit.some(v => v === false)) return;
+      isKnifeDragged = true;
+      const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+      dragKnifeStartX = clientX - knifeOffsetX;
+      dragKnife.style.transition = 'none';
+    }
+
+    function knifeDrag(e) {
+      if (!isKnifeDragged) return;
+      if (e.type === 'touchmove') e.preventDefault();
+      
+      const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+      const trackRect = knifeTrack.getBoundingClientRect();
+      const knifeRect = dragKnife.getBoundingClientRect();
+      const maxDelta = trackRect.width - knifeRect.width - 16;
+      
+      let deltaX = clientX - dragKnifeStartX;
+      if (deltaX < 0) deltaX = 0;
+      if (deltaX > maxDelta) deltaX = maxDelta;
+      
+      knifeOffsetX = deltaX;
+      dragKnife.style.transform = `translateX(${knifeOffsetX}px)`;
+      
+      if (knifeOffsetX >= maxDelta - 5) {
+        triggerCakeCut();
+      }
+    }
+
+    function stopKnifeDrag() {
+      if (!isKnifeDragged) return;
+      isKnifeDragged = false;
+      
+      const trackRect = knifeTrack.getBoundingClientRect();
+      const knifeRect = dragKnife.getBoundingClientRect();
+      const maxDelta = trackRect.width - knifeRect.width - 16;
+      
+      if (knifeOffsetX < maxDelta - 5) {
+        dragKnife.style.transition = 'transform 0.4s ease';
+        knifeOffsetX = 0;
+        dragKnife.style.transform = 'translateX(0px)';
+      }
+    }
+
+    function triggerCakeCut() {
+      isKnifeDragged = false;
+      dragKnife.style.transform = 'scale(0.8)';
+      dragKnife.className = "bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center absolute right-2 transition-all text-white";
+      dragKnife.innerHTML = '<i class="fas fa-check"></i>';
+      
+      sound.playPop();
+      sound.playChime(1.5);
+      
+      music.play(CONFIG.musicUrls.birthday);
+      
+      document.getElementById('knife-slider-area').classList.add('hidden');
+      document.getElementById('cake-instruction').classList.add('hidden');
+      document.getElementById('birthday-celebration-card').classList.remove('hidden');
+      
+      confetti.spawn();
+    }
+
+    /* =========================================================================
+       PHASE 5 LOGIC: GOLD-FOIL SCRATCH CARD GALLERY
+       ========================================================================= */
+    const scratchCanvas = document.getElementById('scratch-canvas');
+    const scratchCtx = scratchCanvas.getContext('2d');
+    const polaroidImage = document.getElementById('polaroid-image');
+    const polaroidCaption = document.getElementById('polaroid-caption');
+    const galleryCounter = document.getElementById('gallery-counter');
+    const btnGalleryNext = document.getElementById('btn-gallery-next');
+    const btnGalleryFinish = document.getElementById('btn-gallery-finish');
+    
+    let currentPhotoIdx = 0;
+    let isScratching = false;
+    let pixelsScratched = 0;
+    let totalFoilPixels = 0;
+    let scratchProgressChecked = false;
+
+    function initPhase5ScratchGallery() {
+      currentPhotoIdx = 0;
+      loadPolaroidPhoto(0);
+    }
+
+    function loadPolaroidPhoto(idx) {
+      btnGalleryNext.classList.add('hidden');
+      btnGalleryFinish.classList.add('hidden');
+      scratchProgressChecked = false;
+      
+      document.getElementById('image-loader').classList.remove('hidden');
+      polaroidImage.classList.add('hidden');
+      polaroidCaption.innerText = "Scratch the card to read the caption...";
+      galleryCounter.innerText = `Photo ${idx + 1} / ${CONFIG.memories.length}`;
+      
+      polaroidImage.src = CONFIG.memories[idx].url;
+      polaroidImage.onload = () => {
+        document.getElementById('image-loader').classList.add('hidden');
+        polaroidImage.classList.remove('hidden');
+      };
+      
+      scratchCanvas.width = scratchCanvas.offsetWidth;
+      scratchCanvas.height = scratchCanvas.offsetHeight;
+      
+      const grad = scratchCtx.createLinearGradient(0, 0, scratchCanvas.width, scratchCanvas.height);
+      grad.addColorStop(0, '#BF953F');
+      grad.addColorStop(0.25, '#FCF6BA');
+      grad.addColorStop(0.5, '#B38728');
+      grad.addColorStop(0.75, '#FBF5B7');
+      grad.addColorStop(1, '#AA771C');
+      scratchCtx.fillStyle = grad;
+      scratchCtx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+      
+      for (let i = 0; i < 600; i++) {
+        scratchCtx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.25})`;
+        scratchCtx.fillRect(Math.random() * scratchCanvas.width, Math.random() * scratchCanvas.height, 1.5, 1.5);
+      }
+      
+      totalFoilPixels = scratchCanvas.width * scratchCanvas.height;
+    }
+
+    scratchCanvas.addEventListener('mousedown', startScratch);
+    scratchCanvas.addEventListener('mousemove', scratching);
+    window.addEventListener('mouseup', stopScratch);
+
+    scratchCanvas.addEventListener('touchstart', startScratch, { passive: true });
+    scratchCanvas.addEventListener('touchmove', scratching, { passive: false });
+    window.addEventListener('touchend', stopScratch);
+
+    function startScratch(e) {
+      sound.init();
+      isScratching = true;
+      scratch(e);
+    }
+
+    function scratching(e) {
+      if (!isScratching) return;
+      e.preventDefault();
+      scratch(e);
+    }
+
+    function stopScratch() {
+      if (!isScratching) return;
+      isScratching = false;
+      
+      if (!scratchProgressChecked) {
+        checkScratchPercentage();
+      }
+    }
+
+    function scratch(e) {
+      const rect = scratchCanvas.getBoundingClientRect();
+      const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
+      
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      
+      scratchCtx.globalCompositeOperation = 'destination-out';
+      scratchCtx.beginPath();
+      scratchCtx.arc(x, y, 16, 0, Math.PI * 2);
+      scratchCtx.fill();
+      
+      if (Math.random() < 0.35) {
+        sound.playScratch();
+      }
+    }
+
+    function checkScratchPercentage() {
+      const imgData = scratchCtx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
+      const data = imgData.data;
+      let transparentPixels = 0;
+      
+      for (let i = 3; i < data.length; i += 16) {
+        if (data[i] === 0) {
+          transparentPixels += 4;
+        }
+      }
+      
+      const percent = (transparentPixels / (data.length / 4)) * 100;
+      if (percent >= 55) {
+        scratchProgressChecked = true;
+        scratchCanvas.style.transition = 'opacity 0.6s ease';
+        scratchCanvas.style.opacity = '0';
+        setTimeout(() => {
+          scratchCtx.clearRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+          scratchCanvas.style.opacity = '1';
+        }, 600);
+        
+        polaroidCaption.innerText = CONFIG.memories[currentPhotoIdx].caption;
+        sound.playChime(1.1);
+        
+        if (currentPhotoIdx < CONFIG.memories.length - 1) {
+          btnGalleryNext.classList.remove('hidden');
+        } else {
+          btnGalleryFinish.classList.remove('hidden');
+        }
+      }
+    }
+
+    function nextGalleryPhoto() {
+      currentPhotoIdx++;
+      sound.playPaperFlip();
+      loadPolaroidPhoto(currentPhotoIdx);
+    }
+
+    /* =========================================================================
+       PHASE 6 LOGIC: 3D WAX-SEALED LETTER
+       ========================================================================= */
+    function initPhase6Letter() {
+      document.getElementById('secret-letter-text').innerHTML = CONFIG.secretLetter;
+      
+      document.getElementById('wax-seal').classList.remove('hidden');
+      document.getElementById('envelope-flap').classList.remove('open');
+      document.getElementById('letter-scroll').classList.remove('extracted');
+      document.getElementById('letter-scroll').style.opacity = '0';
+      document.getElementById('btn-letter-next').classList.add('hidden');
+      document.getElementById('letter-prompt').innerText = "A royal letter sealed with love. Tap the red wax heart seal to melt it and open the letter.";
+    }
+
+    function breakWaxSeal() {
+      sound.playMatchStrike();
+      sound.playChime(0.9);
+      
+      const wax = document.getElementById('wax-seal');
+      wax.classList.add('animate-ping', 'bg-red-400');
+      
+      setTimeout(() => {
+        wax.classList.add('hidden');
+        document.getElementById('envelope-flap').classList.add('open');
+        
+        setTimeout(() => {
+          sound.playPaperFlip();
+          const letter = document.getElementById('letter-scroll');
+          letter.style.opacity = '1';
+          letter.classList.add('extracted');
+          letter.style.pointerEvents = 'auto';
+          
+          document.getElementById('letter-prompt').innerText = "May your day be filled with warm smiles and sweet surprises.";
+          document.getElementById('btn-letter-next').classList.remove('hidden');
+        }, 800);
+      }, 500);
+    }
+
+    /* =========================================================================
+       PHASE 7 LOGIC: TOUCH RESPONSIVE LOVE STORM
+       ========================================================================= */
+    const stormCanvas = document.getElementById('storm-canvas');
+    const stormCtx = stormCanvas.getContext('2d');
+    const stormParticles = [];
+    let isStormActive = false;
+
+    // Emit touch-responsive hearts on end page
+    function initPhase7LoveStorm() {
+      stormCanvas.classList.remove('hidden');
+      isStormActive = true;
+      resizeStormCanvas();
+      window.addEventListener('resize', resizeStormCanvas);
+      
+      for (let i = 0; i < 40; i++) {
+        spawnStormParticle(
+          Math.random() * stormCanvas.width,
+          stormCanvas.height + Math.random() * 200,
+          true
+        );
+      }
+      
+      animateStorm();
+    }
+
+    function resizeStormCanvas() {
+      stormCanvas.width = window.innerWidth;
+      stormCanvas.height = window.innerHeight;
+    }
+
+    stormCanvas.addEventListener('mousedown', emitParticles);
+    stormCanvas.addEventListener('touchstart', emitParticles, { passive: true });
+
+    function emitParticles(e) {
+      const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
+      
+      sound.playChime(1.2 + Math.random() * 0.4);
+      
+      for (let i = 0; i < 8; i++) {
+        spawnStormParticle(clientX, clientY, false);
+      }
+    }
+
+    function spawnStormParticle(x, y, isAmbient = false) {
+      const types = ['❤️', '💋', '🌸', '✨'];
+      const text = types[Math.floor(Math.random() * types.length)];
+      
+      stormParticles.push({
+        x,
+        y,
+        size: Math.random() * 12 + 18,
+        text,
+        speedY: isAmbient ? -(Math.random() * 2.5 + 1.5) : (Math.random() * 6 - 3),
+        speedX: isAmbient ? (Math.random() * 2 - 1) : (Math.random() * 6 - 3),
+        opacity: 1,
+        fadeSpeed: isAmbient ? 0.003 : 0.015,
+        rotation: Math.random() * 360,
+        rotationSpeed: Math.random() * 2 - 1
+      });
+    }
+
+    function animateStorm() {
+      if (!isStormActive) return;
+      stormCtx.clearRect(0, 0, stormCanvas.width, stormCanvas.height);
+      
+      for (let i = stormParticles.length - 1; i >= 0; i--) {
+        const p = stormParticles[i];
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.opacity -= p.fadeSpeed;
+        p.rotation += p.rotationSpeed;
+        
+        if (p.fadeSpeed > 0.005) {
+          p.speedY += 0.08;
+        }
+        
+        if (p.opacity <= 0) {
+          stormParticles.splice(i, 1);
+          continue;
+        }
+        
+        stormCtx.save();
+        stormCtx.translate(p.x, p.y);
+        stormCtx.rotate((p.rotation * Math.PI) / 180);
+        stormCtx.shadowColor = '#FFB5B5';
+        stormCtx.shadowBlur = 4;
+        stormCtx.globalAlpha = p.opacity;
+        stormCtx.font = `${p.size}px sans-serif`;
+        stormCtx.fillText(p.text, -p.size / 2, p.size / 2);
+        stormCtx.restore();
+      }
+      
+      if (stormParticles.filter(p => p.fadeSpeed < 0.005).length < 25) {
+        spawnStormParticle(
+          Math.random() * stormCanvas.width,
+          stormCanvas.height + 40,
+          true
+        );
+      }
+      
+      requestAnimationFrame(animateStorm);
+    }
+
+    function restartSurprise() {
+      isStormActive = false;
+      stormCanvas.classList.add('hidden');
+      
+      isUnlocked = false;
+      addedIngredients.length = 0;
+      candlesLit = [false, false, false];
+      currentPhotoIdx = 0;
+      audioStarted = false;
+      selectedMusicUrl = null; // Reset choice on replay
+      lastPlaylistTrack = null;
+      
+      voiceoverAudio.pause();
+      voiceoverAudio.currentTime = 0;
+      music.stop();
+      ringtone.stop();
+      previewAudio.pause();
+      clearInterval(callTimerInterval);
+      
+      // Reset full screen bg & star overlays
+      const fsBg = document.getElementById('fullscreen-bg');
+      if (fsBg) {
+        fsBg.classList.remove('opacity-100');
+        fsBg.classList.add('opacity-0');
+      }
+      const clickOverlay = document.getElementById('star-click-overlay');
+      const constellationSvg = document.getElementById('constellation-svg');
+      if (clickOverlay) clickOverlay.classList.add('hidden');
+      if (constellationSvg) constellationSvg.classList.add('hidden');
+      
+      // Inject entrance overlay back for fresh restart
+      const existingOverlay = document.getElementById('entrance-overlay');
+      if (!existingOverlay) {
+        const overlayDiv = document.createElement('div');
+        overlayDiv.id = "entrance-overlay";
+        overlayDiv.className = "fixed inset-0 bg-slate-950/95 backdrop-blur-3xl z-50 flex flex-col items-center justify-center text-center p-6 transition-all duration-700 select-none";
+        overlayDiv.innerHTML = `
+          <div class="w-full max-w-sm flex flex-col items-center px-4">
+            <h1 class="font-sans text-white text-3xl font-light tracking-wide mb-2">Choose a Soundtrack</h1>
+            <p class="text-slate-400 text-xs leading-relaxed mb-8 px-2">
+              Select a background track to make this experience even more special.
+            </p>
+            
+            <div class="w-full text-left mb-2 pl-4">
+              <span class="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Choose Music</span>
+            </div>
+            <div class="w-full flex flex-col space-y-3 mb-10">
+              <div onclick="selectSoundtrack('music1.mp3', this)" class="soundtrack-option bg-transparent border border-white/10 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/5">
+                <div class="flex items-center space-x-3.5">
+                  <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 relative flex-shrink-0 bg-slate-800">
+                    <img src="music1_dp.jpeg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><rect width=\'100%\\' height=\'100%\\' fill=\'url(%23g)\\'/><defs><linearGradient id=\'g\\' x1=\'0%\\' y1=\'0%\\' x2=\'100%\\' y2=\'100%\\'><stop offset=\'0%\\' stop-color=\'%23ff758c\\'/><stop offset=\'100%\\' stop-color=\'%23ff7eb3\\'/></linearGradient></defs><text x=\'50%\\' y=\'55%\\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'35\\' fill=\'%23fff\\'>🎵</text></svg>'" class="w-full h-full object-cover">
+                  </div>
+                  <div class="text-left">
+                    <h3 class="font-sans font-bold text-white text-sm tracking-wide">Kasoor</h3>
+                    <p class="text-[11px] text-slate-400 font-semibold tracking-wide">Prateek Kuhad</p>
+                  </div>
+                </div>
+                <div class="waveform-indicator flex items-end space-x-0.5 h-5 pr-2 transition-all duration-300 opacity-0">
+                  <div class="w-1 bg-blue-500 rounded-full h-4 animate-pulse-bar-1"></div>
+                  <div class="w-1 bg-blue-500 rounded-full h-2 animate-pulse-bar-2"></div>
+                  <div class="w-1 bg-blue-500 rounded-full h-5 animate-pulse-bar-3"></div>
+                  <div class="w-1 bg-blue-500 rounded-full h-3 animate-pulse-bar-4"></div>
+                </div>
+              </div>
+              <div onclick="selectSoundtrack('music2.mp3', this)" class="soundtrack-option bg-transparent border border-white/10 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/5">
+                <div class="flex items-center space-x-3.5">
+                  <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 relative flex-shrink-0 bg-slate-800">
+                    <img src="music2_dp.jpeg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\\' viewBox=\'0 0 100 100\\'><rect width=\'100%\\' height=\'100%\\' fill=\'url(%23g)\\'/><defs><linearGradient id=\'g\\' x1=\'0%\\' y1=\'0%\\' x2=\'100%\\' y2=\'100%\\'><stop offset=\'0%\\' stop-color=\'%234facfe\\'/><stop offset=\'100%\\' stop-color=\'%2300f2fe\\'/></linearGradient></defs><text x=\'50%\\' y=\'55%\\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'35\\' fill=\'%23fff\\'>🎵</text></svg>'" class="w-full h-full object-cover">
+                  </div>
+                  <div class="text-left">
+                    <h3 class="font-sans font-bold text-white text-sm tracking-wide">Kinna Sona</h3>
+                    <p class="text-[11px] text-slate-400 font-semibold tracking-wide max-w-[200px] truncate">Amitabh Verma, Mithoon, and Sunil Kamath</p>
+                  </div>
+                </div>
+                <div class="waveform-indicator flex items-end space-x-0.5 h-5 pr-2 transition-all duration-300 opacity-0">
+                  <div class="w-1 bg-blue-500 rounded-full h-4 animate-pulse-bar-1"></div>
+                  <div class="w-1 bg-blue-500 rounded-full h-2 animate-pulse-bar-2"></div>
+                  <div class="w-1 bg-blue-500 rounded-full h-5 animate-pulse-bar-3"></div>
+                  <div class="w-1 bg-blue-500 rounded-full h-3 animate-pulse-bar-4"></div>
+                </div>
+              </div>
+              <div onclick="selectSoundtrack('music3.mp3', this)" class="soundtrack-option bg-transparent border border-white/10 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/5">
+                <div class="flex items-center space-x-3.5">
+                  <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 relative flex-shrink-0 bg-slate-800">
+                    <img src="music3_dp.jpeg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\\' viewBox=\'0 0 100 100\\'><rect width=\'100%\\' height=\'100%\\' fill=\'url(%23g)\\'/><defs><linearGradient id=\'g\\' x1=\'0%\\' y1=\'0%\\' x2=\'100%\\' y2=\'100%\\'><stop offset=\'0%\\' stop-color=\'%23f5576c\\'/><stop offset=\'100%\\' stop-color=\'%23f093fb\\'/></linearGradient></defs><text x=\'50%\\' y=\'55%\\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'35\\' fill=\'%23fff\\'>🎵</text></svg>'" class="w-full h-full object-cover">
+                  </div>
+                  <div class="text-left">
+                    <h3 class="font-sans font-bold text-white text-sm tracking-wide">Dariya</h3>
+                    <p class="text-[11px] text-slate-400 font-semibold tracking-wide">Arko Pravo Mukherjee ‧ 2016</p>
+                  </div>
+                </div>
+                <div class="waveform-indicator flex items-end space-x-0.5 h-5 pr-2 transition-all duration-300 opacity-0">
+                  <div class="w-1 bg-blue-500 rounded-full h-4 animate-pulse-bar-1"></div>
+                  <div class="w-1 bg-blue-500 rounded-full h-2 animate-pulse-bar-2"></div>
+                  <div class="w-1 bg-blue-500 rounded-full h-5 animate-pulse-bar-3"></div>
+                  <div class="w-1 bg-blue-500 rounded-full h-3 animate-pulse-bar-4"></div>
+                </div>
+              </div>
+            </div>
+            
+            <button id="btn-start-experience" onclick="startMicrosite()" class="w-full bg-white/20 text-white/40 pointer-events-none font-sans font-semibold py-3.5 rounded-2xl border border-white/10 transition-all text-sm tracking-wide text-center" disabled>
+              Choose a Soundtrack to Start
+            </button>
+          </div>
+        `;
+        document.body.appendChild(overlayDiv);
+      }
+      
+      document.getElementById('call-screen-active').classList.add('hidden');
+      document.getElementById('call-keypad-panel').classList.add('hidden');
+      document.getElementById('call-keypad-panel').style.transform = 'translateY(100%)';
+      
+      const screenIncoming = document.getElementById('call-screen-incoming');
+      screenIncoming.classList.remove('hidden', 'opacity-0', 'scale-90');
+      screenIncoming.style.transform = 'scale(1)';
+      screenIncoming.style.opacity = '1';
+      
+      const slideButton = document.getElementById('slide-button');
+      slideButton.style.transform = 'translateX(0px)';
+      slideOffsetX = 0;
+      
+      changePhase(1);
+    }
+
+    /* =========================================================================
+       6. AMBIENT BACKGROUND STARS & HEART SPAWNER
+       ========================================================================= */
+    const ambientBg = document.getElementById('ambient-bg');
+    function initAmbientLayer() {
+      for (let i = 0; i < 20; i++) {
+        const star = document.createElement('div');
+        const size = Math.random() * 3 + 1;
+        star.className = "absolute bg-white rounded-full opacity-30 animate-pulse";
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 3}s`;
+        star.style.animationDuration = `${Math.random() * 3 + 1.5}s`;
+        ambientBg.appendChild(star);
+      }
+      
+      setInterval(() => {
+        if (currentPhase === 2) return;
+        
+        const heart = document.createElement('div');
+        const types = ['❤️', '💋', '🌸', '✨'];
+        heart.className = "floating-heart text-rosegold/15 text-xl pointer-events-none";
+        heart.innerText = types[Math.floor(Math.random() * types.length)];
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.setProperty('--drift', `${Math.random() * 100 - 50}px`);
+        heart.style.animationDuration = `${Math.random() * 4 + 6}s`;
+        
+        ambientBg.appendChild(heart);
+        setTimeout(() => heart.remove(), 10000);
+      }, 2500);
+    }
+
+    initAmbientLayer();
+  </script>
+</body>
+</html>
