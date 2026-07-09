@@ -342,10 +342,10 @@
   </div>
 
   <!-- ULTRA-MINIMALIST APPLE-STYLE MUSIC SELECTOR ENTRANCE OVERLAY -->
-  <div id="entrance-overlay" class="fixed inset-0 bg-slate-950/95 backdrop-blur-3xl z-50 flex flex-col items-center justify-center text-center p-6 transition-all duration-700 select-none">
+  <div id="entrance-overlay" class="fixed inset-0 bg-[#FAF7F2]/90 backdrop-blur-3xl z-50 flex flex-col items-center justify-center text-center p-6 transition-all duration-700 select-none">
     <div class="w-full max-w-sm flex flex-col items-center px-4">
-      <h1 class="font-sans text-white text-3xl font-light tracking-wide mb-2">Choose a Soundtrack</h1>
-      <p class="text-slate-400 text-xs leading-relaxed mb-8 px-2">
+      <h1 class="font-sans text-slate-900 text-3xl font-bold tracking-wide mb-2">Choose a Soundtrack</h1>
+      <p class="text-slate-600 text-xs leading-relaxed mb-8 px-2">
         Select a background track to make this experience even more special.
       </p>
       
@@ -358,16 +358,16 @@
       <div class="w-full flex flex-col space-y-3 mb-10">
         
         <!-- Soundtrack 1 (Kasoor) -->
-        <div onclick="selectSoundtrack('music1.mp3', this)" class="soundtrack-option bg-transparent border border-white/10 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/5">
+        <div onclick="selectSoundtrack('music1.mp3', this)" class="soundtrack-option bg-transparent border border-slate-300/30 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-slate-900/5">
           <div class="flex items-center space-x-3.5">
             <!-- Music DP / Album Art circle -->
-            <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 relative flex-shrink-0 bg-slate-800">
+            <div class="w-12 h-12 rounded-full overflow-hidden border border-slate-300/30 relative flex-shrink-0 bg-slate-100">
               <img src="music1_dp.jpeg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100%\' height=\'100%\' fill=\'url(%23g)\'/><defs><linearGradient id=\'g\' x1=\'0%\' y1=\'0%\' x2=\'100%\' y2=\'100%\\'><stop offset=\'0%\' stop-color=\'%23ff758c\'/><stop offset=\'100%\' stop-color=\'%23ff7eb3\'/></linearGradient></defs><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'35\' fill=\'%23fff\'>🎵</text></svg>'" class="w-full h-full object-cover">
             </div>
             <!-- Music Labels -->
             <div class="text-left">
-              <h3 class="font-sans font-bold text-white text-sm tracking-wide">Kasoor</h3>
-              <p class="text-[11px] text-slate-400 font-semibold tracking-wide">Prateek Kuhad</p>
+              <h3 class="font-sans font-bold text-slate-900 text-sm tracking-wide">Kasoor</h3>
+              <p class="text-[11px] text-slate-600 font-semibold tracking-wide">Prateek Kuhad</p>
             </div>
           </div>
           <!-- Waveform Blue Indicator (hidden initially) -->
@@ -380,16 +380,16 @@
         </div>
         
         <!-- Soundtrack 2 (Kinna Sona) -->
-        <div onclick="selectSoundtrack('music2.mp3', this)" class="soundtrack-option bg-transparent border border-white/10 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/5">
+        <div onclick="selectSoundtrack('music2.mp3', this)" class="soundtrack-option bg-transparent border border-slate-300/30 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-slate-900/5">
           <div class="flex items-center space-x-3.5">
             <!-- Music DP / Album Art circle -->
-            <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 relative flex-shrink-0 bg-slate-800">
+            <div class="w-12 h-12 rounded-full overflow-hidden border border-slate-300/30 relative flex-shrink-0 bg-slate-100">
               <img src="music2_dp.jpeg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100%\' height=\'100%\' fill=\'url(%23g)\'/><defs><linearGradient id=\'g\' x1=\'0%\' y1=\'0%\' x2=\'100%\' y2=\'100%\\'><stop offset=\'0%\' stop-color=\'%234facfe\'/><stop offset=\'100%\' stop-color=\'%2300f2fe\'/></linearGradient></defs><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'35\' fill=\'%23fff\'>🎵</text></svg>'" class="w-full h-full object-cover">
             </div>
             <!-- Music Labels -->
             <div class="text-left">
-              <h3 class="font-sans font-bold text-white text-sm tracking-wide">Kinna Sona</h3>
-              <p class="text-[11px] text-slate-400 font-semibold tracking-wide max-w-[200px] truncate">Amitabh Verma, Mithoon, and Sunil Kamath</p>
+              <h3 class="font-sans font-bold text-slate-900 text-sm tracking-wide">Kinna Sona</h3>
+              <p class="text-[11px] text-slate-600 font-semibold tracking-wide max-w-[200px] truncate">Amitabh Verma, Mithoon, and Sunil Kamath</p>
             </div>
           </div>
           <!-- Waveform Blue Indicator (hidden initially) -->
@@ -402,16 +402,16 @@
         </div>
 
         <!-- Soundtrack 3 (Dariya) -->
-        <div onclick="selectSoundtrack('music3.mp3', this)" class="soundtrack-option bg-transparent border border-white/10 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/5">
+        <div onclick="selectSoundtrack('music3.mp3', this)" class="soundtrack-option bg-transparent border border-slate-300/30 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-slate-900/5">
           <div class="flex items-center space-x-3.5">
             <!-- Music DP / Album Art circle -->
-            <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 relative flex-shrink-0 bg-slate-800">
+            <div class="w-12 h-12 rounded-full overflow-hidden border border-slate-300/30 relative flex-shrink-0 bg-slate-100">
               <img src="music3_dp.jpeg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100%\' height=\'100%\' fill=\'url(%23g)\'/><defs><linearGradient id=\'g\' x1=\'0%\' y1=\'0%\' x2=\'100%\' y2=\'100%\\'><stop offset=\'0%\' stop-color=\'%23f5576c\'/><stop offset=\'100%\' stop-color=\'%23f093fb\'/></linearGradient></defs><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'35\' fill=\'%23fff\'>🎵</text></svg>'" class="w-full h-full object-cover">
             </div>
             <!-- Music Labels -->
             <div class="text-left">
-              <h3 class="font-sans font-bold text-white text-sm tracking-wide">Dariya</h3>
-              <p class="text-[11px] text-slate-400 font-semibold tracking-wide">Arko Pravo Mukherjee ‧ 2016</p>
+              <h3 class="font-sans font-bold text-slate-900 text-sm tracking-wide">Dariya</h3>
+              <p class="text-[11px] text-slate-600 font-semibold tracking-wide">Arko Pravo Mukherjee ‧ 2016</p>
             </div>
           </div>
           <!-- Waveform Blue Indicator (hidden initially) -->
@@ -425,7 +425,7 @@
       </div>
       
       <!-- Action Button (Disabled by default) -->
-      <button id="btn-start-experience" onclick="startMicrosite()" class="w-full bg-white/20 text-white/40 pointer-events-none font-sans font-semibold py-3.5 rounded-2xl border border-white/10 transition-all text-sm tracking-wide text-center" disabled>
+      <button id="btn-start-experience" onclick="startMicrosite()" class="w-full bg-slate-900/10 text-slate-400 pointer-events-none font-sans font-semibold py-3.5 rounded-2xl border border-slate-300/20 transition-all text-sm tracking-wide text-center" disabled>
         Choose a Soundtrack to Start
       </button>
     </div>
@@ -1537,11 +1537,11 @@
       // Update background and visualizer indicators
       const options = document.querySelectorAll('.soundtrack-option');
       options.forEach(opt => {
-        opt.className = 'soundtrack-option bg-transparent border border-white/10 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/5';
+        opt.className = 'soundtrack-option bg-transparent border border-slate-300/30 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-slate-900/5';
         opt.querySelector('.waveform-indicator').classList.add('opacity-0');
       });
       
-      element.className = 'soundtrack-option bg-white/10 border border-white/20 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/15';
+      element.className = 'soundtrack-option bg-slate-900/10 border border-slate-900/20 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-slate-900/15';
       element.querySelector('.waveform-indicator').classList.remove('opacity-0');
       
       // Play a quick audio preview of the selected track
@@ -1555,7 +1555,7 @@
       if (startBtn) {
         startBtn.disabled = false;
         startBtn.innerText = "Start Experience";
-        startBtn.className = "w-full bg-white text-slate-950 font-sans font-semibold py-3.5 rounded-2xl shadow-lg hover:bg-slate-100 active:scale-98 transition-all text-sm tracking-wide text-center cursor-pointer";
+        startBtn.className = "w-full bg-slate-900 text-white font-sans font-semibold py-3.5 rounded-2xl shadow-lg hover:bg-slate-800 active:scale-98 transition-all text-sm tracking-wide text-center cursor-pointer";
       }
     }
 
