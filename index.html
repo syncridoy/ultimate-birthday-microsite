@@ -728,7 +728,7 @@
         <!-- Mixing Bowl Area -->
         <div id="baking-arena" class="w-full relative h-48 flex items-center justify-center mb-6">
           <!-- Floating Glass Panel Ingredients (Replaced Jars) -->
-          <div id="ingredients-container" class="absolute inset-x-0 top-0 flex justify-between px-3 z-30">
+          <div id="ingredients-container" class="absolute inset-x-0 -top-2.5 flex justify-between px-3 z-30">
             <div id="ing-flour" onclick="addIngredient('flour')" class="ingredient-glass-card flex flex-col items-center cursor-pointer transition-all hover:scale-105 active:scale-95 w-[31%] text-center" style="animation-delay: 0s;">
               <span class="text-2.5xl filter drop-shadow select-none">🫂</span>
               <span class="text-[8px] sm:text-[9px] font-bold text-slate-700 mt-1 tracking-wide whitespace-nowrap overflow-visible">That Noapara Hug</span>
@@ -2246,9 +2246,9 @@
       setTimeout(() => {
         flyer.remove();
         
-        // Append small permanent item in the jar
+        // Append small permanent item in the jar (No bounce animation - remains static)
         const jarEmoji = document.createElement('div');
-        jarEmoji.className = "absolute text-lg select-none filter drop-shadow-sm animate-bounce";
+        jarEmoji.className = "absolute text-lg select-none filter drop-shadow-sm";
         jarEmoji.innerText = emoji;
         
         if (ing === 'flour') {
@@ -2271,11 +2271,6 @@
           setTimeout(() => jarEl.classList.remove('scale-105', '-rotate-3'), 150);
         }
         
-        // Add progress dot indicator
-        const indicator = document.createElement('div');
-        indicator.className = "w-2.5 h-2.5 bg-pink-400 rounded-full animate-ping";
-        document.getElementById('bowl-mix-status').appendChild(indicator);
-        
         // Instructions check
         if (addedIngredients.length === requiredIngredients.length) {
           document.getElementById('cake-instruction').innerText = "Memories added successfully! Press Bake to start blending.";
@@ -2297,8 +2292,10 @@
       
       const jarEl = document.getElementById('blender-jar');
       const btnEl = document.getElementById('blender-btn');
+      const ingredientsEl = document.getElementById('blender-ingredients');
       
-      if (jarEl) jarEl.classList.add('animate-spin-blender');
+      // Spin only the ingredients container inside the jar, not the blender jar structure itself
+      if (ingredientsEl) ingredientsEl.classList.add('animate-spin-blender');
       if (btnEl) {
         btnEl.classList.remove('bg-green-400', 'animate-pulse');
         btnEl.classList.add('bg-red-500', 'animate-ping');
@@ -2308,7 +2305,7 @@
       
       setTimeout(() => {
         sound.playOvenDing();
-        if (jarEl) jarEl.classList.remove('animate-spin-blender');
+        if (ingredientsEl) ingredientsEl.classList.remove('animate-spin-blender');
         if (btnEl) {
           btnEl.classList.remove('bg-red-500', 'animate-ping');
           btnEl.classList.add('bg-slate-300');
