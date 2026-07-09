@@ -991,6 +991,8 @@
     class SoundSynthesizer {
       constructor() {
         this.ctx = null;
+        this.popAudio = new Audio('burst.mp3.mpeg');
+        this.popAudio.load();
       }
       init() {
         if (!this.ctx) {
@@ -1019,22 +1021,11 @@
         osc.stop(now + 0.25);
       }
       playPop() {
-        this.init();
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(450, now);
-        osc.frequency.exponentialRampToValueAtTime(60, now + 0.1);
-        
-        gain.gain.setValueAtTime(0.15, now);
-        gain.gain.linearRampToValueAtTime(0.001, now + 0.1);
-        
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.1);
+        if (this.popAudio) {
+          const clone = this.popAudio.cloneNode();
+          clone.volume = 0.55;
+          clone.play().catch(e => console.log("Pop audio blocked:", e));
+        }
       }
       playUnlock() {
         this.init();
