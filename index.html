@@ -478,7 +478,7 @@
         </div>
 
         <!-- Clean iOS Caller Image Profile Picture (Matches Screen A) -->
-        <div id="active-profile-wrapper" class="relative my-6 flex items-center justify-center transition-all duration-300">
+        <div id="active-profile-wrapper" class="relative my-6 flex items-center justify-center transition-all duration-500 origin-center transform">
           <div class="w-28 h-28 rounded-full overflow-hidden border border-slate-200 shadow-xl z-10 select-none bg-white/20">
             <img src="Call_Dp.jpeg" alt="Caller Photo" class="w-full h-full object-cover">
           </div>
@@ -1705,11 +1705,11 @@
       panel.offsetHeight;
       panel.style.transform = 'translateY(0%)';
       
-      // Hide active call profile photo, call control buttons and end button to prevent overlapping
+      // Shrink and slide up active call profile photo, hide call control buttons and end button to prevent overlapping
       const profile = document.getElementById('active-profile-wrapper');
       const grid = document.getElementById('call-controls-grid');
       const endBtn = document.getElementById('active-call-end-btn');
-      if (profile) profile.classList.add('opacity-0', 'pointer-events-none');
+      if (profile) profile.classList.add('-translate-y-[86px]', 'scale-[0.55]', 'opacity-90');
       if (grid) grid.classList.add('opacity-0', 'pointer-events-none');
       if (endBtn) endBtn.classList.add('opacity-0', 'pointer-events-none');
     }
@@ -1723,7 +1723,7 @@
       const profile = document.getElementById('active-profile-wrapper');
       const grid = document.getElementById('call-controls-grid');
       const endBtn = document.getElementById('active-call-end-btn');
-      if (profile) profile.classList.remove('opacity-0', 'pointer-events-none');
+      if (profile) profile.classList.remove('-translate-y-[86px]', 'scale-[0.55]', 'opacity-90');
       if (grid) grid.classList.remove('opacity-0', 'pointer-events-none');
       if (endBtn) endBtn.classList.remove('opacity-0', 'pointer-events-none');
       
@@ -2642,7 +2642,7 @@
       const profile = document.getElementById('active-profile-wrapper');
       const grid = document.getElementById('call-controls-grid');
       const endBtn = document.getElementById('active-call-end-btn');
-      if (profile) profile.classList.remove('opacity-0', 'pointer-events-none');
+      if (profile) profile.classList.remove('-translate-y-[86px]', 'scale-[0.55]', 'opacity-90', 'opacity-0', 'pointer-events-none');
       if (grid) grid.classList.remove('opacity-0', 'pointer-events-none');
       if (endBtn) endBtn.classList.remove('opacity-0', 'pointer-events-none');
       
