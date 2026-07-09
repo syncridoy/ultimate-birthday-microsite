@@ -216,12 +216,14 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(158, 42, 43, 0.2);
-      border-radius: 9999px;
-      padding: 6px 12px;
+      border-radius: 20px;
+      padding: 6px 14px;
       box-shadow: 0 8px 24px rgba(158, 42, 43, 0.12);
       pointer-events: none;
       z-index: 30;
-      white-space: nowrap; /* Prevent line wrapping */
+      text-align: center;
+      max-width: calc(100vw - 32px); /* Safety margin from screen border */
+      word-wrap: break-word;
       animation: floatAndFadeLoveNote 4.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     }
     
@@ -2045,18 +2047,25 @@
     }
 
     function triggerLoveNote(x, y, text) {
-      // Clamp x position to prevent love note text from getting cut off on left/right screen edges.
-      // Safety margin of 85px accommodates standard toast width centered at clampedX.
-      const margin = 85;
-      const clampedX = Math.max(margin, Math.min(x, window.innerWidth - margin));
-      
       const note = document.createElement('div');
       note.className = 'love-note-bubble';
-      note.style.left = `${clampedX}px`;
-      note.style.top = `${y}px`;
       note.innerText = text;
       
+      // Append first to measure its rendered width
       balloonBoard.appendChild(note);
+      
+      // Calculate dynamic margins using actual width plus safety padding (16px)
+      const noteWidth = note.offsetWidth || 180;
+      const halfWidth = noteWidth / 2;
+      const safetyPadding = 16;
+      
+      const minX = halfWidth + safetyPadding;
+      const maxX = window.innerWidth - halfWidth - safetyPadding;
+      const clampedX = Math.max(minX, Math.min(x, maxX));
+      
+      // Apply the clamped position
+      note.style.left = `${clampedX}px`;
+      note.style.top = `${y}px`;
       
       // Clean up bubble from DOM after CSS fade-out animation completes
       setTimeout(() => {
