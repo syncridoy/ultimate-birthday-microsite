@@ -478,14 +478,14 @@
         </div>
 
         <!-- Clean iOS Caller Image Profile Picture (Matches Screen A) -->
-        <div class="relative my-6 flex items-center justify-center">
+        <div id="active-profile-wrapper" class="relative my-6 flex items-center justify-center transition-all duration-300">
           <div class="w-28 h-28 rounded-full overflow-hidden border border-slate-200 shadow-xl z-10 select-none bg-white/20">
             <img src="Call_Dp.jpeg" alt="Caller Photo" class="w-full h-full object-cover">
           </div>
         </div>
 
         <!-- In-Call iOS Grid Panel (6 buttons - Enlarged & Proportioned) -->
-        <div id="call-controls-grid" class="grid grid-cols-3 gap-y-5 gap-x-8 w-full max-w-[300px] my-4 select-none">
+        <div id="call-controls-grid" class="grid grid-cols-3 gap-y-5 gap-x-8 w-full max-w-[300px] my-4 select-none transition-all duration-300">
           <!-- Button 1: Mute -->
           <div class="flex flex-col items-center">
             <button onclick="toggleInCallBtn(this)" class="w-16 h-16 rounded-full bg-white/25 backdrop-blur-md border border-white/35 flex items-center justify-center text-2xl hover:bg-white/35 active:bg-white/45 transition-all text-slate-800 shadow-sm">
@@ -1704,12 +1704,25 @@
       panel.classList.remove('hidden');
       panel.offsetHeight;
       panel.style.transform = 'translateY(0%)';
+      
+      // Hide active call profile photo and call control buttons to prevent overlapping
+      const profile = document.getElementById('active-profile-wrapper');
+      const grid = document.getElementById('call-controls-grid');
+      if (profile) profile.classList.add('opacity-0', 'pointer-events-none');
+      if (grid) grid.classList.add('opacity-0', 'pointer-events-none');
     }
 
     function hideKeypadPanel() {
       sound.playPaperFlip();
       const panel = document.getElementById('call-keypad-panel');
       panel.style.transform = 'translateY(100%)';
+      
+      // Restore active call profile photo and call control buttons
+      const profile = document.getElementById('active-profile-wrapper');
+      const grid = document.getElementById('call-controls-grid');
+      if (profile) profile.classList.remove('opacity-0', 'pointer-events-none');
+      if (grid) grid.classList.remove('opacity-0', 'pointer-events-none');
+      
       setTimeout(() => {
         panel.classList.add('hidden');
       }, 500);
@@ -2620,6 +2633,12 @@
       document.getElementById('call-screen-active').classList.add('hidden');
       document.getElementById('call-keypad-panel').classList.add('hidden');
       document.getElementById('call-keypad-panel').style.transform = 'translateY(100%)';
+      
+      // Reset call screen active profile and grid visibility classes
+      const profile = document.getElementById('active-profile-wrapper');
+      const grid = document.getElementById('call-controls-grid');
+      if (profile) profile.classList.remove('opacity-0', 'pointer-events-none');
+      if (grid) grid.classList.remove('opacity-0', 'pointer-events-none');
       
       const screenIncoming = document.getElementById('call-screen-incoming');
       screenIncoming.classList.remove('hidden', 'opacity-0', 'scale-90');
