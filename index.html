@@ -704,19 +704,19 @@
       <div class="w-full max-w-sm flex-grow flex flex-col items-center justify-center z-15 py-4 pointer-events-auto">
         <!-- Mixing Bowl Area -->
         <div id="baking-arena" class="w-full relative h-48 flex items-center justify-center mb-6">
-          <!-- Flour, Sugar, Love Jars -->
+          <!-- Flour, Sugar, Love Jars (Replaced with Custom Aesthetic Memories) -->
           <div id="ingredients-container" class="absolute inset-x-0 top-0 flex justify-between px-4">
-            <div id="ing-flour" onclick="addIngredient('flour')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90">
-              <span class="text-3xl text-amber-300"><i class="fas fa-cookie"></i></span>
-              <span class="text-[10px] font-bold text-slate-500 uppercase mt-1">Sweet Base</span>
+            <div id="ing-flour" onclick="addIngredient('flour')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90 w-[32%] text-center">
+              <span class="text-3xl filter drop-shadow select-none">🫂</span>
+              <span class="text-[8px] sm:text-[9px] font-bold text-slate-500 mt-1.5 tracking-wide whitespace-nowrap overflow-visible">That Noapara Hug</span>
             </div>
-            <div id="ing-sugar" onclick="addIngredient('sugar')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90">
-              <span class="text-3xl text-pink-300"><i class="fas fa-heart"></i></span>
-              <span class="text-[10px] font-bold text-slate-500 uppercase mt-1">Pure Love</span>
+            <div id="ing-sugar" onclick="addIngredient('sugar')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90 w-[32%] text-center">
+              <span class="text-3xl filter drop-shadow select-none">🗺️</span>
+              <span class="text-[8px] sm:text-[9px] font-bold text-slate-500 mt-1.5 tracking-wide whitespace-nowrap overflow-visible">Our First tour</span>
             </div>
-            <div id="ing-essence" onclick="addIngredient('essence')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90">
-              <span class="text-3xl text-yellow-300"><i class="fas fa-magic"></i></span>
-              <span class="text-[10px] font-bold text-slate-500 uppercase mt-1">Magic Essence</span>
+            <div id="ing-essence" onclick="addIngredient('essence')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90 w-[32%] text-center">
+              <span class="text-3xl filter drop-shadow select-none">🚲</span>
+              <span class="text-[8px] sm:text-[9px] font-bold text-slate-500 mt-1.5 tracking-wide whitespace-nowrap overflow-visible">Night Rides With You</span>
             </div>
           </div>
 
@@ -2111,6 +2111,15 @@
       addedIngredients.length = 0;
       candlesLit = [false, false, false];
       
+      // Reset ingredient opacities and pointer events
+      ['flour', 'sugar', 'essence'].forEach(ing => {
+        const el = document.getElementById(`ing-${ing}`);
+        if (el) {
+          el.style.opacity = '1';
+          el.style.pointerEvents = 'auto';
+        }
+      });
+      
       document.getElementById('ingredients-container').classList.remove('hidden');
       document.getElementById('mixing-bowl').classList.remove('hidden');
       document.getElementById('baked-cake').classList.add('hidden');
@@ -2566,6 +2575,15 @@
       isUnlocked = false;
       addedIngredients.length = 0;
       candlesLit = [false, false, false];
+      
+      // Reset ingredient opacities and pointer events
+      ['flour', 'sugar', 'essence'].forEach(ing => {
+        const el = document.getElementById(`ing-${ing}`);
+        if (el) {
+          el.style.opacity = '1';
+          el.style.pointerEvents = 'auto';
+        }
+      });
       currentPhotoIdx = 0;
       audioStarted = false;
       selectedMusicUrl = null; // Reset choice on replay
