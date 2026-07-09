@@ -327,7 +327,7 @@
   <svg id="constellation-svg" class="fixed inset-0 w-full h-full pointer-events-none z-20 hidden"></svg>
 
   <!-- Aesthetic Premium iOS Mesh Gradient Background -->
-  <div id="ambient-bg" class="absolute inset-0 overflow-hidden pointer-events-none z-0" style="filter: blur(90px) saturate(140%);">
+  <div id="ambient-bg" class="absolute inset-0 overflow-hidden pointer-events-none z-0 transition-opacity duration-[1000ms] opacity-100" style="filter: blur(90px) saturate(140%);">
     <div class="absolute -top-[10%] -left-[10%] w-[380px] h-[380px] rounded-full opacity-60 animate-blob1" style="background-color: #fecfef;"></div>
     <div class="absolute -bottom-[10%] -right-[10%] w-[420px] h-[420px] rounded-full opacity-50 animate-blob2" style="background-color: #a1c4fd;"></div>
     <div class="absolute top-[30%] left-[20%] w-[350px] h-[350px] rounded-full opacity-55 animate-blob3" style="background-color: #fddb92;"></div>
@@ -1452,6 +1452,13 @@
           fsBg.classList.remove('opacity-0');
           fsBg.classList.add('opacity-100');
         }
+        
+        // Hide colorful ambient mesh gradient
+        const ambBg = document.getElementById('ambient-bg');
+        if (ambBg) {
+          ambBg.classList.add('opacity-0');
+          ambBg.classList.remove('opacity-100');
+        }
       } else {
         if (clickOverlay) clickOverlay.classList.add('hidden');
         if (constellationSvg) constellationSvg.classList.add('hidden');
@@ -1459,6 +1466,13 @@
         if (fsBg) {
           fsBg.classList.remove('opacity-100');
           fsBg.classList.add('opacity-0');
+        }
+        
+        // Show colorful ambient mesh gradient
+        const ambBg = document.getElementById('ambient-bg');
+        if (ambBg) {
+          ambBg.classList.remove('opacity-0');
+          ambBg.classList.add('opacity-100');
         }
       }
       
