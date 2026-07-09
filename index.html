@@ -204,21 +204,21 @@
       position: absolute;
     }
     
-    /* Floating Love Note Bubble style (Apple HUD Toast) */
+    /* Floating Love Note Bubble style (Apple HUD Toast - Light Mode) */
     .love-note-bubble {
       position: absolute;
       transform: translateX(-50%);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       font-size: 11px;
       font-weight: 600;
-      color: #ffffff;
-      background: rgba(15, 23, 42, 0.85); /* Dark slate translucent */
+      color: #9e2a2b; /* Crimson Dark */
+      background: rgba(255, 255, 255, 0.95); /* Light glass */
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(158, 42, 43, 0.2);
       border-radius: 9999px;
       padding: 6px 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 24px rgba(158, 42, 43, 0.12);
       pointer-events: none;
       z-index: 30;
       white-space: nowrap; /* Prevent line wrapping */
@@ -315,7 +315,7 @@
     }
   </style>
 </head>
-<body class="bg-slate-950 text-white font-sans overflow-hidden min-h-screen flex flex-col items-center justify-center relative select-none">
+<body class="bg-[#FAF7F2] text-slate-900 font-sans overflow-hidden min-h-screen flex flex-col items-center justify-center relative select-none">
 
   <!-- Full-screen Background Overlay (for Phase 2 cinematic look) -->
   <div id="fullscreen-bg" class="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-[1000ms] opacity-0 pointer-events-none z-0"></div>
@@ -435,15 +435,15 @@
   <main class="w-full max-w-md px-4 z-10 flex flex-col items-center justify-center min-h-screen py-10 relative">
 
     <!-- PHASE 1: iPhone Calling UI (Intro Wizard - Full Screen Viewport) -->
-    <section id="phase-1" class="fixed inset-0 w-full h-full min-h-screen bg-slate-950/60 backdrop-blur-2xl flex flex-col justify-between items-center text-center p-6 transition-all duration-500 text-white z-30 select-none">
+    <section id="phase-1" class="fixed inset-0 w-full h-full min-h-screen bg-white/25 backdrop-blur-2xl flex flex-col justify-between items-center text-center p-6 transition-all duration-500 text-slate-900 z-30 select-none">
       
       <!-- SCREEN A: Incoming Call Layout -->
       <div id="call-screen-incoming" class="w-full h-full flex flex-col items-center justify-between flex-grow pb-36 pt-16">
         <!-- Caller details -->
         <div class="mt-6">
-          <p class="text-xs uppercase tracking-widest text-slate-400 mb-1">FaceTime Audio</p>
-          <h1 class="font-sans text-[32px] font-bold tracking-wide text-white">Ridoy 🤍</h1>
-          <p class="text-slate-400 text-xs mt-1 animate-pulse">Incoming Call...</p>
+          <p class="text-xs uppercase tracking-widest text-slate-500 mb-1">FaceTime Audio</p>
+          <h1 class="font-sans text-[32px] font-bold tracking-wide text-slate-900">Ridoy 🤍</h1>
+          <p class="text-slate-600 text-xs mt-1 animate-pulse">Incoming Call...</p>
         </div>
 
         <!-- Clean iOS Caller Image Profile Picture -->
@@ -472,14 +472,15 @@
       <!-- SCREEN B: Active Call Layout (Hidden by default - Elevated layout) -->
       <div id="call-screen-active" class="w-full h-full flex flex-col items-center justify-between flex-grow pt-10 pb-6 hidden">
         <!-- Caller details & timer -->
+        <!-- Active Call details -->
         <div class="mt-6">
-          <h1 class="font-sans text-[32px] font-bold tracking-wide text-white">Ridoy 🤍</h1>
-          <p id="call-timer" class="text-white text-[13px] font-mono font-medium tracking-widest mt-1">00:00</p>
+          <h1 class="font-sans text-[32px] font-bold tracking-wide text-slate-900">Ridoy 🤍</h1>
+          <p id="call-timer" class="text-slate-700 text-[13px] font-mono font-medium tracking-widest mt-1">00:00</p>
         </div>
 
         <!-- Clean iOS Caller Image Profile Picture (Matches Screen A) -->
         <div class="relative my-6 flex items-center justify-center">
-          <div class="w-28 h-28 rounded-full overflow-hidden border border-white/20 shadow-xl z-10 select-none bg-slate-800">
+          <div class="w-28 h-28 rounded-full overflow-hidden border border-slate-200 shadow-xl z-10 select-none bg-slate-100">
             <img src="Call_Dp.jpeg" alt="Caller Photo" class="w-full h-full object-cover">
           </div>
         </div>
@@ -488,42 +489,42 @@
         <div id="call-controls-grid" class="grid grid-cols-3 gap-y-5 gap-x-8 w-full max-w-[300px] my-4 select-none">
           <!-- Button 1: Mute -->
           <div class="flex flex-col items-center">
-            <button onclick="toggleInCallBtn(this)" class="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl hover:bg-white/25 active:bg-white/40 transition-all text-white">
+            <button onclick="toggleInCallBtn(this)" class="w-16 h-16 rounded-full bg-slate-900/10 border border-slate-900/10 flex items-center justify-center text-2xl hover:bg-slate-900/15 active:bg-slate-900/25 transition-all text-slate-800">
               <i class="fas fa-microphone-slash"></i>
             </button>
-            <span class="text-[9px] text-slate-400 font-bold uppercase mt-1">Mute</span>
+            <span class="text-[9px] text-slate-500 font-bold uppercase mt-1">Mute</span>
           </div>
           <!-- Button 2: Keypad (Triggers keypad slide-up) -->
           <div class="flex flex-col items-center">
-            <button onclick="showKeypadPanel()" class="w-16 h-16 rounded-full bg-white/20 border border-white/40 flex items-center justify-center text-2xl hover:bg-white/30 active:bg-white/40 transition-all shadow-md text-white">
+            <button onclick="showKeypadPanel()" class="w-16 h-16 rounded-full bg-slate-900/20 border border-slate-900/20 flex items-center justify-center text-2xl hover:bg-slate-900/25 active:bg-slate-900/35 transition-all shadow-md text-slate-900">
               <i class="fas fa-th"></i>
             </button>
-            <span class="text-[9px] text-white font-bold uppercase mt-1 animate-pulse">Keypad</span>
+            <span class="text-[9px] text-slate-900 font-bold uppercase mt-1 animate-pulse">Keypad</span>
           </div>
           <!-- Button 3: Speaker -->
           <div class="flex flex-col items-center">
-            <button onclick="toggleInCallBtn(this)" class="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl hover:bg-white/25 active:bg-white/40 transition-all text-white">
+            <button onclick="toggleInCallBtn(this)" class="w-16 h-16 rounded-full bg-slate-900/10 border border-slate-900/10 flex items-center justify-center text-2xl hover:bg-slate-900/15 active:bg-slate-900/25 transition-all text-slate-800">
               <i class="fas fa-volume-high"></i>
             </button>
-            <span class="text-[9px] text-slate-400 font-bold uppercase mt-1">Speaker</span>
+            <span class="text-[9px] text-slate-500 font-bold uppercase mt-1">Speaker</span>
           </div>
           <!-- Button 4: Add Call -->
           <div class="flex flex-col items-center opacity-30 pointer-events-none">
-            <button class="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl text-white">
+            <button class="w-16 h-16 rounded-full bg-slate-900/10 border border-slate-900/10 flex items-center justify-center text-2xl text-slate-800">
               <i class="fas fa-plus"></i>
             </button>
             <span class="text-[9px] text-slate-500 font-bold uppercase mt-1">Add Call</span>
           </div>
           <!-- Button 5: FaceTime -->
           <div class="flex flex-col items-center opacity-30 pointer-events-none">
-            <button class="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl text-white">
+            <button class="w-16 h-16 rounded-full bg-slate-900/10 border border-slate-900/10 flex items-center justify-center text-2xl text-slate-800">
               <i class="fas fa-video"></i>
             </button>
             <span class="text-[9px] text-slate-500 font-bold uppercase mt-1">FaceTime</span>
           </div>
           <!-- Button 6: Contacts -->
           <div class="flex flex-col items-center opacity-30 pointer-events-none">
-            <button class="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl text-white">
+            <button class="w-16 h-16 rounded-full bg-slate-900/10 border border-slate-900/10 flex items-center justify-center text-2xl text-slate-800">
               <i class="fas fa-address-book"></i>
             </button>
             <span class="text-[9px] text-slate-500 font-bold uppercase mt-1">Contacts</span>
@@ -539,10 +540,10 @@
         <div class="h-14 w-full pointer-events-none"></div>
 
         <!-- Dynamic Slide-up Keypad Panel overlay (Slide-up Sheet) -->
-        <div id="call-keypad-panel" class="absolute inset-x-0 bottom-0 bg-slate-950/95 backdrop-blur-xl border-t border-white/20 rounded-t-[32px] pt-5 pb-14 px-6 hidden flex flex-col items-center z-40 transform translate-y-full transition-transform duration-500">
+        <div id="call-keypad-panel" class="absolute inset-x-0 bottom-0 bg-white/90 backdrop-blur-2xl border-t border-slate-200 rounded-t-[32px] pt-5 pb-14 px-6 hidden flex flex-col items-center z-40 transform translate-y-full transition-transform duration-500">
           <!-- Top text layout -->
           <div class="text-center mb-3">
-            <p class="text-xs text-white/80 font-semibold tracking-wider animate-pulse">
+            <p class="text-xs text-slate-800 font-semibold tracking-wider animate-pulse">
               Tap 1 To Proceed
             </p>
           </div>
@@ -550,69 +551,69 @@
           <!-- Keypad Grid (Compact & optimized to fit all phone displays) -->
           <div class="grid grid-cols-3 gap-y-3 gap-x-6 mb-3 select-none">
             <!-- 1 -->
-            <button onclick="tapKeypadDigit('1')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex items-center justify-center text-xl font-light text-white transition-all">
+            <button onclick="tapKeypadDigit('1')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex items-center justify-center text-xl font-light text-slate-900 transition-all">
               1
             </button>
             <!-- 2 -->
-            <button onclick="tapKeypadDigit('2')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+            <button onclick="tapKeypadDigit('2')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex flex-col items-center justify-center text-slate-900 transition-all">
               <span class="text-xl font-light leading-none -mt-0.5">2</span>
-              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">ABC</span>
+              <span class="text-[8px] text-slate-500 font-bold tracking-widest mt-0.5">ABC</span>
             </button>
             <!-- 3 -->
-            <button onclick="tapKeypadDigit('3')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+            <button onclick="tapKeypadDigit('3')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex flex-col items-center justify-center text-slate-900 transition-all">
               <span class="text-xl font-light leading-none -mt-0.5">3</span>
-              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">DEF</span>
+              <span class="text-[8px] text-slate-500 font-bold tracking-widest mt-0.5">DEF</span>
             </button>
             
             <!-- 4 -->
-            <button onclick="tapKeypadDigit('4')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+            <button onclick="tapKeypadDigit('4')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex flex-col items-center justify-center text-slate-900 transition-all">
               <span class="text-xl font-light leading-none -mt-0.5">4</span>
-              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">GHI</span>
+              <span class="text-[8px] text-slate-500 font-bold tracking-widest mt-0.5">GHI</span>
             </button>
             <!-- 5 -->
-            <button onclick="tapKeypadDigit('5')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+            <button onclick="tapKeypadDigit('5')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex flex-col items-center justify-center text-slate-900 transition-all">
               <span class="text-xl font-light leading-none -mt-0.5">5</span>
-              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">JKL</span>
+              <span class="text-[8px] text-slate-500 font-bold tracking-widest mt-0.5">JKL</span>
             </button>
             <!-- 6 -->
-            <button onclick="tapKeypadDigit('6')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+            <button onclick="tapKeypadDigit('6')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex flex-col items-center justify-center text-slate-900 transition-all">
               <span class="text-xl font-light leading-none -mt-0.5">6</span>
-              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">MNO</span>
+              <span class="text-[8px] text-slate-500 font-bold tracking-widest mt-0.5">MNO</span>
             </button>
             
             <!-- 7 -->
-            <button onclick="tapKeypadDigit('7')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+            <button onclick="tapKeypadDigit('7')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex flex-col items-center justify-center text-slate-900 transition-all">
               <span class="text-xl font-light leading-none -mt-0.5">7</span>
-              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">PQRS</span>
+              <span class="text-[8px] text-slate-500 font-bold tracking-widest mt-0.5">PQRS</span>
             </button>
             <!-- 8 -->
-            <button onclick="tapKeypadDigit('8')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+            <button onclick="tapKeypadDigit('8')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex flex-col items-center justify-center text-slate-900 transition-all">
               <span class="text-xl font-light leading-none -mt-0.5">8</span>
-              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">TUV</span>
+              <span class="text-[8px] text-slate-500 font-bold tracking-widest mt-0.5">TUV</span>
             </button>
             <!-- 9 -->
-            <button onclick="tapKeypadDigit('9')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+            <button onclick="tapKeypadDigit('9')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex flex-col items-center justify-center text-slate-900 transition-all">
               <span class="text-xl font-light leading-none -mt-0.5">9</span>
-              <span class="text-[8px] text-white/50 font-bold tracking-widest mt-0.5">WXYZ</span>
+              <span class="text-[8px] text-slate-500 font-bold tracking-widest mt-0.5">WXYZ</span>
             </button>
             
             <!-- * -->
-            <button onclick="tapKeypadDigit('*')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex items-center justify-center text-2xl font-light text-white pt-1.5 transition-all">
+            <button onclick="tapKeypadDigit('*')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex items-center justify-center text-2xl font-light text-slate-900 pt-1.5 transition-all">
               *
             </button>
             <!-- 0 -->
-            <button onclick="tapKeypadDigit('0')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex flex-col items-center justify-center text-white transition-all">
+            <button onclick="tapKeypadDigit('0')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex flex-col items-center justify-center text-slate-900 transition-all">
               <span class="text-xl font-light leading-none -mt-0.5">0</span>
-              <span class="text-[9px] text-white/60 font-medium mt-0.5">+</span>
+              <span class="text-[9px] text-slate-600 font-medium mt-0.5">+</span>
             </button>
             <!-- # -->
-            <button onclick="tapKeypadDigit('#')" class="w-[54px] h-[54px] rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 flex items-center justify-center text-lg font-light text-white transition-all">
+            <button onclick="tapKeypadDigit('#')" class="w-[54px] h-[54px] rounded-full bg-slate-900/10 hover:bg-slate-900/15 active:bg-slate-900/25 flex items-center justify-center text-lg font-light text-slate-900 transition-all">
               #
             </button>
           </div>
           
           <!-- Hide keypad button -->
-          <button onclick="hideKeypadPanel()" class="text-xs text-rosegold hover:text-white transition-colors tracking-widest uppercase font-bold py-1">
+          <button onclick="hideKeypadPanel()" class="text-xs text-rosegold hover:text-rosegold-dark transition-colors tracking-widest uppercase font-bold py-1">
             Back to Call
           </button>
         </div>
@@ -654,20 +655,20 @@
     </section>
 
     <!-- PHASE 3: Balloon Pop & Love Notes (Frosted Glass Full Screen experience) -->
-    <section id="phase-3" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-slate-950/60 backdrop-blur-2xl">
+    <section id="phase-3" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-white/25 backdrop-blur-2xl">
       
       <!-- Top header container -->
       <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
-        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide">Let's Play a Game!</h1>
-        <p class="text-white/70 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
+        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">Let's Play a Game!</h1>
+        <p class="text-slate-600 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
           Pop 5 floating balloons to unlock Next Step in This Series!
         </p>
         
         <!-- Progress Bar -->
-        <div class="w-full bg-white/10 border border-white/5 rounded-full h-2 overflow-hidden relative mb-2">
-          <div id="balloon-progress" class="bg-white h-full w-0 transition-all duration-300 shadow-[0_0_8px_#fff]"></div>
+        <div class="w-full bg-slate-200/60 border border-slate-300/30 rounded-full h-2 overflow-hidden relative mb-2">
+          <div id="balloon-progress" class="bg-crimson h-full w-0 transition-all duration-300 shadow-[0_0_6px_rgba(158,42,43,0.3)]"></div>
         </div>
-        <div id="balloon-counter" class="text-[10px] text-white/40 font-bold uppercase tracking-wider">
+        <div id="balloon-counter" class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
           Balloons Popped: 0 / 5
         </div>
       </div>
@@ -679,8 +680,8 @@
       
       <!-- Bottom button container -->
       <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
-        <!-- Next button (Clean Apple-Style White Pill) -->
-        <button id="btn-balloons-next" onclick="nextPhase()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
+        <!-- Next button (Clean Apple-Style Dark Pill) -->
+        <button id="btn-balloons-next" onclick="nextPhase()" class="hidden bg-slate-900 hover:bg-slate-800 text-white font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
           Step Into the Bakery <i class="fas fa-chevron-right ml-1"></i>
         </button>
       </div>
@@ -688,12 +689,12 @@
     </section>
 
     <!-- PHASE 4: Interactive Cake Baking & Cutting Ceremony -->
-    <section id="phase-4" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-slate-950/60 backdrop-blur-2xl">
+    <section id="phase-4" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-white/25 backdrop-blur-2xl">
       
       <!-- Top header container -->
       <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
-        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide">The Secret Recipe</h1>
-        <p id="cake-instruction" class="text-white/70 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
+        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">The Secret Recipe</h1>
+        <p id="cake-instruction" class="text-slate-600 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
           Let's bake something special for you. Tap the ingredients to add them to the bowl!
         </p>
       </div>
@@ -706,20 +707,20 @@
           <div id="ingredients-container" class="absolute inset-x-0 top-0 flex justify-between px-4">
             <div id="ing-flour" onclick="addIngredient('flour')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90">
               <span class="text-3xl text-amber-300"><i class="fas fa-cookie"></i></span>
-              <span class="text-[10px] font-bold text-white/50 uppercase mt-1">Sweet Base</span>
+              <span class="text-[10px] font-bold text-slate-500 uppercase mt-1">Sweet Base</span>
             </div>
             <div id="ing-sugar" onclick="addIngredient('sugar')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90">
               <span class="text-3xl text-pink-300"><i class="fas fa-heart"></i></span>
-              <span class="text-[10px] font-bold text-white/50 uppercase mt-1">Pure Love</span>
+              <span class="text-[10px] font-bold text-slate-500 uppercase mt-1">Pure Love</span>
             </div>
             <div id="ing-essence" onclick="addIngredient('essence')" class="flex flex-col items-center cursor-pointer transition-all hover:scale-110 active:scale-90">
               <span class="text-3xl text-yellow-300"><i class="fas fa-magic"></i></span>
-              <span class="text-[10px] font-bold text-white/50 uppercase mt-1">Magic Essence</span>
+              <span class="text-[10px] font-bold text-slate-500 uppercase mt-1">Magic Essence</span>
             </div>
           </div>
 
           <!-- Central Bowl -->
-          <div id="mixing-bowl" class="text-7xl text-white/40 mt-16 transition-all duration-500 relative">
+          <div id="mixing-bowl" class="text-7xl text-slate-400 mt-16 transition-all duration-500 relative">
             <i class="fas fa-blender"></i>
             <!-- Mix indicator dots inside bowl -->
             <div id="bowl-mix-status" class="absolute -top-2 left-1/2 -translate-x-1/2 flex space-x-1"></div>
@@ -763,14 +764,14 @@
 
         <!-- Cake Cutting Knife Slider -->
         <div id="knife-slider-area" class="hidden w-full flex flex-col items-center px-4">
-          <p class="text-xs text-white/60 font-bold mb-4 blink">
+          <p class="text-xs text-slate-500 font-bold mb-4 blink">
             🕯️ Light all 3 candles by tapping them to unlock the knife!
           </p>
-          <div id="knife-track" class="relative w-full h-12 bg-white/10 border border-white/20 rounded-full flex items-center px-2 mb-4 pointer-events-none opacity-40">
-            <div id="drag-knife" class="bg-white text-slate-950 rounded-full w-10 h-10 flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing text-lg z-20 absolute left-2 transition-all">
+          <div id="knife-track" class="relative w-full h-12 bg-slate-200/50 border border-slate-300/30 rounded-full flex items-center px-2 mb-4 pointer-events-none opacity-40">
+            <div id="drag-knife" class="bg-slate-900 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing text-lg z-20 absolute left-2 transition-all">
               <i class="fas fa-utensils"></i>
             </div>
-            <span id="knife-track-text" class="text-[10px] text-white/50 font-bold tracking-wider uppercase select-none w-full text-center pl-10 pr-2">
+            <span id="knife-track-text" class="text-[10px] text-slate-500 font-bold tracking-wider uppercase select-none w-full text-center pl-10 pr-2">
               Slide knife right to cut cake
             </span>
           </div>
@@ -778,8 +779,8 @@
 
         <!-- Happy Birthday Overlay Card inside phase -->
         <div id="birthday-celebration-card" class="hidden w-full flex flex-col items-center px-4">
-          <h2 class="font-sans text-3xl font-extrabold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] animate-bounce mb-2">Happy Birthday!</h2>
-          <p class="text-white/70 text-xs mb-6">
+          <h2 class="font-sans text-3xl font-extrabold text-slate-900 animate-bounce mb-2">Happy Birthday!</h2>
+          <p class="text-slate-600 text-xs mb-6">
             Make a wish, blow out the candles, and let's check your memory lane...
           </p>
         </div>
@@ -788,11 +789,11 @@
       <!-- Bottom button container -->
       <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
         <!-- Bake button -->
-        <button id="btn-bake-action" onclick="bakeCake()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
+        <button id="btn-bake-action" onclick="bakeCake()" class="hidden bg-slate-900 hover:bg-slate-800 text-white font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
           <i class="fas fa-fire-burner mr-1"></i> Bake the Cake
         </button>
         <!-- Proceed button (Happy Birthday) -->
-        <button id="btn-celebration-next" onclick="nextPhase()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
+        <button id="btn-celebration-next" onclick="nextPhase()" class="hidden bg-slate-900 hover:bg-slate-800 text-white font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
           Reveal Memories <i class="fas fa-chevron-right ml-1"></i>
         </button>
       </div>
@@ -800,12 +801,12 @@
     </section>
 
     <!-- PHASE 5: Scratch-Card Polaroid Gallery -->
-    <section id="phase-5" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-slate-950/60 backdrop-blur-2xl">
+    <section id="phase-5" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-white/25 backdrop-blur-2xl">
       
       <!-- Top header container -->
       <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
-        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide">Memory Lane</h1>
-        <p id="scratch-prompt" class="text-white/70 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
+        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">Memory Lane</h1>
+        <p id="scratch-prompt" class="text-slate-600 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
           Scratch off the golden foil coating on the polaroid below to unlock a sweet memory.
         </p>
       </div>
@@ -833,11 +834,11 @@
       <!-- Bottom container -->
       <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto">
         <div class="w-full flex justify-between items-center">
-          <span id="gallery-counter" class="text-[10px] text-white/40 font-bold uppercase tracking-wider">Photo 1 / 3</span>
-          <button id="btn-gallery-next" onclick="nextGalleryPhoto()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-6 py-2.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase">
+          <span id="gallery-counter" class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Photo 1 / 3</span>
+          <button id="btn-gallery-next" onclick="nextGalleryPhoto()" class="hidden bg-slate-900 hover:bg-slate-800 text-white font-sans font-bold px-6 py-2.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase">
             Next Photo <i class="fas fa-chevron-right ml-1"></i>
           </button>
-          <button id="btn-gallery-finish" onclick="nextPhase()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-6 py-2.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase">
+          <button id="btn-gallery-finish" onclick="nextPhase()" class="hidden bg-slate-900 hover:bg-slate-800 text-white font-sans font-bold px-6 py-2.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase">
             View Secret Letter <i class="fas fa-chevron-right ml-1"></i>
           </button>
         </div>
@@ -846,12 +847,12 @@
     </section>
 
     <!-- PHASE 6: Royal 3D Wax-Sealed Letter -->
-    <section id="phase-6" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-slate-950/60 backdrop-blur-2xl">
+    <section id="phase-6" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-white/25 backdrop-blur-2xl">
       
       <!-- Top header container -->
       <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
-        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide">A Secret Letter</h1>
-        <p id="letter-prompt" class="text-white/70 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
+        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">A Secret Letter</h1>
+        <p id="letter-prompt" class="text-slate-600 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
           A royal letter sealed with love. Tap the red wax heart seal to melt it and open the letter.
         </p>
       </div>
@@ -890,7 +891,7 @@
       <!-- Bottom container -->
       <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
         <!-- Letter Next Button -->
-        <button id="btn-letter-next" onclick="nextPhase()" class="hidden bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
+        <button id="btn-letter-next" onclick="nextPhase()" class="hidden bg-slate-900 hover:bg-slate-800 text-white font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
           Accept My Love <i class="fas fa-heart ml-1"></i>
         </button>
       </div>
@@ -898,12 +899,12 @@
     </section>
 
     <!-- PHASE 7: The Final Love Storm & Touch-Responsive Hearts -->
-    <section id="phase-7" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-slate-950/60 backdrop-blur-2xl">
+    <section id="phase-7" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-white/25 backdrop-blur-2xl">
       
       <!-- Top header container -->
       <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
-        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide">Happy Birthday!</h1>
-        <p class="text-white/70 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
+        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">Happy Birthday!</h1>
+        <p class="text-slate-600 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
           You have successfully completed all the steps!
         </p>
       </div>
@@ -911,14 +912,14 @@
       <!-- Middle final content container -->
       <div class="w-full max-w-sm flex-grow flex flex-col items-center justify-center z-15 py-4 pointer-events-auto">
         <!-- Big golden animated medal/gift -->
-        <div class="text-6xl text-white mb-6 animate-bounce">
+        <div class="text-6xl text-slate-700 mb-6 animate-bounce">
           <i class="fas fa-heart-circle-check"></i>
         </div>
-        <p class="text-white text-sm leading-relaxed mb-6 font-medium px-4">
+        <p class="text-slate-800 text-sm leading-relaxed mb-6 font-medium px-4">
           I hope this little microsite brought a big smile to your beautiful face.
         </p>
         <!-- Interactive storm note -->
-        <div class="bg-white/10 border border-white/20 rounded-xl p-4 text-xs text-white/60 italic leading-normal mx-4">
+        <div class="bg-white/70 border border-slate-200 rounded-xl p-4 text-xs text-slate-600 italic leading-normal mx-4">
           ✨ Hover or tap anywhere on the screen now to spawn custom floating kisses (💋) and sweet hearts (❤️) wherever you touch!
         </div>
       </div>
@@ -926,7 +927,7 @@
       <!-- Bottom container -->
       <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
         <!-- Replay button -->
-        <button onclick="restartSurprise()" class="bg-white hover:bg-slate-100 text-slate-950 font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
+        <button onclick="restartSurprise()" class="bg-slate-900 hover:bg-slate-800 text-white font-sans font-bold px-8 py-3.5 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
           <i class="fas fa-redo mr-1"></i> Replay Surprise
         </button>
       </div>
@@ -2073,8 +2074,8 @@
       const dragKnife = document.getElementById('drag-knife');
       dragKnife.style.transform = 'translateX(0px)';
       dragKnife.innerHTML = '<i class="fas fa-utensils"></i>';
-      dragKnife.className = "bg-white text-slate-950 rounded-full w-10 h-10 flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing text-lg z-20 absolute left-2 transition-all";
-      document.getElementById('knife-track').className = "relative w-full h-12 bg-white/10 border border-white/20 rounded-full flex items-center px-2 mb-4 pointer-events-none opacity-40";
+      dragKnife.className = "bg-slate-900 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing text-lg z-20 absolute left-2 transition-all";
+      document.getElementById('knife-track').className = "relative w-full h-12 bg-slate-200/50 border border-slate-300/30 rounded-full flex items-center px-2 mb-4 pointer-events-none opacity-40";
       
       isKnifeDragged = false;
       knifeOffsetX = 0;
