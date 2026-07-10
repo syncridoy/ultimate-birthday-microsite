@@ -269,6 +269,43 @@
       animation: spin-blender 0.12s linear infinite;
     }
     
+    /* Realistic Glowing Candle Flame */
+    .glowing-flame {
+      width: 10px;
+      height: 18px;
+      background: linear-gradient(to bottom, #ffffff 0%, #ffeb3b 25%, #ff9800 60%, #ff5722 100%);
+      border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+      box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ff9800, 0 0 30px #ff5722;
+      animation: flame-flicker 0.15s infinite alternate ease-in-out;
+      transform-origin: center bottom;
+      position: absolute;
+    }
+    @keyframes flame-flicker {
+      0% { transform: scale(1) rotate(-1deg); }
+      100% { transform: scale(1.05) rotate(1.5deg); }
+    }
+    /* Candle smoke effect */
+    .candle-smoke {
+      width: 4px;
+      height: 30px;
+      background: radial-gradient(circle, rgba(150, 150, 150, 0.4) 0%, rgba(150, 150, 150, 0) 70%);
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      filter: blur(1.5px);
+      pointer-events: none;
+    }
+    .animate-smoke {
+      animation: smoke-rise 2.2s ease-out forwards;
+    }
+    @keyframes smoke-rise {
+      0% { opacity: 0; transform: translate(-50%, 0) scale(1); }
+      10% { opacity: 0.8; }
+      100% { opacity: 0; transform: translate(-30%, -40px) scale(3.5); filter: blur(3px); }
+    }
+    
     .constellation-star.spawned {
       opacity: 1;
       transform: scale(1);
@@ -704,12 +741,10 @@
       
       <!-- Bottom button container -->
       <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
-        <!-- Next button (Clean Apple-Style Glass Pill) -->
         <button id="btn-balloons-next" onclick="nextPhase()" class="hidden bg-white/55 backdrop-blur-md text-slate-900 border border-white/60 hover:bg-white/75 font-sans font-bold px-8 py-3.5 rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
           Step Into the Bakery <i class="fas fa-chevron-right ml-1"></i>
         </button>
       </div>
-      
     </section>
 
     <!-- PHASE 4: Interactive Cake Baking & Cutting Ceremony -->
@@ -717,9 +752,9 @@
       
       <!-- Top header container -->
       <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
-        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">The Secret Recipe</h1>
+        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">Happy birthday</h1>
         <p id="cake-instruction" class="text-slate-600 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
-          Let's bake something special for you. Tap the ingredients to add them to the bowl!
+          to the one who lights up my life.
         </p>
       </div>
 
@@ -768,41 +803,32 @@
             </div>
           </div>
 
-          <!-- Baked Cake (Hidden Initially) -->
-          <div id="baked-cake" class="hidden flex flex-col items-center relative mt-8">
-            <!-- 3 candles SVG container -->
-            <div class="flex justify-center space-x-4 mb-2 absolute -top-8 left-1/2 -translate-x-1/2 z-10 w-24">
-              <div id="candle-1" onclick="lightCandle(1)" class="w-6 flex flex-col items-center cursor-pointer">
-                <!-- flame -->
-                <span id="flame-1" class="hidden text-red-500 text-sm animate-pulse"><i class="fas fa-fire"></i></span>
-                <div class="w-2 h-8 bg-blue-300 rounded"></div>
-              </div>
-              <div id="candle-2" onclick="lightCandle(2)" class="w-6 flex flex-col items-center cursor-pointer">
-                <span id="flame-2" class="hidden text-red-500 text-sm animate-pulse"><i class="fas fa-fire"></i></span>
-                <div class="w-2 h-8 bg-pink-300 rounded"></div>
-              </div>
-              <div id="candle-3" onclick="lightCandle(3)" class="w-6 flex flex-col items-center cursor-pointer">
-                <span id="flame-3" class="hidden text-red-500 text-sm animate-pulse"><i class="fas fa-fire"></i></span>
-                <div class="w-2 h-8 bg-green-300 rounded"></div>
-              </div>
+          <!-- Baked Cake (Hidden Initially) - Animates in from left -->
+          <div id="baked-cake" class="hidden flex flex-col items-center relative mt-4 transform -translate-x-[150%] transition-transform duration-1000 ease-out z-20">
+            <!-- Candle absolutely positioned on top of the cake image -->
+            <div id="cake-candle-wrapper" onclick="extinguishCandle()" class="absolute -top-12 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center select-none cursor-pointer">
+              <!-- Flame -->
+              <div id="candle-flame" class="glowing-flame" style="bottom: 12px;"></div>
+              <!-- Smoke (hidden initially) -->
+              <div id="candle-smoke" class="candle-smoke hidden"></div>
+              <!-- Candle Wick & Body -->
+              <div class="w-0.5 h-1.5 bg-slate-800"></div>
+              <div class="w-2 h-10 bg-gradient-to-r from-pink-300 via-pink-400 to-pink-300 rounded shadow-sm border border-pink-400/20"></div>
             </div>
-            <!-- 3 Tier Cake SVG -->
-            <svg class="w-32 h-24" viewBox="0 0 100 80">
-              <!-- Tier 3 -->
-              <rect x="15" y="55" width="70" height="20" rx="3" fill="#E0A899" />
-              <path d="M15 60 Q 50 63 85 60" fill="none" stroke="#FAF7F2" stroke-width="2"/>
-              <!-- Tier 2 -->
-              <rect x="25" y="35" width="50" height="20" rx="3" fill="#FCF6BA" />
-              <path d="M25 40 Q 50 43 75 40" fill="none" stroke="#E0A899" stroke-width="2"/>
-              <!-- Tier 1 -->
-              <rect x="35" y="15" width="30" height="20" rx="3" fill="#D4AF37" />
-              <!-- Frosting -->
-              <path d="M35 20 Q 50 23 65 20" fill="none" stroke="#FAF7F2" stroke-width="2"/>
-              <!-- Cherries -->
-              <circle cx="50" cy="15" r="3" fill="#9E2A2B"/>
-            </svg>
+            
+            <!-- Custom Cake Image (cake.png) -->
+            <img src="cake.png" alt="Birthday Cake" class="w-56 h-auto object-contain rounded-3xl shadow-2xl border border-white/45">
           </div>
         </div>
+
+        <!-- Happy Birthday Overlay Card inside phase -->
+        <div id="birthday-celebration-card" class="hidden w-full flex flex-col items-center px-4">
+          <h2 class="font-sans text-3xl font-extrabold text-slate-900 animate-bounce mb-2">Happy Birthday!</h2>
+          <p class="text-slate-600 text-xs mb-6">
+            Make a wish, blow out the candles, and let's check your memory lane...
+          </p>
+        </div>
+      </div>
 
         <!-- Cake Cutting Knife Slider -->
         <div id="knife-slider-area" class="hidden w-full flex flex-col items-center px-4">
@@ -1342,6 +1368,50 @@
     voiceoverAudio.loop = false;
     voiceoverAudio.volume = 0.95;
 
+    // Birthday Wish Voice Note Setup
+    let birthdayWishAudio = new Audio();
+    birthdayWishAudio.src = 'Birthdaywish.mp3';
+    birthdayWishAudio.loop = false;
+    birthdayWishAudio.volume = 0.95;
+    
+    let isCandleBlownOut = false;
+    birthdayWishAudio.addEventListener('timeupdate', () => {
+      // Auto-extinguish candle flame at exactly 37 seconds
+      if (birthdayWishAudio.currentTime >= 37 && !isCandleBlownOut) {
+        extinguishCandle();
+      }
+    });
+
+    function extinguishCandle() {
+      if (isCandleBlownOut) return;
+      isCandleBlownOut = true;
+      
+      const flame = document.getElementById('candle-flame');
+      const smoke = document.getElementById('candle-smoke');
+      
+      if (flame) {
+        flame.style.transition = 'all 0.4s ease-out';
+        flame.style.opacity = '0';
+        flame.style.transform = 'scale(0.1)';
+        setTimeout(() => flame.classList.add('hidden'), 400);
+      }
+      
+      if (smoke) {
+        smoke.classList.remove('hidden');
+        smoke.classList.add('animate-smoke');
+      }
+      
+      sound.playChime(1.2);
+      
+      // Restore background music volume back to normal (0.35)
+      music.audio.volume = 0.35;
+      
+      // Show next phase button to proceed
+      setTimeout(() => {
+        document.getElementById('btn-celebration-next').classList.remove('hidden');
+      }, 1500);
+    }
+
     // Upgraded high-fidelity, loud Apple marimba ringtone sequence
     class RingtonePlayer {
       constructor(synth) {
@@ -1558,6 +1628,19 @@
           break;
         case 4:
           initPhase4BakeCake();
+          
+          // Lower background music volume to 30% of normal (0.35 * 0.30 = 0.1)
+          music.audio.volume = 0.1;
+          
+          // Play birthday wish voice note
+          isCandleBlownOut = false;
+          birthdayWishAudio.currentTime = 0;
+          birthdayWishAudio.play().catch(e => console.log("Play blocked:", e));
+          
+          // Spawn surprise balloons and confetti
+          spawnSurpriseBalloons();
+          confetti.spawn();
+          setTimeout(() => confetti.spawn(), 1200);
           break;
         case 5:
           music.play(lastPlaylistTrack || selectedMusicUrl); // Resume correct playlist track
@@ -1581,6 +1664,57 @@
         icon.className = 'fas fa-volume-mute';
       } else {
         icon.className = 'fas fa-volume-up';
+      }
+    }
+
+    function spawnSurpriseBalloons() {
+      const colors = [
+        'rgba(255, 117, 140, 0.65)',
+        'rgba(79, 172, 254, 0.65)',
+        'rgba(245, 87, 108, 0.65)',
+        'rgba(253, 194, 219, 0.65)'
+      ];
+      
+      for (let i = 0; i < 4; i++) {
+        const balloon = document.createElement('div');
+        balloon.className = "absolute pointer-events-none z-20 transition-all";
+        balloon.style.width = '55px';
+        balloon.style.height = '70px';
+        balloon.style.borderRadius = '50% 50% 50% 50% / 40% 40% 60% 60%';
+        balloon.style.backgroundColor = colors[i];
+        balloon.style.backdropFilter = 'blur(4px)';
+        balloon.style.webkitBackdropFilter = 'blur(4px)';
+        balloon.style.border = '1.5px solid rgba(255, 255, 255, 0.4)';
+        balloon.style.boxShadow = 'inset 4px 4px 10px rgba(255, 255, 255, 0.5), 0 10px 20px rgba(0, 0, 0, 0.08)';
+        
+        const leftOffset = 15 + i * 22;
+        balloon.style.left = `${leftOffset}%`;
+        balloon.style.bottom = '-100px';
+        
+        const string = document.createElement('div');
+        string.className = "absolute bg-white/40 left-1/2 -translate-x-1/2";
+        string.style.width = '1.5px';
+        string.style.height = '45px';
+        string.style.bottom = '-45px';
+        balloon.appendChild(string);
+        
+        document.getElementById('phase-4').appendChild(balloon);
+        
+        const duration = 5000 + i * 800;
+        const delay = i * 400;
+        
+        balloon.style.transition = `bottom ${duration}ms cubic-bezier(0.25, 1, 0.5, 1) ${delay}ms, transform ${duration}ms ease-out ${delay}ms`;
+        
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            balloon.style.bottom = '115vh';
+            balloon.style.transform = `translateX(${(i % 2 === 0 ? 30 : -30)}px) rotate(${(i % 2 === 0 ? 10 : -10)}deg)`;
+          }, 50);
+        });
+        
+        setTimeout(() => {
+          balloon.remove();
+        }, duration + delay + 100);
       }
     }
 
@@ -2177,26 +2311,34 @@
       if (contentsEl) {
         contentsEl.innerHTML = '';
       }
-      document.getElementById('baked-cake').classList.add('hidden');
+      const bakedCake = document.getElementById('baked-cake');
+      if (bakedCake) {
+        bakedCake.classList.add('hidden');
+        bakedCake.classList.remove('translate-x-0');
+        bakedCake.classList.add('-translate-x-[150%]');
+      }
+      
       document.getElementById('btn-bake-action').classList.add('hidden');
       document.getElementById('knife-slider-area').classList.add('hidden');
       document.getElementById('birthday-celebration-card').classList.add('hidden');
+      document.getElementById('btn-celebration-next').classList.add('hidden');
       
-      document.getElementById('flame-1').classList.add('hidden');
-      document.getElementById('flame-2').classList.add('hidden');
-      document.getElementById('flame-3').classList.add('hidden');
+      // Reset custom candle and smoke
+      isCandleBlownOut = false;
+      const flame = document.getElementById('candle-flame');
+      if (flame) {
+        flame.classList.remove('hidden');
+        flame.style.opacity = '1';
+        flame.style.transform = 'none';
+      }
+      const smoke = document.getElementById('candle-smoke');
+      if (smoke) {
+        smoke.classList.add('hidden');
+        smoke.classList.remove('animate-smoke');
+      }
       
       document.getElementById('bowl-mix-status').innerHTML = '';
-      document.getElementById('cake-instruction').innerText = "Let's bake something special for you. Tap the ingredients to add them to the bowl!";
-      
-      const dragKnife = document.getElementById('drag-knife');
-      dragKnife.style.transform = 'translateX(0px)';
-      dragKnife.innerHTML = '<i class="fas fa-utensils"></i>';
-      dragKnife.className = "bg-white/60 backdrop-blur-md border border-white/50 text-slate-800 rounded-full w-10 h-10 flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing text-lg z-20 absolute left-2 transition-all";
-      document.getElementById('knife-track').className = "relative w-full h-12 bg-white/25 backdrop-blur-sm border border-white/40 rounded-full flex items-center px-2 mb-4 pointer-events-none opacity-40";
-      
-      isKnifeDragged = false;
-      knifeOffsetX = 0;
+      document.getElementById('cake-instruction').innerText = "to the one who lights up my life.";
     }
 
     function addIngredient(ing) {
@@ -2290,7 +2432,6 @@
       sound.playChime(0.8);
       document.getElementById('btn-bake-action').classList.add('hidden');
       
-      const jarEl = document.getElementById('blender-jar');
       const btnEl = document.getElementById('blender-btn');
       const ingredientsEl = document.getElementById('blender-ingredients');
       
@@ -2314,11 +2455,19 @@
         document.getElementById('ingredients-container').classList.add('hidden');
         document.getElementById('glass-blender').classList.add('hidden');
         
-        document.getElementById('baked-cake').classList.remove('hidden');
-        document.getElementById('knife-slider-area').classList.remove('hidden');
+        // Show baked cake container and trigger the slide-in animation from left
+        const bakedCake = document.getElementById('baked-cake');
+        if (bakedCake) {
+          bakedCake.classList.remove('hidden');
+          requestAnimationFrame(() => {
+            setTimeout(() => {
+              bakedCake.classList.remove('-translate-x-[150%]');
+              bakedCake.classList.add('translate-x-0');
+            }, 50);
+          });
+        }
         
-        document.getElementById('cake-instruction').innerText = "Happy Birthday! Slide the utensils to cut the cake!";
-        document.getElementById('knife-track').className = "relative w-full h-12 bg-white/25 backdrop-blur-sm border border-white/40 rounded-full flex items-center px-2 mb-4 pointer-events-auto opacity-100";
+        document.getElementById('cake-instruction').innerText = "to the one who lights up my life.";
       }, 1800);
     }
 
@@ -2748,6 +2897,8 @@
       
       voiceoverAudio.pause();
       voiceoverAudio.currentTime = 0;
+      birthdayWishAudio.pause();
+      birthdayWishAudio.currentTime = 0;
       music.stop();
       ringtone.stop();
       previewAudio.pause();
