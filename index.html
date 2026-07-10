@@ -804,20 +804,17 @@
           </div>
 
           <!-- Baked Cake (Hidden Initially) - Animates in from left -->
-          <div id="baked-cake" class="hidden flex flex-col items-center relative mt-4 transform -translate-x-[150%] transition-transform duration-1000 ease-out z-20">
-            <!-- Candle absolutely positioned on top of the cake image -->
-            <div id="cake-candle-wrapper" onclick="extinguishCandle()" class="absolute -top-12 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center select-none cursor-pointer">
+          <div id="baked-cake" class="hidden relative mt-4 transform -translate-x-[150%] transition-transform duration-1000 ease-out z-20 w-72 h-72">
+            <!-- Flame positioned exactly on the image's candle wick -->
+            <div id="cake-candle-wrapper" onclick="extinguishCandle()" class="absolute z-30 select-none cursor-pointer w-4 h-4" style="left: 60.8%; top: 3.5%; transform: translate(-50%, -50%);">
               <!-- Flame -->
-              <div id="candle-flame" class="glowing-flame" style="bottom: 12px;"></div>
+              <div id="candle-flame" class="glowing-flame" style="bottom: 8px; left: 50%; transform: translateX(-50%);"></div>
               <!-- Smoke (hidden initially) -->
-              <div id="candle-smoke" class="candle-smoke hidden"></div>
-              <!-- Candle Wick & Body -->
-              <div class="w-0.5 h-1.5 bg-slate-800"></div>
-              <div class="w-2 h-10 bg-gradient-to-r from-pink-300 via-pink-400 to-pink-300 rounded shadow-sm border border-pink-400/20"></div>
+              <div id="candle-smoke" class="candle-smoke hidden" style="bottom: 8px; left: 50%; transform: translateX(-50%);"></div>
             </div>
             
             <!-- Custom Cake Image (cake.png) -->
-            <img src="cake.png" alt="Birthday Cake" class="w-56 h-auto object-contain rounded-3xl shadow-2xl border border-white/45">
+            <img src="cake.png" alt="Birthday Cake" class="w-full h-full object-contain rounded-3xl shadow-2xl border border-white/45">
           </div>
         </div>
 
