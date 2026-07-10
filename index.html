@@ -888,146 +888,164 @@
         <div class="absolute left-1/2 -translate-x-1/2 w-0.5 top-10 bottom-24 border-l-2 border-dashed border-slate-400/35 z-0 pointer-events-none"></div>
 
         <!-- 1. Sundorban Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-2 -translate-x-6 w-72">
-          <!-- Labels Left (Date) & Right (Location) -->
-          <div class="absolute -top-7 right-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="far fa-calendar-alt text-slate-700"></i> <span>24 Mar 2025</span>
-          </div>
-          <!-- Colored Tape -->
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-10 bg-lime-400/70 border border-lime-300/30 rotate-2 shadow-sm z-20"></div>
-          <div class="absolute -top-7 left-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="fas fa-map-marker-alt text-slate-700"></i> <span>Sundorban</span>
-          </div>
-          
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-3 -translate-x-14 w-64">
           <!-- Polaroid Frame -->
-          <div class="bg-white p-3 pb-7 shadow-xl border border-white/60 rounded-xl w-60">
-            <div class="relative w-54 h-54 bg-slate-100 rounded overflow-hidden flex items-center justify-center">
-              <img class="w-full h-full object-cover" src="images/24Mar2025_Sundorban.jpg" alt="Sundorban Memory">
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#ecfccb" data-idx="0"></canvas>
+          <div class="bg-white pt-10 pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
+            <!-- Labels Inside Polaroid Frame (Top) -->
+            <div class="absolute top-6 left-2 right-2 flex justify-between pointer-events-none z-30">
+              <!-- Date -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="far fa-calendar-alt text-slate-500"></i> <span>24 Mar 2025</span>
+              </div>
+              <!-- Location -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="fas fa-map-marker-alt text-slate-500"></i> <span>Sundorban</span>
+              </div>
             </div>
-            <p class="font-serif text-[10px] text-slate-600 mt-4 text-center italic leading-relaxed">
-              Our adventurous escape into the deep green mangroves. 🌲
-            </p>
+            
+            <!-- Colored Tape -->
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-lime-400/70 border border-lime-300/30 rotate-2 shadow-sm z-30 pointer-events-none"></div>
+
+            <!-- Photo Canvas -->
+            <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
+              <img class="w-full h-full object-cover" src="images/24Mar2025_Sundorban.jpg" alt="Sundorban Memory">
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#ecfccb" data-idx="0" data-caption="Our adventurous escape into the deep green mangroves. 🌲"></canvas>
+            </div>
           </div>
         </div>
 
         <!-- 2. Jashore Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-3 translate-x-6 w-72">
-          <!-- Labels Left (Date) & Right (Location) -->
-          <div class="absolute -top-7 right-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="far fa-calendar-alt text-slate-700"></i> <span>31 Mar 2025</span>
-          </div>
-          <!-- Colored Tape -->
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-10 bg-pink-400/70 border border-pink-300/30 -rotate-3 shadow-sm z-20"></div>
-          <div class="absolute -top-7 left-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="fas fa-map-marker-alt text-slate-700"></i> <span>Jashore</span>
-          </div>
-          
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-3 translate-x-14 w-64">
           <!-- Polaroid Frame -->
-          <div class="bg-white p-3 pb-7 shadow-xl border border-white/60 rounded-xl w-60">
-            <div class="relative w-54 h-54 bg-slate-100 rounded overflow-hidden flex items-center justify-center">
-              <img class="w-full h-full object-cover" src="images/31Mar2025Jashore.jpg" alt="Jashore Memory">
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#fce7f3" data-idx="1"></canvas>
+          <div class="bg-white pt-10 pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
+            <!-- Labels Inside Polaroid Frame (Top) -->
+            <div class="absolute top-6 left-2 right-2 flex justify-between pointer-events-none z-30">
+              <!-- Date -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="far fa-calendar-alt text-slate-500"></i> <span>31 Mar 2025</span>
+              </div>
+              <!-- Location -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="fas fa-map-marker-alt text-slate-500"></i> <span>Jashore</span>
+              </div>
             </div>
-            <p class="font-serif text-[10px] text-slate-600 mt-4 text-center italic leading-relaxed">
-              Sweet quiet moments, just you and me. 🌸
-            </p>
+            
+            <!-- Colored Tape -->
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-pink-400/70 border border-pink-300/30 -rotate-3 shadow-sm z-30 pointer-events-none"></div>
+
+            <!-- Photo Canvas -->
+            <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
+              <img class="w-full h-full object-cover" src="images/31Mar2025Jashore.jpg" alt="Jashore Memory">
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#fce7f3" data-idx="1" data-caption="Sweet quiet moments, just you and me. 🌸"></canvas>
+            </div>
           </div>
         </div>
 
         <!-- 3. JessGarden Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-1 -translate-x-4 w-72">
-          <!-- Labels Left (Date) & Right (Location) -->
-          <div class="absolute -top-7 right-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="far fa-calendar-alt text-slate-700"></i> <span>04 Apr 2025</span>
-          </div>
-          <!-- Colored Tape -->
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-10 bg-cyan-400/70 border border-cyan-300/30 rotate-1 shadow-sm z-20"></div>
-          <div class="absolute -top-7 left-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="fas fa-map-marker-alt text-slate-700"></i> <span>Jess Garden</span>
-          </div>
-          
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-1 -translate-x-12 w-64">
           <!-- Polaroid Frame -->
-          <div class="bg-white p-3 pb-7 shadow-xl border border-white/60 rounded-xl w-60">
-            <div class="relative w-54 h-54 bg-slate-100 rounded overflow-hidden flex items-center justify-center">
-              <img class="w-full h-full object-cover" src="images/04Apr2025_JessGarden.jpg" alt="Jess Garden Memory">
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#e0f2fe" data-idx="2"></canvas>
+          <div class="bg-white pt-10 pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
+            <!-- Labels Inside Polaroid Frame (Top) -->
+            <div class="absolute top-6 left-2 right-2 flex justify-between pointer-events-none z-30">
+              <!-- Date -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="far fa-calendar-alt text-slate-500"></i> <span>04 Apr 2025</span>
+              </div>
+              <!-- Location -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="fas fa-map-marker-alt text-slate-500"></i> <span>Jess Garden</span>
+              </div>
             </div>
-            <p class="font-serif text-[10px] text-slate-600 mt-4 text-center italic leading-relaxed">
-              Walking through the flowers, hand in hand. 🌷
-            </p>
+            
+            <!-- Colored Tape -->
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-cyan-400/70 border border-cyan-300/30 rotate-1 shadow-sm z-30 pointer-events-none"></div>
+
+            <!-- Photo Canvas -->
+            <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
+              <img class="w-full h-full object-cover" src="images/04Apr2025_JessGarden.jpg" alt="Jess Garden Memory">
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#e0f2fe" data-idx="2" data-caption="Walking through the flowers, hand in hand. 🌷"></canvas>
+            </div>
           </div>
         </div>
 
         <!-- 4. Noapara Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-2 translate-x-6 w-72">
-          <!-- Labels Left (Date) & Right (Location) -->
-          <div class="absolute -top-7 right-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="far fa-calendar-alt text-slate-700"></i> <span>03 May 2025</span>
-          </div>
-          <!-- Colored Tape -->
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-10 bg-amber-400/70 border border-amber-300/30 -rotate-2 shadow-sm z-20"></div>
-          <div class="absolute -top-7 left-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="fas fa-map-marker-alt text-slate-700"></i> <span>Noapara</span>
-          </div>
-          
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-2 translate-x-12 w-64">
           <!-- Polaroid Frame -->
-          <div class="bg-white p-3 pb-7 shadow-xl border border-white/60 rounded-xl w-60">
-            <div class="relative w-54 h-54 bg-slate-100 rounded overflow-hidden flex items-center justify-center">
-              <img class="w-full h-full object-cover" src="images/03May2025_Noapara.jpg" alt="Noapara Memory">
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#fef3c7" data-idx="3"></canvas>
+          <div class="bg-white pt-10 pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
+            <!-- Labels Inside Polaroid Frame (Top) -->
+            <div class="absolute top-6 left-2 right-2 flex justify-between pointer-events-none z-30">
+              <!-- Date -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="far fa-calendar-alt text-slate-500"></i> <span>03 May 2025</span>
+              </div>
+              <!-- Location -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="fas fa-map-marker-alt text-slate-500"></i> <span>Noapara</span>
+              </div>
             </div>
-            <p class="font-serif text-[10px] text-slate-600 mt-4 text-center italic leading-relaxed">
-              That warm, unforgettable Noapara hug. 🫂
-            </p>
+            
+            <!-- Colored Tape -->
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-amber-400/70 border border-amber-300/30 -rotate-2 shadow-sm z-30 pointer-events-none"></div>
+
+            <!-- Photo Canvas -->
+            <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
+              <img class="w-full h-full object-cover" src="images/03May2025_Noapara.jpg" alt="Noapara Memory">
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#fef3c7" data-idx="3" data-caption="That warm, unforgettable Noapara hug. 🫂"></canvas>
+            </div>
           </div>
         </div>
 
         <!-- 5. Binodia 1 Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-3 -translate-x-5 w-72">
-          <!-- Labels Left (Date) & Right (Location) -->
-          <div class="absolute -top-7 right-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="far fa-calendar-alt text-slate-700"></i> <span>06 May 2025</span>
-          </div>
-          <!-- Colored Tape -->
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-10 bg-purple-400/70 border border-purple-300/30 rotate-3 shadow-sm z-20"></div>
-          <div class="absolute -top-7 left-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="fas fa-map-marker-alt text-slate-700"></i> <span>Binodia</span>
-          </div>
-          
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-3 -translate-x-14 w-64">
           <!-- Polaroid Frame -->
-          <div class="bg-white p-3 pb-7 shadow-xl border border-white/60 rounded-xl w-60">
-            <div class="relative w-54 h-54 bg-slate-100 rounded overflow-hidden flex items-center justify-center">
-              <img class="w-full h-full object-cover" src="images/06May2025_Binodia.jpg" alt="Binodia Memory">
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#f3e8ff" data-idx="4"></canvas>
+          <div class="bg-white pt-10 pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
+            <!-- Labels Inside Polaroid Frame (Top) -->
+            <div class="absolute top-6 left-2 right-2 flex justify-between pointer-events-none z-30">
+              <!-- Date -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="far fa-calendar-alt text-slate-500"></i> <span>06 May 2025</span>
+              </div>
+              <!-- Location -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="fas fa-map-marker-alt text-slate-500"></i> <span>Binodia</span>
+              </div>
             </div>
-            <p class="font-serif text-[10px] text-slate-600 mt-4 text-center italic leading-relaxed">
-              Laughter echoing in the serene fields of Binodia. 🌾
-            </p>
+            
+            <!-- Colored Tape -->
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-purple-400/70 border border-purple-300/30 rotate-3 shadow-sm z-30 pointer-events-none"></div>
+
+            <!-- Photo Canvas -->
+            <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
+              <img class="w-full h-full object-cover" src="images/06May2025_Binodia.jpg" alt="Binodia Memory">
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#f3e8ff" data-idx="4" data-caption="Laughter echoing in the serene fields of Binodia. 🌾"></canvas>
+            </div>
           </div>
         </div>
 
         <!-- 6. Binodia 2 Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-1 translate-x-4 w-72">
-          <!-- Labels Left (Date) & Right (Location) -->
-          <div class="absolute -top-7 right-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="far fa-calendar-alt text-slate-700"></i> <span>23 May 2025</span>
-          </div>
-          <!-- Colored Tape -->
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-10 bg-emerald-400/70 border border-emerald-300/30 -rotate-1 shadow-sm z-20"></div>
-          <div class="absolute -top-7 left-[58%] bg-white/40 backdrop-blur-sm border border-white/50 rounded-full px-2.5 py-1 text-[8.5px] font-bold text-slate-800 shadow-sm flex items-center space-x-1 whitespace-nowrap">
-            <i class="fas fa-map-marker-alt text-slate-700"></i> <span>Binodia</span>
-          </div>
-          
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-1 translate-x-14 w-64">
           <!-- Polaroid Frame -->
-          <div class="bg-white p-3 pb-7 shadow-xl border border-white/60 rounded-xl w-60">
-            <div class="relative w-54 h-54 bg-slate-100 rounded overflow-hidden flex items-center justify-center">
-              <img class="w-full h-full object-cover" src="images/23May2025_Binodia.jpg" alt="Binodia Memory 2">
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#dcfce7" data-idx="5"></canvas>
+          <div class="bg-white pt-10 pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
+            <!-- Labels Inside Polaroid Frame (Top) -->
+            <div class="absolute top-6 left-2 right-2 flex justify-between pointer-events-none z-30">
+              <!-- Date -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="far fa-calendar-alt text-slate-500"></i> <span>23 May 2025</span>
+              </div>
+              <!-- Location -->
+              <div class="bg-slate-100/90 border border-slate-200/40 rounded-full px-1.5 py-0.5 text-[7px] font-extrabold text-slate-700/80 shadow-sm flex items-center space-x-0.5 whitespace-nowrap">
+                <i class="fas fa-map-marker-alt text-slate-500"></i> <span>Binodia</span>
+              </div>
             </div>
-            <p class="font-serif text-[10px] text-slate-600 mt-4 text-center italic leading-relaxed">
-              Chasing sunsets and making forever promises. 🌅
-            </p>
+            
+            <!-- Colored Tape -->
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-emerald-400/70 border border-emerald-300/30 -rotate-1 shadow-sm z-30 pointer-events-none"></div>
+
+            <!-- Photo Canvas -->
+            <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
+              <img class="w-full h-full object-cover" src="images/23May2025_Binodia.jpg" alt="Binodia Memory 2">
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#dcfce7" data-idx="5" data-caption="Chasing sunsets and making forever promises. 🌅"></canvas>
+            </div>
           </div>
         </div>
 
@@ -2870,6 +2888,36 @@
     let activeCtx = null;
     let activeIdx = null;
 
+    function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
+      ctx.fillStyle = '#334155'; // Slate-700 for elegant dark text contrast
+      ctx.font = 'italic 11px Georgia, serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      const words = text.split(' ');
+      let line = '';
+      const lines = [];
+
+      for (let n = 0; n < words.length; n++) {
+        let testLine = line + words[n] + ' ';
+        let metrics = ctx.measureText(testLine);
+        let testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+          lines.push(line);
+          line = words[n] + ' ';
+        } else {
+          line = testLine;
+        }
+      }
+      lines.push(line);
+
+      let startY = y - ((lines.length - 1) * lineHeight) / 2;
+
+      for (let k = 0; k < lines.length; k++) {
+        ctx.fillText(lines[k].trim(), x, startY + (k * lineHeight));
+      }
+    }
+
     function initPhase5ScratchGallery() {
       cardsRevealed = [false, false, false, false, false, false];
       isScratching = false;
@@ -2888,9 +2936,9 @@
         canvas.style.opacity = '1';
         canvas.style.transition = 'none';
 
-        // Set dimensions matching container
-        canvas.width = canvas.offsetWidth || 216;
-        canvas.height = canvas.offsetHeight || 216;
+        // Set dimensions matching container (w-46 is 184px)
+        canvas.width = canvas.offsetWidth || 184;
+        canvas.height = canvas.offsetHeight || 184;
 
         const ctx = canvas.getContext('2d');
         const color = canvas.getAttribute('data-color') || '#e2e8f0';
@@ -2900,9 +2948,15 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // Add visual foil texture noise (light white speckles)
-        for (let i = 0; i < 400; i++) {
-          ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.35})`;
-          ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5);
+        for (let i = 0; i < 300; i++) {
+          ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.3})`;
+          ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.2, 1.2);
+        }
+
+        // Draw caption text directly on the canvas cover so it scratches off physically
+        const caption = canvas.getAttribute('data-caption') || '';
+        if (caption) {
+          drawWrappedText(ctx, caption, canvas.width / 2, canvas.height / 2, canvas.width - 24, 14);
         }
 
         // Setup pointer event listeners for this canvas
@@ -2965,9 +3019,17 @@
       const x = clientX - rect.left;
       const y = clientY - rect.top;
 
+      // Soft feathered brush using radial gradient
+      const radius = 32; 
+      const grad = activeCtx.createRadialGradient(x, y, 6, x, y, radius);
+      grad.addColorStop(0, 'rgba(0, 0, 0, 1)');      // fully transparent in destination-out
+      grad.addColorStop(0.6, 'rgba(0, 0, 0, 0.7)');  // feathered transition
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');      // untouched
+
       activeCtx.globalCompositeOperation = 'destination-out';
+      activeCtx.fillStyle = grad;
       activeCtx.beginPath();
-      activeCtx.arc(x, y, 22, 0, Math.PI * 2); // Slightly larger arc for a smoother scratch reveal
+      activeCtx.arc(x, y, radius, 0, Math.PI * 2);
       activeCtx.fill();
 
       if (Math.random() < 0.25) {
@@ -2990,7 +3052,7 @@
       }
 
       const percent = (transparentPixels / (data.length / 4)) * 100;
-      if (percent >= 45) { // 45% scratched triggers full fade-out
+      if (percent >= 30) { // 30% scratched triggers full automatic reveal
         cardsRevealed[idx] = true;
         canvas.style.transition = 'opacity 0.6s ease';
         canvas.style.opacity = '0';
