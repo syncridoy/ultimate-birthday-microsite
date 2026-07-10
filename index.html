@@ -831,15 +831,15 @@
             </div>
 
             <!-- Light opacity instruction text overlaid on the cake inside a glass pill box -->
-            <div id="cut-instruction-text" class="hidden absolute inset-x-6 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm border border-white/45 rounded-full py-2.5 select-none z-30 pointer-events-none text-center animate-pulse transition-opacity duration-500 shadow-sm flex items-center justify-center">
-              <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-800/60 pl-8">
+            <div id="cut-instruction-text" class="hidden absolute inset-x-6 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm border border-white/45 rounded-full h-12 select-none z-30 pointer-events-auto flex items-center justify-center shadow-sm">
+              <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-800/60 pl-8 pointer-events-none animate-pulse">
                 Swipe knife right to slice ➜
               </span>
-            </div>
-
-            <!-- Knife overlaying the cake directly -->
-            <div id="drag-knife" class="hidden absolute z-40 cursor-grab active:cursor-grabbing select-none text-5xl transition-all duration-500" style="left: 12%; top: 50%; transform: translate(-50%, -50%) rotate(-45deg);">
-              🔪
+              
+              <!-- Knife inside the track, perfectly vertically centered and bounded -->
+              <div id="drag-knife" class="absolute left-2 top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing select-none text-2xl w-8 h-8 bg-white/60 backdrop-blur-md border border-white/50 rounded-full flex items-center justify-center shadow transition-all duration-300">
+                🔪
+              </div>
             </div>
           </div>
         </div>
@@ -2353,7 +2353,7 @@
       }
       if (dragKnife) {
         dragKnife.classList.add('hidden');
-        dragKnife.style.left = '12%';
+        dragKnife.style.transform = 'translateY(-50%) translateX(0px)';
         dragKnife.style.transition = 'none';
       }
       if (cutText) {
@@ -2550,6 +2550,9 @@
       isKnifeDragged = true;
       const dragKnife = document.getElementById('drag-knife');
       if (dragKnife) dragKnife.style.transition = 'none';
+      
+      const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+      dragKnifeStartX = clientX - knifeOffsetX;
     }
 
     function knifeDrag(e) {
@@ -2557,24 +2560,23 @@
       if (e.type === 'touchmove') e.preventDefault();
       
       const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
-      const bakedCake = document.getElementById('baked-cake');
+      const trackEl = document.getElementById('cut-instruction-text');
       const dragKnife = document.getElementById('drag-knife');
-      if (!bakedCake || !dragKnife) return;
+      if (!trackEl || !dragKnife) return;
       
-      const cakeRect = bakedCake.getBoundingClientRect();
+      const trackRect = trackEl.getBoundingClientRect();
+      const knifeRect = dragKnife.getBoundingClientRect();
+      // left-2 is 8px margin. Right margin is 8px.
+      const maxDelta = trackRect.width - knifeRect.width - 16;
       
-      // Calculate relative X coordinate inside the cake container
-      let relativeX = clientX - cakeRect.left;
-      let percentX = (relativeX / cakeRect.width) * 100;
+      let deltaX = clientX - dragKnifeStartX;
+      if (deltaX < 0) deltaX = 0;
+      if (deltaX > maxDelta) deltaX = maxDelta;
       
-      // Constrain drag between 12% and 75%
-      if (percentX < 12) percentX = 12;
-      if (percentX > 75) percentX = 75;
+      knifeOffsetX = deltaX;
+      dragKnife.style.transform = `translateY(-50%) translateX(${deltaX}px)`;
       
-      dragKnife.style.left = `${percentX}%`;
-      
-      // Check if sliced fully to the right (>= 70%)
-      if (percentX >= 70) {
+      if (knifeOffsetX >= maxDelta - 5) {
         triggerCakeCut();
       }
     }
@@ -2584,13 +2586,17 @@
       isKnifeDragged = false;
       
       const dragKnife = document.getElementById('drag-knife');
-      if (!dragKnife) return;
+      const trackEl = document.getElementById('cut-instruction-text');
+      if (!dragKnife || !trackEl) return;
       
-      // If not fully sliced, snap back to initial position (12%)
-      const currentLeft = parseFloat(dragKnife.style.left) || 12;
-      if (currentLeft < 70) {
-        dragKnife.style.transition = 'left 0.4s ease';
-        dragKnife.style.left = '12%';
+      const trackRect = trackEl.getBoundingClientRect();
+      const knifeRect = dragKnife.getBoundingClientRect();
+      const maxDelta = trackRect.width - knifeRect.width - 16;
+      
+      if (knifeOffsetX < maxDelta - 5) {
+        dragKnife.style.transition = 'transform 0.4s ease';
+        knifeOffsetX = 0;
+        dragKnife.style.transform = 'translateY(-50%) translateX(0px)';
       }
     }
 
