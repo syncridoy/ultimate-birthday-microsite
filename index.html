@@ -884,8 +884,13 @@
       <!-- Scrolling timeline container -->
       <div class="w-full max-w-md mx-auto relative flex flex-col items-center justify-start pointer-events-auto pb-24 mt-6">
         
-        <!-- Curved dashed connecting vertical path line -->
-        <div class="absolute left-1/2 -translate-x-1/2 w-0.5 top-10 bottom-24 border-l-2 border-dashed border-slate-400/35 z-0 pointer-events-none"></div>
+        <!-- Curved glassmorphic connecting zig-zag timeline path -->
+        <svg class="absolute inset-x-0 top-10 bottom-24 w-full h-[calc(100%-140px)] pointer-events-none z-0" preserveAspectRatio="none" viewBox="0 0 100 100">
+          <!-- Glass Tube Base Layer (semi-transparent white) -->
+          <path d="M 38,3 C 75,11 75,13 62,20 C 25,27 25,29 38,36 C 75,43 75,45 62,52 C 25,59 25,61 38,68 C 75,75 75,77 62,84" fill="none" stroke="rgba(255, 255, 255, 0.35)" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+          <!-- Fine inner dashed highlight line -->
+          <path d="M 38,3 C 75,11 75,13 62,20 C 25,27 25,29 38,36 C 75,43 75,45 62,52 C 25,59 25,61 38,68 C 75,75 75,77 62,84" fill="none" stroke="rgba(255, 255, 255, 0.75)" stroke-width="1.5" stroke-dasharray="4,6" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+        </svg>
 
         <!-- 1. Sundorban Card -->
         <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-3 -translate-x-14 w-64">
