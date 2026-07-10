@@ -824,13 +824,15 @@
               <div id="candle-smoke" class="candle-smoke hidden" style="bottom: 8px; left: 50%; transform: translateX(-50%);"></div>
             </div>
 
-            <!-- Light opacity instruction text overlaid on the cake -->
-            <div id="cut-instruction-text" class="hidden absolute inset-x-0 top-[65%] text-[10px] font-extrabold uppercase tracking-widest text-slate-800/40 select-none z-30 pointer-events-none text-center animate-pulse transition-opacity duration-500">
-              Swipe knife right to slice ➜
+            <!-- Light opacity instruction text overlaid on the cake inside a glass pill box -->
+            <div id="cut-instruction-text" class="hidden absolute inset-x-6 top-[68%] bg-white/30 backdrop-blur-sm border border-white/45 rounded-full py-1.5 select-none z-30 pointer-events-none text-center animate-pulse transition-opacity duration-500 shadow-sm">
+              <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-800/60">
+                Swipe knife right to slice ➜
+              </span>
             </div>
 
             <!-- Knife overlaying the cake directly -->
-            <div id="drag-knife" class="hidden absolute z-40 cursor-grab active:cursor-grabbing select-none text-3xl transition-all duration-500" style="left: 15%; top: 50%; transform: translate(-50%, -50%) rotate(-45deg);">
+            <div id="drag-knife" class="hidden absolute z-40 cursor-grab active:cursor-grabbing select-none text-5xl transition-all duration-500" style="left: 10%; top: 50%; transform: translate(-50%, -50%) rotate(-45deg);">
               🔪
             </div>
           </div>
@@ -2345,7 +2347,7 @@
       }
       if (dragKnife) {
         dragKnife.classList.add('hidden');
-        dragKnife.style.left = '15%';
+        dragKnife.style.left = '10%';
         dragKnife.style.transition = 'none';
       }
       if (cutText) {
@@ -2559,8 +2561,8 @@
       let relativeX = clientX - cakeRect.left;
       let percentX = (relativeX / cakeRect.width) * 100;
       
-      // Constrain drag between 15% and 75%
-      if (percentX < 15) percentX = 15;
+      // Constrain drag between 10% and 75%
+      if (percentX < 10) percentX = 10;
       if (percentX > 75) percentX = 75;
       
       dragKnife.style.left = `${percentX}%`;
@@ -2578,11 +2580,11 @@
       const dragKnife = document.getElementById('drag-knife');
       if (!dragKnife) return;
       
-      // If not fully sliced, snap back to initial position (15%)
-      const currentLeft = parseFloat(dragKnife.style.left) || 15;
+      // If not fully sliced, snap back to initial position (10%)
+      const currentLeft = parseFloat(dragKnife.style.left) || 10;
       if (currentLeft < 70) {
         dragKnife.style.transition = 'left 0.4s ease';
-        dragKnife.style.left = '15%';
+        dragKnife.style.left = '10%';
       }
     }
 
@@ -2612,7 +2614,6 @@
         candleWrapper.style.transform = 'translate(calc(-50% + 18px), calc(-50% + 12px)) rotate(3deg)';
       }
       
-      sound.playPop();
       sound.playChime(1.5);
       
       // Stop birthday wish voice note and restore background music volume
