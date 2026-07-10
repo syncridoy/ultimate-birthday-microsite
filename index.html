@@ -808,12 +808,18 @@
             
             <!-- LEFT HALF OF THE CAKE -->
             <div id="cake-left-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(0 0, 58% 0, 58% 100%, 0 100%);">
-              <img src="cake.png" alt="Cake Left" class="w-full h-full object-contain">
+              <!-- Outer card box wrapper with border/shadow (no clip-path to prevent ghost lines) -->
+              <div class="w-full h-full bg-white/20 backdrop-blur-md border border-white/45 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden">
+                <img src="cake.png" alt="Cake Left" class="w-full h-full object-contain">
+              </div>
             </div>
 
             <!-- RIGHT HALF OF THE CAKE -->
             <div id="cake-right-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(58% 0, 100% 0, 100% 100%, 58% 100%);">
-              <img src="cake.png" alt="Cake Right" class="w-full h-full object-contain">
+              <!-- Outer card box wrapper with border/shadow (no clip-path to prevent ghost lines) -->
+              <div class="w-full h-full bg-white/20 backdrop-blur-md border border-white/45 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden">
+                <img src="cake.png" alt="Cake Right" class="w-full h-full object-contain">
+              </div>
             </div>
 
             <!-- Flame positioned exactly on the image's candle wick -->
