@@ -809,7 +809,7 @@
             <!-- LEFT HALF OF THE CAKE -->
             <div id="cake-left-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(0 0, 58% 0, 58% 100%, 0 100%);">
               <!-- Outer card box wrapper with border/shadow (no clip-path to prevent ghost lines) -->
-              <div class="w-full h-full bg-white/20 backdrop-blur-md border border-white/45 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden">
+              <div class="w-full h-full bg-white/20 backdrop-blur-md border border-white/45 rounded-3xl flex items-center justify-center overflow-hidden">
                 <img src="cake.png" alt="Cake Left" class="w-full h-full object-contain">
               </div>
             </div>
@@ -817,7 +817,7 @@
             <!-- RIGHT HALF OF THE CAKE -->
             <div id="cake-right-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(58% 0, 100% 0, 100% 100%, 58% 100%);">
               <!-- Outer card box wrapper with border/shadow (no clip-path to prevent ghost lines) -->
-              <div class="w-full h-full bg-white/20 backdrop-blur-md border border-white/45 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden">
+              <div class="w-full h-full bg-white/20 backdrop-blur-md border border-white/45 rounded-3xl flex items-center justify-center overflow-hidden">
                 <img src="cake.png" alt="Cake Right" class="w-full h-full object-contain">
               </div>
             </div>
@@ -831,13 +831,13 @@
             </div>
 
             <!-- Light opacity instruction text overlaid on the cake inside a glass pill box -->
-            <div id="cut-instruction-text" class="hidden absolute inset-x-6 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm border border-white/45 rounded-full h-12 select-none z-30 pointer-events-auto flex items-center justify-center shadow-sm">
+            <div id="cut-instruction-text" class="hidden absolute inset-x-6 top-1/2 -translate-y-1/2 bg-white/15 border border-white/30 rounded-full h-12 select-none z-30 pointer-events-auto flex items-center justify-center shadow-sm">
               <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-800/60 pl-8 pointer-events-none animate-pulse">
                 Swipe knife right to slice ➜
               </span>
               
-              <!-- Knife inside the track, perfectly vertically centered and bounded -->
-              <div id="drag-knife" class="absolute left-2 top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing select-none text-2xl w-8 h-8 bg-white/60 backdrop-blur-md border border-white/50 rounded-full flex items-center justify-center shadow transition-all duration-300">
+              <!-- Knife inside the track, perfectly transparent and bounded -->
+              <div id="drag-knife" class="absolute left-2 top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing select-none text-3xl transition-all duration-300">
                 🔪
               </div>
             </div>
