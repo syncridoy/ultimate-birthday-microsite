@@ -790,7 +790,7 @@
               
               <!-- Ingredients container inside the jar -->
               <div id="blender-ingredients" class="w-full h-full relative overflow-visible flex items-center justify-center">
-                <!-- Popped/collected ingredients will fly and sit here -->
+                <!-- collected ingredients will fly and sit here -->
               </div>
             </div>
             
@@ -818,25 +818,16 @@
           </div>
         </div>
 
-        <!-- Happy Birthday Overlay Card inside phase -->
-        <div id="birthday-celebration-card" class="hidden w-full flex flex-col items-center px-4">
-          <h2 class="font-sans text-3xl font-extrabold text-slate-900 animate-bounce mb-2">Happy Birthday!</h2>
-          <p class="text-slate-600 text-xs mb-6">
-            Make a wish, blow out the candles, and let's check your memory lane...
+        <!-- Cake Cutting Knife Slider (Aesthetic design with 🔪 icon) -->
+        <div id="knife-slider-area" class="hidden w-full flex flex-col items-center px-4 max-w-[280px]">
+          <p class="text-[10px] text-slate-500 font-bold mb-3 tracking-wide transition-all select-none">
+            ✨ Wait for the wish to unlock the cake cutting ceremony!
           </p>
-        </div>
-      </div>
-
-        <!-- Cake Cutting Knife Slider -->
-        <div id="knife-slider-area" class="hidden w-full flex flex-col items-center px-4">
-          <p class="text-xs text-slate-500 font-bold mb-4 blink">
-            🕯️ Light all 3 candles by tapping them to unlock the knife!
-          </p>
-          <div id="knife-track" class="relative w-full h-12 bg-white/25 backdrop-blur-sm border border-white/40 rounded-full flex items-center px-2 mb-4 pointer-events-none opacity-40">
-            <div id="drag-knife" class="bg-white/60 backdrop-blur-md border border-white/50 text-slate-800 rounded-full w-10 h-10 flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing text-lg z-20 absolute left-2 transition-all">
-              <i class="fas fa-utensils"></i>
+          <div id="knife-track" class="relative w-full h-12 bg-white/25 backdrop-blur-sm border border-white/40 rounded-full flex items-center px-2 pointer-events-none opacity-40 overflow-hidden">
+            <div id="drag-knife" class="bg-white/60 backdrop-blur-md border border-white/50 text-slate-800 rounded-full w-10 h-10 flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing text-lg z-20 absolute left-2 transition-all select-none">
+              🔪
             </div>
-            <span id="knife-track-text" class="text-[10px] text-slate-500 font-bold tracking-wider uppercase select-none w-full text-center pl-10 pr-2">
+            <span id="knife-track-text" class="text-[9px] text-slate-500 font-extrabold tracking-widest uppercase select-none w-full text-center pl-10 pr-2 z-10 pointer-events-none">
               Slide knife right to cut cake
             </span>
           </div>
@@ -857,7 +848,7 @@
         <button id="btn-bake-action" onclick="bakeCake()" class="hidden bg-white/55 backdrop-blur-md text-slate-900 border border-white/60 hover:bg-white/75 font-sans font-bold px-8 py-3.5 rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
           <i class="fas fa-fire-burner mr-1"></i> Bake the Cake
         </button>
-        <!-- Proceed button (Happy Birthday) -->
+        <!-- Proceed button (Happy Birthday - kept hidden) -->
         <button id="btn-celebration-next" onclick="nextPhase()" class="hidden bg-white/55 backdrop-blur-md text-slate-900 border border-white/60 hover:bg-white/75 font-sans font-bold px-8 py-3.5 rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
           Reveal Memories <i class="fas fa-chevron-right ml-1"></i>
         </button>
@@ -1372,10 +1363,24 @@
     birthdayWishAudio.volume = 0.95;
     
     let isCandleBlownOut = false;
+    let isKnifeUnlocked = false;
+    
     birthdayWishAudio.addEventListener('timeupdate', () => {
       // Auto-extinguish candle flame at exactly 37 seconds
       if (birthdayWishAudio.currentTime >= 37 && !isCandleBlownOut) {
         extinguishCandle();
+      }
+      
+      // Auto-unlock knife slider at exactly 43 seconds
+      if (birthdayWishAudio.currentTime >= 43 && !isKnifeUnlocked) {
+        isKnifeUnlocked = true;
+        
+        // Show knife slider area
+        const sliderArea = document.getElementById('knife-slider-area');
+        if (sliderArea) {
+          sliderArea.classList.remove('hidden');
+        }
+        unlockKnifeSlider();
       }
     });
 
@@ -1399,14 +1404,6 @@
       }
       
       sound.playChime(1.2);
-      
-      // Restore background music volume back to normal (0.35)
-      music.audio.volume = 0.35;
-      
-      // Show next phase button to proceed
-      setTimeout(() => {
-        document.getElementById('btn-celebration-next').classList.remove('hidden');
-      }, 1500);
     }
 
     // Upgraded high-fidelity, loud Apple marimba ringtone sequence
@@ -2500,14 +2497,20 @@
     window.addEventListener('touchend', stopKnifeDrag);
 
     function unlockKnifeSlider() {
-      knifeTrack.classList.remove('pointer-events-none', 'opacity-40');
-      knifeTrack.classList.add('glow-gold');
-      document.querySelector('#knife-slider-area p').className = "text-xs text-green-500 font-bold mb-4 animate-pulse";
-      document.querySelector('#knife-slider-area p').innerText = "✨ The knife is unlocked! Slide it right to cut.";
+      const trackEl = document.getElementById('knife-track');
+      if (trackEl) {
+        trackEl.classList.remove('pointer-events-none', 'opacity-40');
+        trackEl.classList.add('glow-gold');
+      }
+      const instructionEl = document.querySelector('#knife-slider-area p');
+      if (instructionEl) {
+        instructionEl.className = "text-xs text-green-500 font-bold mb-4 animate-pulse";
+        instructionEl.innerText = "✨ Slide the knife right to cut the cake! 🔪";
+      }
     }
 
     function startKnifeDrag(e) {
-      if (candlesLit.some(v => v === false)) return;
+      if (!isKnifeUnlocked) return;
       isKnifeDragged = true;
       const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
       dragKnifeStartX = clientX - knifeOffsetX;
@@ -2559,13 +2562,17 @@
       sound.playPop();
       sound.playChime(1.5);
       
-      music.play(CONFIG.musicUrls.birthday);
+      // Stop birthday wish voice note and restore background music volume
+      try {
+        birthdayWishAudio.pause();
+        birthdayWishAudio.currentTime = 0;
+        music.audio.volume = 0.35;
+      } catch (e) {}
       
-      document.getElementById('knife-slider-area').classList.add('hidden');
-      document.getElementById('cake-instruction').classList.add('hidden');
-      document.getElementById('birthday-celebration-card').classList.remove('hidden');
-      
-      confetti.spawn();
+      // Go directly to next phase (polaroid scratch cards) after a small visual delay
+      setTimeout(() => {
+        nextPhase();
+      }, 600);
     }
 
     /* =========================================================================
