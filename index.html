@@ -752,9 +752,9 @@
       
       <!-- Top header container -->
       <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
-        <h1 class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">Happy birthday</h1>
+        <h1 id="cake-header" class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">The Secret Recipe</h1>
         <p id="cake-instruction" class="text-slate-600 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
-          to the one who lights up my life.
+          Let's bake something special for you. Tap the ingredients to add them to the bowl!
         </p>
       </div>
 
@@ -1628,19 +1628,6 @@
           break;
         case 4:
           initPhase4BakeCake();
-          
-          // Lower background music volume to 30% of normal (0.35 * 0.30 = 0.1)
-          music.audio.volume = 0.1;
-          
-          // Play birthday wish voice note
-          isCandleBlownOut = false;
-          birthdayWishAudio.currentTime = 0;
-          birthdayWishAudio.play().catch(e => console.log("Play blocked:", e));
-          
-          // Spawn surprise balloons and confetti
-          spawnSurpriseBalloons();
-          confetti.spawn();
-          setTimeout(() => confetti.spawn(), 1200);
           break;
         case 5:
           music.play(lastPlaylistTrack || selectedMusicUrl); // Resume correct playlist track
@@ -2338,7 +2325,8 @@
       }
       
       document.getElementById('bowl-mix-status').innerHTML = '';
-      document.getElementById('cake-instruction').innerText = "to the one who lights up my life.";
+      document.getElementById('cake-header').innerText = "The Secret Recipe";
+      document.getElementById('cake-instruction').innerText = "Let's bake something special for you. Tap the ingredients to add them to the bowl!";
     }
 
     function addIngredient(ing) {
@@ -2467,7 +2455,22 @@
           });
         }
         
+        // Dynamic Header and Subheader text changes when entering Cake Ceremony Stage
+        document.getElementById('cake-header').innerText = "Happy birthday";
         document.getElementById('cake-instruction').innerText = "to the one who lights up my life.";
+        
+        // Lower background music volume to 30% of normal (0.35 * 0.30 = 0.1)
+        music.audio.volume = 0.1;
+        
+        // Play birthday wish voice note
+        isCandleBlownOut = false;
+        birthdayWishAudio.currentTime = 0;
+        birthdayWishAudio.play().catch(e => console.log("Play blocked:", e));
+        
+        // Spawn surprise balloons and confetti rain
+        spawnSurpriseBalloons();
+        confetti.spawn();
+        setTimeout(() => confetti.spawn(), 1200);
       }, 1800);
     }
 
