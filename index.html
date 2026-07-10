@@ -808,12 +808,12 @@
             
             <!-- LEFT HALF OF THE CAKE -->
             <div id="cake-left-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(0 0, 58% 0, 58% 100%, 0 100%);">
-              <img src="cake.png" alt="Cake Left" class="w-full h-full object-contain rounded-3xl shadow-2xl border border-white/45">
+              <img src="cake.png" alt="Cake Left" class="w-full h-full object-contain">
             </div>
 
             <!-- RIGHT HALF OF THE CAKE -->
             <div id="cake-right-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(58% 0, 100% 0, 100% 100%, 58% 100%);">
-              <img src="cake.png" alt="Cake Right" class="w-full h-full object-contain rounded-3xl shadow-2xl border border-white/45">
+              <img src="cake.png" alt="Cake Right" class="w-full h-full object-contain">
             </div>
 
             <!-- Flame positioned exactly on the image's candle wick -->
@@ -825,14 +825,14 @@
             </div>
 
             <!-- Light opacity instruction text overlaid on the cake inside a glass pill box -->
-            <div id="cut-instruction-text" class="hidden absolute inset-x-6 top-[68%] bg-white/30 backdrop-blur-sm border border-white/45 rounded-full py-1.5 select-none z-30 pointer-events-none text-center animate-pulse transition-opacity duration-500 shadow-sm">
-              <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-800/60">
+            <div id="cut-instruction-text" class="hidden absolute inset-x-6 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm border border-white/45 rounded-full py-2.5 select-none z-30 pointer-events-none text-center animate-pulse transition-opacity duration-500 shadow-sm flex items-center justify-center">
+              <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-800/60 pl-8">
                 Swipe knife right to slice ➜
               </span>
             </div>
 
             <!-- Knife overlaying the cake directly -->
-            <div id="drag-knife" class="hidden absolute z-40 cursor-grab active:cursor-grabbing select-none text-5xl transition-all duration-500" style="left: 10%; top: 50%; transform: translate(-50%, -50%) rotate(-45deg);">
+            <div id="drag-knife" class="hidden absolute z-40 cursor-grab active:cursor-grabbing select-none text-5xl transition-all duration-500" style="left: 12%; top: 50%; transform: translate(-50%, -50%) rotate(-45deg);">
               🔪
             </div>
           </div>
@@ -2347,7 +2347,7 @@
       }
       if (dragKnife) {
         dragKnife.classList.add('hidden');
-        dragKnife.style.left = '10%';
+        dragKnife.style.left = '12%';
         dragKnife.style.transition = 'none';
       }
       if (cutText) {
@@ -2561,8 +2561,8 @@
       let relativeX = clientX - cakeRect.left;
       let percentX = (relativeX / cakeRect.width) * 100;
       
-      // Constrain drag between 10% and 75%
-      if (percentX < 10) percentX = 10;
+      // Constrain drag between 12% and 75%
+      if (percentX < 12) percentX = 12;
       if (percentX > 75) percentX = 75;
       
       dragKnife.style.left = `${percentX}%`;
@@ -2580,11 +2580,11 @@
       const dragKnife = document.getElementById('drag-knife');
       if (!dragKnife) return;
       
-      // If not fully sliced, snap back to initial position (10%)
-      const currentLeft = parseFloat(dragKnife.style.left) || 10;
+      // If not fully sliced, snap back to initial position (12%)
+      const currentLeft = parseFloat(dragKnife.style.left) || 12;
       if (currentLeft < 70) {
         dragKnife.style.transition = 'left 0.4s ease';
-        dragKnife.style.left = '10%';
+        dragKnife.style.left = '12%';
       }
     }
 
