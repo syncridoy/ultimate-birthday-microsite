@@ -1055,6 +1055,94 @@
     };
 
     /* =========================================================================
+       1.5. ASSET PRELOADER (Ensures zero lag & instant asset load)
+       ========================================================================= */
+    const ASSETS_TO_PRELOAD = {
+      images: [
+        'cake.png',
+        'Call_Dp.jpeg',
+        'night_view.jpeg',
+        'music1_dp.jpeg',
+        'music2_dp.jpeg',
+        'music3_dp.jpeg',
+        CONFIG.memories[0].url,
+        CONFIG.memories[1].url,
+        CONFIG.memories[2].url
+      ],
+      audio: [
+        'Birthdaywish.mp3',
+        'voiceover.mp3'
+      ]
+    };
+
+    let isPreloaded = false;
+
+    function startPreloading() {
+      const btnStart = document.getElementById('btn-start-experience');
+      if (!btnStart) return;
+
+      btnStart.innerText = "⏳ Loading media assets (0%)...";
+      btnStart.disabled = true;
+
+      let loadedCount = 0;
+      const totalAssets = ASSETS_TO_PRELOAD.images.length + ASSETS_TO_PRELOAD.audio.length;
+
+      function checkProgress() {
+        loadedCount++;
+        const percent = Math.min(Math.round((loadedCount / totalAssets) * 100), 100);
+        
+        // Only update text if no music is selected yet
+        if (!selectedMusicUrl) {
+          btnStart.innerText = `⏳ Loading media assets (${percent}%)...`;
+        }
+
+        if (loadedCount >= totalAssets) {
+          isPreloaded = true;
+          if (selectedMusicUrl) {
+            btnStart.disabled = false;
+            btnStart.innerText = "Start Experience";
+            btnStart.className = "w-full bg-slate-900 text-white font-sans font-semibold py-3.5 rounded-2xl shadow-lg hover:bg-slate-800 active:scale-98 transition-all text-sm tracking-wide text-center cursor-pointer";
+          } else {
+            btnStart.innerText = "Choose a Soundtrack to Start";
+            btnStart.disabled = true;
+          }
+          console.log("All critical assets preloaded successfully!");
+        }
+      }
+
+      // Preload images
+      ASSETS_TO_PRELOAD.images.forEach(url => {
+        const img = new Image();
+        img.src = url;
+        img.onload = checkProgress;
+        img.onerror = checkProgress;
+      });
+
+      // Preload audio
+      ASSETS_TO_PRELOAD.audio.forEach(url => {
+        const audio = new Audio();
+        audio.src = url;
+        audio.preload = 'auto';
+        
+        audio.addEventListener('canplaythrough', checkProgress, { once: true });
+        audio.addEventListener('error', checkProgress, { once: true });
+        
+        // Timeout safeguard
+        setTimeout(() => {
+          if (audio.readyState < 3) {
+            checkProgress();
+          }
+        }, 6000);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', startPreloading);
+    } else {
+      startPreloading();
+    }
+
+    /* =========================================================================
        2. SOUND EFFECT SYNTHESIZER ENGINE (Web Audio API)
        ========================================================================= */
     class SoundSynthesizer {
@@ -1753,12 +1841,16 @@
       previewAudio.volume = 0.35;
       previewAudio.play().catch(e => console.log("Preview audio blocked:", e));
       
-      // Enable Action Pill Button
+      // Enable Action Pill Button only if preloaded
       const startBtn = document.getElementById('btn-start-experience');
       if (startBtn) {
-        startBtn.disabled = false;
-        startBtn.innerText = "Start Experience";
-        startBtn.className = "w-full bg-slate-900 text-white font-sans font-semibold py-3.5 rounded-2xl shadow-lg hover:bg-slate-800 active:scale-98 transition-all text-sm tracking-wide text-center cursor-pointer";
+        if (isPreloaded) {
+          startBtn.disabled = false;
+          startBtn.innerText = "Start Experience";
+          startBtn.className = "w-full bg-slate-900 text-white font-sans font-semibold py-3.5 rounded-2xl shadow-lg hover:bg-slate-800 active:scale-98 transition-all text-sm tracking-wide text-center cursor-pointer";
+        } else {
+          startBtn.disabled = true;
+        }
       }
     }
 
