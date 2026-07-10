@@ -804,34 +804,40 @@
           </div>
 
           <!-- Baked Cake (Hidden Initially) - Animates in from left -->
-          <div id="baked-cake" class="hidden relative mt-4 transform -translate-x-[150%] transition-transform duration-1000 ease-out z-20 w-72 h-72">
+          <div id="baked-cake" class="hidden relative mt-4 transform -translate-x-[150%] transition-transform duration-1000 ease-out z-20 w-72 h-72 select-none">
+            
+            <!-- LEFT HALF OF THE CAKE -->
+            <div id="cake-left-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(0 0, 58% 0, 58% 100%, 0 100%);">
+              <img src="cake.png" alt="Cake Left" class="w-full h-full object-contain rounded-3xl shadow-2xl border border-white/45">
+            </div>
+
+            <!-- RIGHT HALF OF THE CAKE -->
+            <div id="cake-right-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(58% 0, 100% 0, 100% 100%, 58% 100%);">
+              <img src="cake.png" alt="Cake Right" class="w-full h-full object-contain rounded-3xl shadow-2xl border border-white/45">
+            </div>
+
             <!-- Flame positioned exactly on the image's candle wick -->
-            <div id="cake-candle-wrapper" onclick="extinguishCandle()" class="absolute z-30 select-none cursor-pointer w-4 h-4" style="left: calc(60.8% - 5px); top: calc(3.5% + 9px); transform: translate(-50%, -50%);">
+            <div id="cake-candle-wrapper" onclick="extinguishCandle()" class="absolute z-30 select-none cursor-pointer w-4 h-4 transition-transform duration-[800ms] ease-out" style="left: calc(60.8% - 5px); top: calc(3.5% + 9px); transform: translate(-50%, -50%);">
               <!-- Flame -->
               <div id="candle-flame" class="glowing-flame" style="bottom: 8px; left: 50%; transform: translateX(-50%);"></div>
               <!-- Smoke (hidden initially) -->
               <div id="candle-smoke" class="candle-smoke hidden" style="bottom: 8px; left: 50%; transform: translateX(-50%);"></div>
             </div>
-            
-            <!-- Custom Cake Image (cake.png) -->
-            <img src="cake.png" alt="Birthday Cake" class="w-full h-full object-contain rounded-3xl shadow-2xl border border-white/45">
+
+            <!-- Light opacity instruction text overlaid on the cake -->
+            <div id="cut-instruction-text" class="hidden absolute inset-x-0 top-[65%] text-[10px] font-extrabold uppercase tracking-widest text-slate-800/40 select-none z-30 pointer-events-none text-center animate-pulse transition-opacity duration-500">
+              Swipe knife right to slice ➜
+            </div>
+
+            <!-- Knife overlaying the cake directly -->
+            <div id="drag-knife" class="hidden absolute z-40 cursor-grab active:cursor-grabbing select-none text-3xl transition-all duration-500" style="left: 15%; top: 50%; transform: translate(-50%, -50%) rotate(-45deg);">
+              🔪
+            </div>
           </div>
         </div>
 
-        <!-- Cake Cutting Knife Slider (Aesthetic design with 🔪 icon) -->
-        <div id="knife-slider-area" class="hidden w-full flex flex-col items-center px-4 max-w-[280px]">
-          <p class="text-[10px] text-slate-500 font-bold mb-3 tracking-wide transition-all select-none">
-            ✨ Wait for the wish to unlock the cake cutting ceremony!
-          </p>
-          <div id="knife-track" class="relative w-full h-12 bg-white/25 backdrop-blur-sm border border-white/40 rounded-full flex items-center px-2 pointer-events-none opacity-40 overflow-hidden">
-            <div id="drag-knife" class="bg-white/60 backdrop-blur-md border border-white/50 text-slate-800 rounded-full w-10 h-10 flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing text-lg z-20 absolute left-2 transition-all select-none">
-              🔪
-            </div>
-            <span id="knife-track-text" class="text-[9px] text-slate-500 font-extrabold tracking-widest uppercase select-none w-full text-center pl-10 pr-2 z-10 pointer-events-none">
-              Slide knife right to cut cake
-            </span>
-          </div>
-        </div>
+        <!-- Hidden helper div to preserve script compatibility -->
+        <div id="knife-slider-area" class="hidden"></div>
 
         <!-- Happy Birthday Overlay Card inside phase -->
         <div id="birthday-celebration-card" class="hidden w-full flex flex-col items-center px-4">
@@ -1371,14 +1377,19 @@
         extinguishCandle();
       }
       
-      // Auto-unlock knife slider at exactly 43 seconds
+      // Auto-unlock knife overlay on the cake at exactly 43 seconds
       if (birthdayWishAudio.currentTime >= 43 && !isKnifeUnlocked) {
         isKnifeUnlocked = true;
         
-        // Show knife slider area
-        const sliderArea = document.getElementById('knife-slider-area');
-        if (sliderArea) {
-          sliderArea.classList.remove('hidden');
+        const dragKnife = document.getElementById('drag-knife');
+        const cutText = document.getElementById('cut-instruction-text');
+        if (dragKnife) {
+          dragKnife.classList.remove('hidden');
+          dragKnife.style.opacity = '1';
+        }
+        if (cutText) {
+          cutText.classList.remove('hidden');
+          cutText.style.opacity = '1';
         }
         unlockKnifeSlider();
       }
@@ -2318,6 +2329,29 @@
         smoke.classList.remove('animate-smoke');
       }
       
+      // Reset split cake halves and drag knife
+      isKnifeUnlocked = false;
+      isKnifeDragged = false;
+      const leftHalf = document.getElementById('cake-left-half');
+      const rightHalf = document.getElementById('cake-right-half');
+      const candleWrapper = document.getElementById('cake-candle-wrapper');
+      const dragKnife = document.getElementById('drag-knife');
+      const cutText = document.getElementById('cut-instruction-text');
+      
+      if (leftHalf) leftHalf.style.transform = 'none';
+      if (rightHalf) rightHalf.style.transform = 'none';
+      if (candleWrapper) {
+        candleWrapper.style.transform = 'translate(-50%, -50%)';
+      }
+      if (dragKnife) {
+        dragKnife.classList.add('hidden');
+        dragKnife.style.left = '15%';
+        dragKnife.style.transition = 'none';
+      }
+      if (cutText) {
+        cutText.classList.add('hidden');
+      }
+      
       document.getElementById('bowl-mix-status').innerHTML = '';
       document.getElementById('cake-header').innerText = "The Secret Recipe";
       document.getElementById('cake-instruction').innerText = "Let's bake something special for you. Tap the ingredients to add them to the bowl!";
@@ -2497,24 +2531,17 @@
     window.addEventListener('touchend', stopKnifeDrag);
 
     function unlockKnifeSlider() {
-      const trackEl = document.getElementById('knife-track');
-      if (trackEl) {
-        trackEl.classList.remove('pointer-events-none', 'opacity-40');
-        trackEl.classList.add('glow-gold');
-      }
-      const instructionEl = document.querySelector('#knife-slider-area p');
-      if (instructionEl) {
-        instructionEl.className = "text-xs text-green-500 font-bold mb-4 animate-pulse";
-        instructionEl.innerText = "✨ Slide the knife right to cut the cake! 🔪";
+      const dragKnife = document.getElementById('drag-knife');
+      if (dragKnife) {
+        dragKnife.classList.add('animate-pulse');
       }
     }
 
     function startKnifeDrag(e) {
       if (!isKnifeUnlocked) return;
       isKnifeDragged = true;
-      const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
-      dragKnifeStartX = clientX - knifeOffsetX;
-      dragKnife.style.transition = 'none';
+      const dragKnife = document.getElementById('drag-knife');
+      if (dragKnife) dragKnife.style.transition = 'none';
     }
 
     function knifeDrag(e) {
@@ -2522,18 +2549,24 @@
       if (e.type === 'touchmove') e.preventDefault();
       
       const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
-      const trackRect = knifeTrack.getBoundingClientRect();
-      const knifeRect = dragKnife.getBoundingClientRect();
-      const maxDelta = trackRect.width - knifeRect.width - 16;
+      const bakedCake = document.getElementById('baked-cake');
+      const dragKnife = document.getElementById('drag-knife');
+      if (!bakedCake || !dragKnife) return;
       
-      let deltaX = clientX - dragKnifeStartX;
-      if (deltaX < 0) deltaX = 0;
-      if (deltaX > maxDelta) deltaX = maxDelta;
+      const cakeRect = bakedCake.getBoundingClientRect();
       
-      knifeOffsetX = deltaX;
-      dragKnife.style.transform = `translateX(${knifeOffsetX}px)`;
+      // Calculate relative X coordinate inside the cake container
+      let relativeX = clientX - cakeRect.left;
+      let percentX = (relativeX / cakeRect.width) * 100;
       
-      if (knifeOffsetX >= maxDelta - 5) {
+      // Constrain drag between 15% and 75%
+      if (percentX < 15) percentX = 15;
+      if (percentX > 75) percentX = 75;
+      
+      dragKnife.style.left = `${percentX}%`;
+      
+      // Check if sliced fully to the right (>= 70%)
+      if (percentX >= 70) {
         triggerCakeCut();
       }
     }
@@ -2542,22 +2575,42 @@
       if (!isKnifeDragged) return;
       isKnifeDragged = false;
       
-      const trackRect = knifeTrack.getBoundingClientRect();
-      const knifeRect = dragKnife.getBoundingClientRect();
-      const maxDelta = trackRect.width - knifeRect.width - 16;
+      const dragKnife = document.getElementById('drag-knife');
+      if (!dragKnife) return;
       
-      if (knifeOffsetX < maxDelta - 5) {
-        dragKnife.style.transition = 'transform 0.4s ease';
-        knifeOffsetX = 0;
-        dragKnife.style.transform = 'translateX(0px)';
+      // If not fully sliced, snap back to initial position (15%)
+      const currentLeft = parseFloat(dragKnife.style.left) || 15;
+      if (currentLeft < 70) {
+        dragKnife.style.transition = 'left 0.4s ease';
+        dragKnife.style.left = '15%';
       }
     }
 
     function triggerCakeCut() {
       isKnifeDragged = false;
-      dragKnife.style.transform = 'scale(0.8)';
-      dragKnife.className = "bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center absolute right-2 transition-all text-white";
-      dragKnife.innerHTML = '<i class="fas fa-check"></i>';
+      isKnifeUnlocked = false; // Lock double trigger
+      
+      // Hide drag knife and instruction text
+      const dragKnife = document.getElementById('drag-knife');
+      const instructionText = document.getElementById('cut-instruction-text');
+      if (dragKnife) dragKnife.classList.add('hidden');
+      if (instructionText) instructionText.classList.add('hidden');
+      
+      // Animate the cake splitting apart realistically
+      const leftHalf = document.getElementById('cake-left-half');
+      const rightHalf = document.getElementById('cake-right-half');
+      const candleWrapper = document.getElementById('cake-candle-wrapper');
+      
+      if (leftHalf) {
+        leftHalf.style.transform = 'translate(-12px, -6px) rotate(-1.5deg)';
+      }
+      if (rightHalf) {
+        rightHalf.style.transform = 'translate(18px, 12px) rotate(3deg)';
+      }
+      if (candleWrapper) {
+        // Shift candle wrapper with right half since it lies on the right of the cut line
+        candleWrapper.style.transform = 'translate(calc(-50% + 18px), calc(-50% + 12px)) rotate(3deg)';
+      }
       
       sound.playPop();
       sound.playChime(1.5);
@@ -2569,10 +2622,10 @@
         music.audio.volume = 0.35;
       } catch (e) {}
       
-      // Go directly to next phase (polaroid scratch cards) after a small visual delay
+      // Go directly to next phase (polaroid scratch cards) after a premium visual delay
       setTimeout(() => {
         nextPhase();
-      }, 600);
+      }, 1500);
     }
 
     /* =========================================================================
