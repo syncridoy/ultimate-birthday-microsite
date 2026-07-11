@@ -1341,14 +1341,11 @@
       ]
     };
 
-    let isPreloaded = false;
+    let isPreloaded = true;
 
     function startPreloading() {
       const btnStart = document.getElementById('btn-start-experience');
       if (!btnStart) return;
-
-      btnStart.innerText = "⏳ Loading media assets (0%)...";
-      btnStart.disabled = true;
 
       let loadedCount = 0;
       const totalAssets = ASSETS_TO_PRELOAD.images.length + ASSETS_TO_PRELOAD.audio.length;
@@ -1356,23 +1353,10 @@
       function checkProgress() {
         loadedCount++;
         const percent = Math.min(Math.round((loadedCount / totalAssets) * 100), 100);
-        
-        // Only update text if no music is selected yet
-        if (!selectedMusicUrl) {
-          btnStart.innerText = `⏳ Loading media assets (${percent}%)...`;
-        }
+        console.log(`Preloading assets progress: ${percent}%`);
 
         if (loadedCount >= totalAssets) {
-          isPreloaded = true;
-          if (selectedMusicUrl) {
-            btnStart.disabled = false;
-            btnStart.innerText = "Start Experience";
-            btnStart.className = "w-full bg-slate-900 text-white font-sans font-semibold py-3.5 rounded-2xl shadow-lg hover:bg-slate-800 active:scale-98 transition-all text-sm tracking-wide text-center cursor-pointer";
-          } else {
-            btnStart.innerText = "Choose a Soundtrack to Start";
-            btnStart.disabled = true;
-          }
-          console.log("All critical assets preloaded successfully!");
+          console.log("All critical assets cached in background successfully!");
         }
       }
 
