@@ -421,14 +421,25 @@
 
   <!-- Initial Loader Overlay (Fades out when finished caching all assets) -->
   <div id="initial-loader-overlay" class="fixed inset-0 bg-[#FAF7F2] z-[100] flex flex-col items-center justify-center text-center p-8 transition-opacity duration-[800ms] ease-out select-none">
-    <h2 class="font-sans text-slate-800 text-base font-semibold tracking-[0.2em] uppercase mb-6 select-none animate-pulse">Loading...</h2>
-    
-    <!-- Progress Bar Box -->
-    <div class="w-full max-w-[200px] bg-slate-900/5 h-[3px] rounded-full overflow-hidden mb-3.5">
-      <div id="loader-progress-fill" class="bg-slate-800 h-full w-[0%] transition-all duration-300"></div>
+    <!-- Ambient blobs inside the loader to prevent bleed-through but preserve theme background -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0" style="filter: blur(80px) saturate(180%);">
+      <div class="absolute -top-[10%] -left-[10%] w-[380px] h-[380px] rounded-full opacity-[0.85] animate-blob1" style="background-color: #fecfef;"></div>
+      <div class="absolute -bottom-[10%] -right-[10%] w-[420px] h-[420px] rounded-full opacity-[0.80] animate-blob2" style="background-color: #a1c4fd;"></div>
+      <div class="absolute top-[30%] left-[20%] w-[350px] h-[350px] rounded-full opacity-[0.85] animate-blob3" style="background-color: #fddb92;"></div>
+      <div class="absolute top-[10%] right-[10%] w-[380px] h-[380px] rounded-full opacity-[0.80] animate-blob4" style="background-color: #e8dbfc;"></div>
     </div>
     
-    <span id="loader-progress-text" class="text-[9px] font-extrabold text-slate-400 uppercase tracking-widest">Please wait... 0%</span>
+    <!-- Loader Content (z-10 to sit above blobs) -->
+    <div class="relative z-10 flex flex-col items-center">
+      <h2 class="font-sans text-slate-800 text-base font-semibold tracking-[0.2em] uppercase mb-6 select-none animate-pulse">Loading...</h2>
+      
+      <!-- Progress Bar Box -->
+      <div class="w-full max-w-[200px] bg-slate-900/5 h-[3px] rounded-full overflow-hidden mb-3.5">
+        <div id="loader-progress-fill" class="bg-slate-800 h-full w-[0%] transition-all duration-300"></div>
+      </div>
+      
+      <span id="loader-progress-text" class="text-[9px] font-extrabold text-slate-400 uppercase tracking-widest">Please wait... 0%</span>
+    </div>
   </div>
 
   <!-- Full-screen Background Overlay (for Phase 2 cinematic look) -->
