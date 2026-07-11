@@ -205,25 +205,31 @@
       position: absolute;
     }
     
-    /* 3D wind sway animation for local banner image */
+    /* Gentle 2D local corner sway animation for banner image */
     .banner-image {
-      transform-origin: top center;
-      animation: banner-3d-sway 8s ease-in-out infinite;
-      filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.07));
-      will-change: transform;
+      animation: banner-corner-sway 10s ease-in-out infinite;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+      will-change: transform, transform-origin;
     }
-    @keyframes banner-3d-sway {
+    @keyframes banner-corner-sway {
       0%, 100% {
-        transform: perspective(800px) rotateX(1deg) rotateY(-2.2deg) rotateZ(-0.5deg);
+        transform-origin: 15% 15%;
+        transform: rotate(0deg) skewY(0deg) scale(1);
       }
       25% {
-        transform: perspective(800px) rotateX(3.2deg) rotateY(1.2deg) rotateZ(0.2deg);
+        transform-origin: 15% 15%;
+        transform: rotate(0.4deg) skewY(0.15deg) scale(1.001);
+      }
+      48%, 52% {
+        transform: rotate(0deg) skewY(0deg) scale(1);
       }
       50% {
-        transform: perspective(800px) rotateX(0.5deg) rotateY(2.2deg) rotateZ(0.5deg);
+        transform-origin: 85% 15%;
+        transform: rotate(0deg) skewY(0deg) scale(1);
       }
       75% {
-        transform: perspective(800px) rotateX(2.2deg) rotateY(-1.2deg) rotateZ(-0.2deg);
+        transform-origin: 85% 15%;
+        transform: rotate(-0.4deg) skewY(-0.15deg) scale(1.001);
       }
     }
     
@@ -782,10 +788,10 @@
     </section>
 
     <!-- PHASE 4: Interactive Cake Baking & Cutting Ceremony -->
-    <section id="phase-4" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-white/12 backdrop-blur-2xl">
+    <section id="phase-4" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-center items-center text-center hidden z-30 select-none p-4 bg-white/12 backdrop-blur-2xl">
       
       <!-- Top header container -->
-      <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
+      <div class="w-full max-w-sm px-6 z-20 relative pointer-events-none mb-4">
         <h1 id="cake-header" class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">The Secret Recipe</h1>
         
         <!-- Premium Paper Birthday Banner (initially hidden, shown on cake completion) -->
@@ -799,7 +805,7 @@
       </div>
 
       <!-- Middle arena container -->
-      <div class="w-full max-w-sm flex-grow flex flex-col items-center justify-center z-15 py-4 pointer-events-auto">
+      <div class="w-full max-w-sm flex flex-col items-center justify-center z-15 pointer-events-auto">
         <!-- Mixing Bowl Area -->
         <div id="baking-arena" class="w-full relative h-48 flex items-center justify-center mb-6">
           <!-- Floating Glass Panel Ingredients (Replaced Jars) -->
@@ -897,7 +903,7 @@
       </div>
 
       <!-- Bottom button container -->
-      <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
+      <div class="absolute bottom-6 w-full max-w-sm px-6 z-20 pointer-events-auto flex justify-center">
         <!-- Bake button -->
         <button id="btn-bake-action" onclick="bakeCake()" class="hidden bg-white/55 backdrop-blur-md text-slate-900 border border-white/60 hover:bg-white/75 font-sans font-bold px-8 py-3.5 rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
           <i class="fas fa-fire-burner mr-1"></i> Bake the Cake
@@ -2791,11 +2797,12 @@
         }
         
         // Dynamic Header and Subheader text changes when entering Cake Ceremony Stage
-        const cakeHeader = document.getElementById('cake-header');
-        const bdayBanner = document.getElementById('cake-birthday-banner');
-        if (cakeHeader) cakeHeader.classList.add('hidden');
-        if (bdayBanner) bdayBanner.classList.remove('hidden');
-        document.getElementById('cake-instruction').innerText = "to the one who lights up my life.";
+         const cakeHeader = document.getElementById('cake-header');
+         const bdayBanner = document.getElementById('cake-birthday-banner');
+         const cakeInst = document.getElementById('cake-instruction');
+         if (cakeHeader) cakeHeader.classList.add('hidden');
+         if (bdayBanner) bdayBanner.classList.remove('hidden');
+         if (cakeInst) cakeInst.classList.add('hidden');
         
         // Lower background music volume to 30% of normal (0.35 * 0.30 = 0.1)
         music.audio.volume = 0.1;
@@ -2820,7 +2827,11 @@
       document.getElementById(`flame-${idx}`).classList.remove('hidden');
       
       if (candlesLit.every(val => val === true)) {
-        document.getElementById('cake-instruction').innerText = "🎂 Cut the cake by sliding the knife right!";
+        const cakeInst = document.getElementById('cake-instruction');
+        if (cakeInst) {
+          cakeInst.classList.remove('hidden');
+          cakeInst.innerText = "🎂 Cut the cake by sliding the knife right!";
+        }
         unlockKnifeSlider();
       }
     }
