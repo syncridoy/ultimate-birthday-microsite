@@ -1554,6 +1554,83 @@
         osc1.stop(now + 0.12);
         osc2.stop(now + 0.12);
       }
+      playConfettiPop() {
+        this.init();
+        const now = this.ctx.currentTime;
+        
+        // 1. Noise burst (The pop)
+        const bufferSize = this.ctx.sampleRate * 0.15;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+        const noiseNode = this.ctx.createBufferSource();
+        noiseNode.buffer = buffer;
+        
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1000, now);
+        filter.frequency.exponentialRampToValueAtTime(150, now + 0.15);
+        
+        const noiseGain = this.ctx.createGain();
+        noiseGain.gain.setValueAtTime(0.2, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        
+        noiseNode.connect(filter);
+        filter.connect(noiseGain);
+        noiseGain.connect(this.ctx.destination);
+        noiseNode.start(now);
+        noiseNode.stop(now + 0.15);
+        
+        // 2. Sweet sparkly chimes (Celebration!)
+        const chimeFreqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 (Major triad)
+        chimeFreqs.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.04);
+          gain.gain.setValueAtTime(0.05, now + idx * 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.04 + 0.3);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.04);
+          osc.stop(now + idx * 0.04 + 0.3);
+        });
+      }
+      playBalloonFly() {
+        this.init();
+        const now = this.ctx.currentTime;
+        
+        // Synthesize a gentle wind whoosh using white noise and a sweep filter
+        const bufferSize = this.ctx.sampleRate * 0.8;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+        
+        const noiseNode = this.ctx.createBufferSource();
+        noiseNode.buffer = buffer;
+        
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.Q.setValueAtTime(2.5, now);
+        filter.frequency.setValueAtTime(180, now);
+        filter.frequency.exponentialRampToValueAtTime(750, now + 0.6);
+        
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.06, now + 0.15); // Fade in
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8); // Fade out
+        
+        noiseNode.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        noiseNode.start(now);
+        noiseNode.stop(now + 0.8);
+      }
     }
 
     /* =========================================================================
@@ -2011,6 +2088,10 @@
             balloon.style.transform = `translateX(${(i % 2 === 0 ? 30 : -30)}px) rotate(${(i % 2 === 0 ? 10 : -10)}deg)`;
           }, 50);
         });
+        
+        setTimeout(() => {
+          sound.playBalloonFly();
+        }, delay);
         
         setTimeout(() => {
           balloon.remove();
@@ -2815,10 +2896,14 @@
         birthdayWishAudio.currentTime = 0;
         birthdayWishAudio.play().catch(e => console.log("Play blocked:", e));
         
-        // Spawn surprise balloons and confetti rain
+        // Spawn surprise balloons and confetti rain with sound effects
         spawnSurpriseBalloons();
         confetti.spawn();
-        setTimeout(() => confetti.spawn(), 1200);
+        sound.playConfettiPop();
+        setTimeout(() => {
+          confetti.spawn();
+          sound.playConfettiPop();
+        }, 1200);
       }, 1800);
     }
 
