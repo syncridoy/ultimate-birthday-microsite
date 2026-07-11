@@ -7,7 +7,7 @@
   <!-- Google Fonts & Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@200;400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
     tailwind.config = {
       theme: {
@@ -440,12 +440,12 @@
   <div id="music-control" onclick="expandMusicWidget(event)" class="fixed top-4 right-4 z-50 hidden w-10 h-10 rounded-full bg-white/45 backdrop-blur-md border border-white/50 shadow-lg cursor-pointer flex flex-col items-center justify-center transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] select-none overflow-hidden">
     
     <!-- Collapsed View (Only visible when collapsed) -->
-    <div id="music-collapsed-view" class="flex items-center justify-center w-10 h-10 absolute inset-0 transition-all duration-[400ms] ease-out opacity-100 scale-100">
+    <div id="music-collapsed-view" class="flex items-center justify-center w-10 h-10 absolute top-0 right-0 transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] opacity-100 scale-100">
       <i id="music-icon" class="fas fa-music text-crimson animate-pulse"></i>
     </div>
     
     <!-- Expanded View (Hidden/Transparent when collapsed) -->
-    <div id="music-expanded-view" class="absolute inset-0 p-2.5 flex flex-col opacity-0 pointer-events-none transition-all duration-[500ms] ease-out scale-95 origin-center">
+    <div id="music-expanded-view" class="absolute top-0 right-0 w-[160px] h-[190px] p-2.5 flex flex-col opacity-0 pointer-events-none transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] scale-[0.35] origin-top-right">
       <!-- Header Row with Close/Collapse Button -->
       <div class="flex items-center justify-between mb-1.5 w-full">
         <span class="text-[8px] font-bold text-slate-500 uppercase tracking-widest pl-1">Music</span>
@@ -2115,7 +2115,7 @@
       }
       
       if (expandedView) {
-        expandedView.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+        expandedView.classList.remove('opacity-0', 'scale-[0.35]', 'pointer-events-none');
         expandedView.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
         updateTrackCheckmarks();
       }
@@ -2131,7 +2131,7 @@
       
       if (expandedView) {
         expandedView.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
-        expandedView.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+        expandedView.classList.add('opacity-0', 'scale-[0.35]', 'pointer-events-none');
       }
       
       if (ctrl) {
