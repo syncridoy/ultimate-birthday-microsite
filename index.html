@@ -1793,8 +1793,13 @@
        5. STATE MACHINE & GENERAL FLOW CONTROL
        ========================================================================= */
     let currentPhase = 1;
+    let isTransitioning = false;
+    let keypadUnlocked = false;
 
     function changePhase(newPhase) {
+      if (isTransitioning) return;
+      isTransitioning = true;
+
       const currentEl = document.getElementById(`phase-${currentPhase}`);
       const nextEl = document.getElementById(`phase-${newPhase}`);
       
@@ -1810,11 +1815,13 @@
           nextEl.classList.add('opacity-100');
           currentPhase = newPhase;
           initializePhase(newPhase);
+          isTransitioning = false;
         }, 500);
       } else {
         nextEl.classList.remove('hidden');
         currentPhase = newPhase;
         initializePhase(newPhase);
+        isTransitioning = false;
       }
     }
 
@@ -1825,6 +1832,7 @@
     function initializePhase(phaseNum) {
       if (phaseNum === 1) {
         document.getElementById('music-control').classList.add('hidden');
+        keypadUnlocked = false;
       } else {
         document.getElementById('music-control').classList.remove('hidden');
       }
@@ -2178,8 +2186,9 @@
     function tapKeypadDigit(digit) {
       sound.playDtmf(digit);
       
-      // Core Unlock Rule: Tap '1' triggers next phase transition
-      if (digit === '1') {
+      // Core Unlock Rule: Tap '1' triggers next phase transition once
+      if (digit === '1' && !keypadUnlocked) {
+        keypadUnlocked = true;
         setTimeout(() => {
           nextPhase();
         }, 350);
