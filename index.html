@@ -205,6 +205,42 @@
       position: absolute;
     }
     
+    /* Banner paper texture and sway animation */
+    .birthday-banner-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      width: 100%;
+    }
+    .banner-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      height: 48px;
+    }
+    .banner-row.second-row {
+      height: 54px;
+      margin-top: -8px;
+    }
+    .banner-flag {
+      display: inline-block;
+      transform-origin: top center;
+      animation: gentle-breeze 4s ease-in-out infinite;
+      margin: 0 1px;
+    }
+    @keyframes gentle-breeze {
+      0%, 100% {
+        transform: translateY(var(--base-y)) rotate(var(--base-rot));
+      }
+      50% {
+        transform: translateY(calc(var(--base-y) + 3px)) rotate(calc(var(--base-rot) + 2.5deg));
+      }
+    }
+    
     /* Floating Love Note Bubble style (Apple HUD Toast - Light Mode) */
     .love-note-bubble {
       position: absolute;
@@ -379,6 +415,17 @@
   </style>
 </head>
 <body class="bg-[#FAF7F2] text-slate-900 font-sans overflow-hidden min-h-screen flex flex-col items-center justify-center relative select-none">
+
+  <!-- Global SVG Filters for Premium Paper Texture -->
+  <svg style="position: absolute; width: 0; height: 0;" width="0" height="0">
+    <filter id="paper-texture">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+      <feDiffuseLighting in="noise" lighting-color="#ffffff" surfaceScale="2" result="light">
+        <feDistantLight azimuth="45" elevation="60" />
+      </feDiffuseLighting>
+      <feBlend mode="multiply" in="SourceGraphic" in2="light" />
+    </filter>
+  </svg>
 
   <!-- Full-screen Background Overlay (for Phase 2 cinematic look) -->
   <div id="fullscreen-bg" class="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-[1000ms] opacity-0 pointer-events-none z-0"></div>
@@ -754,6 +801,139 @@
       <!-- Top header container -->
       <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
         <h1 id="cake-header" class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">The Secret Recipe</h1>
+        
+        <!-- Premium Paper Birthday Banner (initially hidden, shown on cake completion) -->
+        <div id="cake-birthday-banner" class="hidden birthday-banner-container pointer-events-auto">
+          <!-- Row 1: H A P P Y -->
+          <div class="banner-row">
+            <!-- Left String Bow -->
+            <div class="absolute left-1 sm:left-4 top-2">
+              <svg width="24" height="24" viewBox="0 0 40 40">
+                <path d="M 25,25 Q 15,10 10,12 C 5,14 8,22 15,18 C 22,14 25,6 23,2 C 21,-2 13,4 17,12 C 21,20 28,26 35,28" fill="none" stroke="#a18276" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </div>
+            
+            <!-- Flags -->
+            <div class="banner-flag" style="--base-y: 9px; --base-rot: -12deg; animation-delay: 0.1s; animation-duration: 4.2s;">
+              <svg width="26" height="34" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#7fb5d8" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">H</text>
+              </svg>
+            </div>
+            <div class="banner-flag" style="--base-y: 3px; --base-rot: -6deg; animation-delay: 0.3s; animation-duration: 3.8s;">
+              <svg width="26" height="34" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#f39189" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">A</text>
+              </svg>
+            </div>
+            <div class="banner-flag" style="--base-y: 0px; --base-rot: 0deg; animation-delay: 0.5s; animation-duration: 4.5s;">
+              <svg width="26" height="34" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#e8c4b4" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">P</text>
+              </svg>
+            </div>
+            <div class="banner-flag" style="--base-y: 3px; --base-rot: 6deg; animation-delay: 0.2s; animation-duration: 4.1s;">
+              <svg width="26" height="34" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#fcd381" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">P</text>
+              </svg>
+            </div>
+            <div class="banner-flag" style="--base-y: 9px; --base-rot: 12deg; animation-delay: 0.4s; animation-duration: 3.9s;">
+              <svg width="26" height="34" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#9bb38a" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">Y</text>
+              </svg>
+            </div>
+            
+            <!-- Right String Bow -->
+            <div class="absolute right-1 sm:right-4 top-2">
+              <svg width="24" height="24" viewBox="0 0 40 40" class="transform scale-x-[-1]">
+                <path d="M 25,25 Q 15,10 10,12 C 5,14 8,22 15,18 C 22,14 25,6 23,2 C 21,-2 13,4 17,12 C 21,20 28,26 35,28" fill="none" stroke="#a18276" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+          
+          <!-- Row 2: B I R T H D A Y -->
+          <div class="banner-row second-row">
+            <!-- Left String Bow -->
+            <div class="absolute left-[-2px] sm:left-1 top-4">
+              <svg width="20" height="20" viewBox="0 0 40 40">
+                <path d="M 25,25 Q 15,10 10,12 C 5,14 8,22 15,18 C 22,14 25,6 23,2 C 21,-2 13,4 17,12 C 21,20 28,26 35,28" fill="none" stroke="#a18276" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </div>
+            
+            <!-- Flags -->
+            <div class="banner-flag" style="--base-y: 16px; --base-rot: -14deg; animation-delay: 0.15s; animation-duration: 4.3s;">
+              <svg width="22" height="30" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#fcd381" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">B</text>
+              </svg>
+            </div>
+            <div class="banner-flag" style="--base-y: 9px; --base-rot: -9deg; animation-delay: 0.25s; animation-duration: 3.9s;">
+              <svg width="22" height="30" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#e8c4b4" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">I</text>
+              </svg>
+            </div>
+            <div class="banner-flag" style="--base-y: 4px; --base-rot: -4deg; animation-delay: 0.35s; animation-duration: 4.4s;">
+              <svg width="22" height="30" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#9bb38a" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">R</text>
+              </svg>
+            </div>
+            <div class="banner-flag" style="--base-y: 1px; --base-rot: -1deg; animation-delay: 0.45s; animation-duration: 4.0s;">
+              <svg width="22" height="30" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#7fb5d8" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">T</text>
+              </svg>
+            </div>
+            <div class="banner-flag" style="--base-y: 1px; --base-rot: 1deg; animation-delay: 0.1s; animation-duration: 4.6s;">
+              <svg width="22" height="30" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#fcd381" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">H</text>
+              </svg>
+            </div>
+            <div class="banner-flag" style="--base-y: 4px; --base-rot: 4deg; animation-delay: 0.3s; animation-duration: 4.1s;">
+              <svg width="22" height="30" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#9bb38a" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">D</text>
+              </svg>
+            </div>
+            <div class="banner-flag" style="--base-y: 9px; --base-rot: 9deg; animation-delay: 0.2s; animation-duration: 3.7s;">
+              <svg width="22" height="30" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#e8c4b4" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">A</text>
+              </svg>
+            </div>
+            <div class="banner-flag" style="--base-y: 16px; --base-rot: 14deg; animation-delay: 0.4s; animation-duration: 4.2s;">
+              <svg width="22" height="30" viewBox="0 0 60 80" style="filter: url(#paper-texture); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+                <path d="M 5,5 L 55,5 L 55,75 L 30,62 L 5,75 Z" fill="#f39189" />
+                <path d="M 9,9 L 51,9 L 51,69 L 30,58 L 9,69 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-dasharray="3,3" />
+                <text x="30" y="44" fill="white" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" text-anchor="middle">Y</text>
+              </svg>
+            </div>
+            
+            <!-- Right String Bow -->
+            <div class="absolute right-[-2px] sm:right-1 top-4">
+              <svg width="20" height="20" viewBox="0 0 40 40" class="transform scale-x-[-1]">
+                <path d="M 25,25 Q 15,10 10,12 C 5,14 8,22 15,18 C 22,14 25,6 23,2 C 21,-2 13,4 17,12 C 21,20 28,26 35,28" fill="none" stroke="#a18276" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
         <p id="cake-instruction" class="text-slate-600 text-xs mb-5 leading-relaxed max-w-[280px] mx-auto font-medium">
           Let's bake something special for you. Tap the ingredients to add them to the bowl!
         </p>
@@ -2617,6 +2797,10 @@
       }
       
       document.getElementById('bowl-mix-status').innerHTML = '';
+      const cakeHeaderEl = document.getElementById('cake-header');
+      const bdayBannerEl = document.getElementById('cake-birthday-banner');
+      if (cakeHeaderEl) cakeHeaderEl.classList.remove('hidden');
+      if (bdayBannerEl) bdayBannerEl.classList.add('hidden');
       document.getElementById('cake-header').innerText = "The Secret Recipe";
       document.getElementById('cake-instruction').innerText = "Let's bake something special for you. Tap the ingredients to add them to the bowl!";
     }
@@ -2748,7 +2932,10 @@
         }
         
         // Dynamic Header and Subheader text changes when entering Cake Ceremony Stage
-        document.getElementById('cake-header').innerText = "Happy birthday";
+        const cakeHeader = document.getElementById('cake-header');
+        const bdayBanner = document.getElementById('cake-birthday-banner');
+        if (cakeHeader) cakeHeader.classList.add('hidden');
+        if (bdayBanner) bdayBanner.classList.remove('hidden');
         document.getElementById('cake-instruction').innerText = "to the one who lights up my life.";
         
         // Lower background music volume to 30% of normal (0.35 * 0.30 = 0.1)
