@@ -795,7 +795,7 @@
         <h1 id="cake-header" class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">The Secret Recipe</h1>
         
         <!-- Premium Paper Birthday Banner (initially hidden, shown on cake completion) -->
-        <div id="cake-birthday-banner" class="hidden w-full flex justify-center py-2 pointer-events-auto transform -translate-y-[80px]">
+        <div id="cake-birthday-banner" class="hidden w-full flex justify-center py-2 pointer-events-auto transform -translate-y-[120px]">
           <img class="w-full max-w-[280px] sm:max-w-[320px] object-contain banner-image select-none pointer-events-none" src="hbbanner.avif" alt="Happy Birthday Banner">
         </div>
 
@@ -849,8 +849,8 @@
             </div>
           </div>
 
-          <!-- Outer wrapper to translate cake container up by 60px in cake ceremony -->
-          <div class="transform -translate-y-[60px] pointer-events-auto flex items-center justify-center">
+          <!-- Outer wrapper to translate cake container up by 80px in cake ceremony -->
+          <div class="transform -translate-y-[80px] pointer-events-auto flex items-center justify-center">
             <!-- Baked Cake (Hidden Initially) - Animates in from left -->
             <div id="baked-cake" class="hidden relative mt-4 transform -translate-x-[150%] transition-transform duration-1000 ease-out z-20 w-72 h-72 select-none">
               
@@ -1574,7 +1574,7 @@
         filter.frequency.exponentialRampToValueAtTime(150, now + 0.15);
         
         const noiseGain = this.ctx.createGain();
-        noiseGain.gain.setValueAtTime(0.2, now);
+        noiseGain.gain.setValueAtTime(0.75, now); // Increased from 0.2 to 0.75 for audible pop
         noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
         
         noiseNode.connect(filter);
@@ -1590,7 +1590,7 @@
           const gain = this.ctx.createGain();
           osc.type = 'sine';
           osc.frequency.setValueAtTime(freq, now + idx * 0.04);
-          gain.gain.setValueAtTime(0.05, now + idx * 0.04);
+          gain.gain.setValueAtTime(0.28, now + idx * 0.04); // Increased from 0.05 to 0.28 for audible chime
           gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.04 + 0.3);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
@@ -1621,7 +1621,7 @@
         
         const gain = this.ctx.createGain();
         gain.gain.setValueAtTime(0.001, now);
-        gain.gain.linearRampToValueAtTime(0.06, now + 0.15); // Fade in
+        gain.gain.linearRampToValueAtTime(0.45, now + 0.15); // Increased from 0.06 to 0.45 for audible whoosh
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8); // Fade out
         
         noiseNode.connect(filter);
