@@ -436,11 +436,43 @@
     <div class="absolute top-[10%] right-[10%] w-[380px] h-[380px] rounded-full opacity-[0.80] animate-blob4" style="background-color: #e8dbfc;"></div>
   </div>
 
-  <!-- Music Toggle Control -->
-  <div id="music-control" class="fixed top-4 right-4 z-50 hidden">
-    <button onclick="toggleMusic()" class="bg-white/40 backdrop-blur-md border border-white/50 text-crimson rounded-full w-10 h-10 flex items-center justify-center shadow-lg focus:outline-none hover:bg-white/70 transition-all">
-      <i id="music-icon" class="fas fa-music"></i>
+  <!-- Music Toggle Control & Dropdown Popover -->
+  <div id="music-control" class="fixed top-4 right-4 z-50 hidden flex flex-col items-end gap-2">
+    <button id="music-toggle-btn" onclick="toggleMusicMenu(event)" class="bg-white/40 backdrop-blur-md border border-white/50 text-crimson rounded-full w-10 h-10 flex items-center justify-center shadow-lg focus:outline-none hover:bg-white/70 transition-all select-none pointer-events-auto">
+      <i id="music-icon" class="fas fa-music animate-pulse"></i>
     </button>
+    
+    <!-- Mini Popover Menu (Glassmorphic iOS Style) -->
+    <div id="music-menu" class="bg-white/40 backdrop-blur-xl border border-white/55 shadow-xl rounded-2xl p-3 flex flex-col gap-2.5 w-44 text-left transition-all duration-300 transform scale-95 opacity-0 pointer-events-none origin-top-right">
+      <!-- Title -->
+      <div class="text-[9px] font-bold text-slate-500 uppercase tracking-widest px-1">Sound Controls</div>
+      
+      <!-- Play/Pause Button -->
+      <button onclick="togglePlayPauseMusic(event)" class="flex items-center gap-2 bg-slate-900/10 hover:bg-slate-900/15 text-slate-800 text-[10px] font-bold py-1.5 px-2.5 rounded-lg transition-colors w-full">
+        <i id="menu-play-icon" class="fas fa-pause w-3 text-center text-slate-700"></i>
+        <span id="menu-play-text">Pause Music</span>
+      </button>
+      
+      <!-- Divider -->
+      <div class="h-[1px] bg-slate-700/10 my-0.5"></div>
+      
+      <!-- Track Switchers -->
+      <div class="text-[8px] font-bold text-slate-500 uppercase tracking-wider px-1">Select Track</div>
+      <div class="flex flex-col gap-1">
+        <button id="track-btn-0" onclick="switchTrack(0)" class="text-left text-[9px] font-semibold text-slate-700 hover:text-slate-900 py-1 px-2 rounded-md hover:bg-slate-900/5 transition-all flex items-center justify-between">
+          <span>🎵 Dreamy Lofi</span>
+          <i id="track-check-0" class="fas fa-check text-[8px] text-green-600 hidden"></i>
+        </button>
+        <button id="track-btn-1" onclick="switchTrack(1)" class="text-left text-[9px] font-semibold text-slate-700 hover:text-slate-900 py-1 px-2 rounded-md hover:bg-slate-900/5 transition-all flex items-center justify-between">
+          <span>🎵 Birthday Box</span>
+          <i id="track-check-1" class="fas fa-check text-[8px] text-green-600 hidden"></i>
+        </button>
+        <button id="track-btn-2" onclick="switchTrack(2)" class="text-left text-[9px] font-semibold text-slate-700 hover:text-slate-900 py-1 px-2 rounded-md hover:bg-slate-900/5 transition-all flex items-center justify-between">
+          <span>🎵 Romantic Piano</span>
+          <i id="track-check-2" class="fas fa-check text-[8px] text-green-600 hidden"></i>
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- ULTRA-MINIMALIST APPLE-STYLE MUSIC SELECTOR ENTRANCE OVERLAY -->
@@ -1707,10 +1739,11 @@
       }
       fadeIn() {
         let volume = 0;
+        const targetVol = (typeof birthdayWishAudio !== 'undefined' && birthdayWishAudio && !birthdayWishAudio.paused && !birthdayWishAudio.ended) ? 0.1 : 0.35;
         const fadeInInterval = setInterval(() => {
-          if (volume < 0.35) {
+          if (volume < targetVol) {
             volume += 0.03;
-            this.audio.volume = volume;
+            this.audio.volume = Math.min(volume, targetVol);
           } else {
             clearInterval(fadeInInterval);
           }
@@ -1725,7 +1758,8 @@
           this.audio.pause();
         } else {
           this.audio.play().catch(e => console.log("Play error:", e));
-          this.audio.volume = 0.35;
+          const targetVol = (typeof birthdayWishAudio !== 'undefined' && birthdayWishAudio && !birthdayWishAudio.paused && !birthdayWishAudio.ended) ? 0.1 : 0.35;
+          this.audio.volume = targetVol;
         }
       }
     }
@@ -2034,17 +2068,123 @@
       }
     }
 
-    function toggleMusic() {
+    function toggleMusicMenu(e) {
+      if (e) e.stopPropagation();
+      
+      const menu = document.getElementById('music-menu');
       const icon = document.getElementById('music-icon');
+      const menuIcon = document.getElementById('menu-play-icon');
+      const menuText = document.getElementById('menu-play-text');
+      
+      if (music.isMuted) {
+        // Direct tap resumes if it was paused/muted
+        music.isMuted = false;
+        music.setMuted(false);
+        if (icon) icon.className = 'fas fa-music animate-pulse';
+        if (menuIcon) menuIcon.className = 'fas fa-pause w-3 text-center text-slate-700';
+        if (menuText) menuText.innerText = 'Pause Music';
+        if (menu) {
+          menu.classList.add('pointer-events-none', 'scale-95', 'opacity-0');
+          menu.classList.remove('pointer-events-auto', 'scale-100', 'opacity-100');
+        }
+      } else {
+        // Toggle menu popover
+        if (!menu) return;
+        const isClosed = menu.classList.contains('pointer-events-none');
+        if (isClosed) {
+          menu.classList.remove('pointer-events-none', 'scale-95', 'opacity-0');
+          menu.classList.add('pointer-events-auto', 'scale-100', 'opacity-100');
+          updateTrackCheckmarks();
+        } else {
+          menu.classList.add('pointer-events-none', 'scale-95', 'opacity-0');
+          menu.classList.remove('pointer-events-auto', 'scale-100', 'opacity-100');
+        }
+      }
+    }
+
+    function togglePlayPauseMusic(e) {
+      if (e) e.stopPropagation();
+      const icon = document.getElementById('music-icon');
+      const menuIcon = document.getElementById('menu-play-icon');
+      const menuText = document.getElementById('menu-play-text');
+      
       music.isMuted = !music.isMuted;
       music.setMuted(music.isMuted);
       
       if (music.isMuted) {
-        icon.className = 'fas fa-volume-mute';
+        if (icon) icon.className = 'fas fa-play';
+        if (menuIcon) menuIcon.className = 'fas fa-play w-3 text-center text-slate-700';
+        if (menuText) menuText.innerText = 'Play Music';
       } else {
-        icon.className = 'fas fa-volume-up';
+        if (icon) icon.className = 'fas fa-music animate-pulse';
+        if (menuIcon) menuIcon.className = 'fas fa-pause w-3 text-center text-slate-700';
+        if (menuText) menuText.innerText = 'Pause Music';
       }
     }
+
+    function switchTrack(idx) {
+      const trackUrl = music.playlist[idx];
+      if (!trackUrl) return;
+      
+      music.play(trackUrl);
+      selectedMusicUrl = trackUrl;
+      lastPlaylistTrack = trackUrl;
+      
+      const icon = document.getElementById('music-icon');
+      const menuIcon = document.getElementById('menu-play-icon');
+      const menuText = document.getElementById('menu-play-text');
+      
+      music.isMuted = false;
+      music.setMuted(false);
+      if (icon) icon.className = 'fas fa-music animate-pulse';
+      if (menuIcon) menuIcon.className = 'fas fa-pause w-3 text-center text-slate-700';
+      if (menuText) menuText.innerText = 'Pause Music';
+      
+      updateTrackCheckmarks();
+      
+      setTimeout(() => {
+        const menu = document.getElementById('music-menu');
+        if (menu) {
+          menu.classList.add('pointer-events-none', 'scale-95', 'opacity-0');
+          menu.classList.remove('pointer-events-auto', 'scale-100', 'opacity-100');
+        }
+      }, 350);
+    }
+
+    function updateTrackCheckmarks() {
+      const currentTrackUrl = music.currentTrack || selectedMusicUrl || 'music1.mp3';
+      let activeIdx = music.playlist.indexOf(currentTrackUrl);
+      if (activeIdx === -1) activeIdx = 0;
+      
+      for (let i = 0; i < 3; i++) {
+        const checkEl = document.getElementById(`track-check-${i}`);
+        const btnEl = document.getElementById(`track-btn-${i}`);
+        if (checkEl) {
+          if (i === activeIdx) {
+            checkEl.classList.remove('hidden');
+          } else {
+            checkEl.classList.add('hidden');
+          }
+        }
+        if (btnEl) {
+          if (i === activeIdx) {
+            btnEl.classList.add('bg-slate-900/10', 'text-slate-900');
+          } else {
+            btnEl.classList.remove('bg-slate-900/10', 'text-slate-900');
+          }
+        }
+      }
+    }
+
+    // Auto-close popover when clicking anywhere else
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('music-menu');
+      const btn = document.getElementById('music-toggle-btn');
+      if (menu && !menu.contains(e.target) && btn && !btn.contains(e.target)) {
+        menu.classList.add('pointer-events-none', 'scale-95', 'opacity-0');
+        menu.classList.remove('pointer-events-auto', 'scale-100', 'opacity-100');
+      }
+    });
 
     function spawnSurpriseBalloons() {
       const colors = [
