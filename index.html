@@ -419,6 +419,28 @@
     </filter>
   </svg>
 
+  <!-- Initial Loader Overlay (Fades out when finished caching all assets) -->
+  <div id="initial-loader-overlay" class="fixed inset-0 bg-[#FAF7F2] z-[100] flex flex-col items-center justify-center text-center p-8 transition-opacity duration-[800ms] ease-out select-none">
+    <!-- Fading Premium Greeting -->
+    <div class="mb-8 animate-pulse flex flex-col items-center">
+      <h2 class="font-sans text-slate-800 text-2xl font-bold tracking-wide mb-1 select-none">Ridoy 🤍</h2>
+      <p class="text-slate-500 text-[10px] font-extrabold uppercase tracking-widest">Preparing a special surprise</p>
+    </div>
+    
+    <!-- Apple style loading spinner -->
+    <div class="relative w-12 h-12 mb-6">
+      <div class="absolute inset-0 rounded-full border-4 border-slate-900/10"></div>
+      <div class="absolute inset-0 rounded-full border-4 border-t-slate-800 animate-spin"></div>
+    </div>
+    
+    <!-- Progress Bar Box -->
+    <div class="w-full max-w-[260px] bg-slate-900/5 h-[4px] rounded-full overflow-hidden mb-3">
+      <div id="loader-progress-fill" class="bg-gradient-to-r from-pink-500 to-crimson h-full w-[0%] transition-all duration-300 shadow-[0_0_8px_rgba(230,57,70,0.4)]"></div>
+    </div>
+    
+    <span id="loader-progress-text" class="text-[9px] font-extrabold text-slate-500 uppercase tracking-widest">Preparing memory assets... 0%</span>
+  </div>
+
   <!-- Full-screen Background Overlay (for Phase 2 cinematic look) -->
   <div id="fullscreen-bg" class="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-[1000ms] opacity-0 pointer-events-none z-0"></div>
 
@@ -1320,6 +1342,7 @@
     /* =========================================================================
        1.5. ASSET PRELOADER (Ensures zero lag & instant asset load)
        ========================================================================= */
+
     const ASSETS_TO_PRELOAD = {
       images: [
         'cake.avif',
@@ -1336,53 +1359,100 @@
         'images/23May2025_Binodia.avif'
       ],
       audio: [
+        'voiceover.mp3',
         'Birthdaywish.mp3',
-        'voiceover.mp3'
+        'music1.mp3',
+        'music2.mp3',
+        'music3.mp3'
       ]
     };
 
-    let isPreloaded = true;
+    let isPreloaded = false;
+    const mediaCache = {};
+
+    function applyCachedMedia() {
+      // Swaps all img src tags with their preloaded local Blob URLs
+      const imgs = document.querySelectorAll('img');
+      imgs.forEach(img => {
+        const srcAttr = img.getAttribute('src');
+        if (srcAttr && mediaCache[srcAttr]) {
+          img.src = mediaCache[srcAttr];
+        }
+      });
+      
+      // Update global audio objects to use cached Blob URLs
+      if (mediaCache['voiceover.mp3'] && typeof voiceoverAudio !== 'undefined') {
+        voiceoverAudio.src = mediaCache['voiceover.mp3'];
+      }
+      if (mediaCache['Birthdaywish.mp3'] && typeof birthdayWishAudio !== 'undefined') {
+        birthdayWishAudio.src = mediaCache['Birthdaywish.mp3'];
+      }
+    }
 
     function startPreloading() {
-      const btnStart = document.getElementById('btn-start-experience');
-      if (!btnStart) return;
-
+      const loaderOverlay = document.getElementById('initial-loader-overlay');
+      const progressFill = document.getElementById('loader-progress-fill');
+      const progressText = document.getElementById('loader-progress-text');
+      
       let loadedCount = 0;
       const totalAssets = ASSETS_TO_PRELOAD.images.length + ASSETS_TO_PRELOAD.audio.length;
 
       function checkProgress() {
         loadedCount++;
         const percent = Math.min(Math.round((loadedCount / totalAssets) * 100), 100);
-        console.log(`Preloading assets progress: ${percent}%`);
+        
+        if (progressFill) progressFill.style.width = `${percent}%`;
+        if (progressText) progressText.innerText = `Preparing surprise... ${percent}%`;
 
         if (loadedCount >= totalAssets) {
-          console.log("All critical assets cached in background successfully!");
+          isPreloaded = true;
+          applyCachedMedia();
+          
+          setTimeout(() => {
+            if (loaderOverlay) {
+              loaderOverlay.classList.add('opacity-0', 'pointer-events-none');
+              setTimeout(() => {
+                loaderOverlay.remove();
+              }, 800);
+            }
+          }, 600);
         }
       }
 
-      // Preload images
-      ASSETS_TO_PRELOAD.images.forEach(url => {
-        const img = new Image();
-        img.src = url;
-        img.onload = checkProgress;
-        img.onerror = checkProgress;
+      // Preload images via fetch to ensure full RAM caching as Blob URLs
+      ASSETS_TO_PRELOAD.images.forEach(async (url) => {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error();
+          const blob = await response.blob();
+          const blobUrl = URL.createObjectURL(blob);
+          mediaCache[url] = blobUrl;
+          
+          // Pre-warm the image decoding
+          const img = new Image();
+          img.src = blobUrl;
+        } catch (e) {
+          console.warn(`Image prefetch failed: ${url}`, e);
+          mediaCache[url] = url; // fallback
+        } finally {
+          checkProgress();
+        }
       });
 
-      // Preload audio
-      ASSETS_TO_PRELOAD.audio.forEach(url => {
-        const audio = new Audio();
-        audio.src = url;
-        audio.preload = 'auto';
-        
-        audio.addEventListener('canplaythrough', checkProgress, { once: true });
-        audio.addEventListener('error', checkProgress, { once: true });
-        
-        // Timeout safeguard
-        setTimeout(() => {
-          if (audio.readyState < 3) {
-            checkProgress();
-          }
-        }, 6000);
+      // Preload audio files as Blob URLs
+      ASSETS_TO_PRELOAD.audio.forEach(async (url) => {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error();
+          const blob = await response.blob();
+          const blobUrl = URL.createObjectURL(blob);
+          mediaCache[url] = blobUrl;
+        } catch (e) {
+          console.warn(`Audio prefetch failed: ${url}`, e);
+          mediaCache[url] = url; // fallback
+        } finally {
+          checkProgress();
+        }
       });
     }
 
@@ -1701,7 +1771,7 @@
         if (this.currentTrack === url) return;
         this.currentTrack = url;
         
-        const targetUrl = audioBlobCache[url] || url;
+        const targetUrl = mediaCache[url] || url;
         
         if (this.audio.src) {
           let volume = this.audio.volume;
@@ -1780,50 +1850,20 @@
       }
     }
 
-    // Global Audio Blob Caching Engine to prevent network buffer stutters/latency
-    const audioBlobCache = {};
-    
-    async function cacheAudio(url) {
-      if (audioBlobCache[url]) {
-        return audioBlobCache[url];
-      }
-      try {
-        console.log(`Starting background cache fetch: ${url}`);
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const blob = await response.blob();
-        const blobUrl = URL.createObjectURL(blob);
-        audioBlobCache[url] = blobUrl;
-        console.log(`Successfully cached audio: ${url} -> ${blobUrl}`);
-        return blobUrl;
-      } catch (e) {
-        console.warn(`Failed to preload audio ${url}, falling back to network url:`, e);
-        return url;
-      }
-    }
-
     const sound = new SoundSynthesizer();
     const music = new AmbientMusicPlayer();
 
     // Voiceover Audio Setup
     let voiceoverAudio = new Audio();
-    voiceoverAudio.src = CONFIG.voiceoverUrl;
+    voiceoverAudio.src = mediaCache[CONFIG.voiceoverUrl] || CONFIG.voiceoverUrl;
     voiceoverAudio.loop = false;
     voiceoverAudio.volume = 0.95;
 
     // Birthday Wish Voice Note Setup
     let birthdayWishAudio = new Audio();
-    birthdayWishAudio.src = 'Birthdaywish.mp3';
+    birthdayWishAudio.src = mediaCache['Birthdaywish.mp3'] || 'Birthdaywish.mp3';
     birthdayWishAudio.loop = false;
     birthdayWishAudio.volume = 0.95;
-
-    // Start preloading critical voice notes immediately on page load
-    cacheAudio(CONFIG.voiceoverUrl).then(blobUrl => {
-      voiceoverAudio.src = blobUrl;
-    });
-    cacheAudio('Birthdaywish.mp3').then(blobUrl => {
-      birthdayWishAudio.src = blobUrl;
-    });
     
     let isCandleBlownOut = false;
     let isKnifeUnlocked = false;
@@ -2060,7 +2100,7 @@
         
         // Show full-screen night sky background
         if (fsBg) {
-          fsBg.style.backgroundImage = "url('night_view.avif')";
+          fsBg.style.backgroundImage = "url('" + (mediaCache['night_view.avif'] || 'night_view.avif') + "')";
           fsBg.classList.remove('opacity-0');
           fsBg.classList.add('opacity-100');
         }
@@ -2333,22 +2373,9 @@
       element.className = 'soundtrack-option bg-white/40 border border-white/50 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/50';
       element.querySelector('.waveform-indicator').classList.remove('opacity-0');
       
-      // Start background cache for this specific soundtrack!
-      cacheAudio(url).then(blobUrl => {
-        if (selectedMusicUrl === url) {
-          const currentPos = previewAudio.currentTime;
-          const wasPlaying = !previewAudio.paused;
-          previewAudio.src = blobUrl;
-          previewAudio.currentTime = currentPos;
-          if (wasPlaying) {
-            previewAudio.play().catch(e => console.log("Preview audio play error:", e));
-          }
-        }
-      });
-      
-      // Play a quick audio preview of the selected track (fallback to url initially, switches to blob dynamically)
+      // Play a quick audio preview of the selected track (instantly from local preloaded Blob URL)
       previewAudio.pause();
-      previewAudio.src = audioBlobCache[url] || url;
+      previewAudio.src = mediaCache[url] || url;
       previewAudio.volume = 0.35;
       previewAudio.play().catch(e => console.log("Preview audio blocked:", e));
       
