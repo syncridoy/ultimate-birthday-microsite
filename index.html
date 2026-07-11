@@ -788,14 +788,14 @@
     </section>
 
     <!-- PHASE 4: Interactive Cake Baking & Cutting Ceremony -->
-    <section id="phase-4" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-center items-center text-center hidden z-30 select-none p-4 bg-white/12 backdrop-blur-2xl">
+    <section id="phase-4" class="fixed inset-0 w-full h-full min-h-screen flex flex-col justify-between items-center text-center hidden z-30 select-none p-6 pt-16 pb-12 bg-white/12 backdrop-blur-2xl">
       
       <!-- Top header container -->
-      <div class="w-full max-w-sm px-6 z-20 relative pointer-events-none mb-4">
+      <div class="w-full max-w-sm mt-16 px-6 z-20 relative pointer-events-none">
         <h1 id="cake-header" class="font-sans text-[26px] font-extrabold mb-2 text-slate-900 tracking-wide">The Secret Recipe</h1>
         
         <!-- Premium Paper Birthday Banner (initially hidden, shown on cake completion) -->
-        <div id="cake-birthday-banner" class="hidden w-full flex justify-center py-2 pointer-events-auto">
+        <div id="cake-birthday-banner" class="hidden w-full flex justify-center py-2 pointer-events-auto transform -translate-y-[60px]">
           <img class="w-full max-w-[280px] sm:max-w-[320px] object-contain banner-image select-none pointer-events-none" src="hbbanner.avif" alt="Happy Birthday Banner">
         </div>
 
@@ -805,7 +805,7 @@
       </div>
 
       <!-- Middle arena container -->
-      <div class="w-full max-w-sm flex flex-col items-center justify-center z-15 pointer-events-auto">
+      <div class="w-full max-w-sm flex-grow flex flex-col items-center justify-center z-15 py-4 pointer-events-auto">
         <!-- Mixing Bowl Area -->
         <div id="baking-arena" class="w-full relative h-48 flex items-center justify-center mb-6">
           <!-- Floating Glass Panel Ingredients (Replaced Jars) -->
@@ -849,42 +849,45 @@
             </div>
           </div>
 
-          <!-- Baked Cake (Hidden Initially) - Animates in from left -->
-          <div id="baked-cake" class="hidden relative mt-4 transform -translate-x-[150%] transition-transform duration-1000 ease-out z-20 w-72 h-72 select-none">
-            
-            <!-- LEFT HALF OF THE CAKE -->
-            <div id="cake-left-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(0 0, 58% 0, 58% 100%, 0 100%);">
-              <!-- Outer card box wrapper with border/shadow (no clip-path to prevent ghost lines) -->
-              <div class="w-full h-full bg-white/20 backdrop-blur-md border border-white/45 rounded-3xl flex items-center justify-center overflow-hidden">
-                <img src="cake.png" alt="Cake Left" class="w-full h-full object-contain">
-              </div>
-            </div>
-
-            <!-- RIGHT HALF OF THE CAKE -->
-            <div id="cake-right-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(58% 0, 100% 0, 100% 100%, 58% 100%);">
-              <!-- Outer card box wrapper with border/shadow (no clip-path to prevent ghost lines) -->
-              <div class="w-full h-full bg-white/20 backdrop-blur-md border border-white/45 rounded-3xl flex items-center justify-center overflow-hidden">
-                <img src="cake.png" alt="Cake Right" class="w-full h-full object-contain">
-              </div>
-            </div>
-
-            <!-- Flame positioned exactly on the image's candle wick -->
-            <div id="cake-candle-wrapper" onclick="extinguishCandle()" class="absolute z-30 select-none cursor-pointer w-4 h-4 transition-transform duration-[800ms] ease-out" style="left: calc(60.8% - 5px); top: calc(3.5% + 9px); transform: translate(-50%, -50%);">
-              <!-- Flame -->
-              <div id="candle-flame" class="glowing-flame" style="bottom: 8px; left: 50%; transform: translateX(-50%);"></div>
-              <!-- Smoke (hidden initially) -->
-              <div id="candle-smoke" class="candle-smoke hidden" style="bottom: 8px; left: 50%; transform: translateX(-50%);"></div>
-            </div>
-
-            <!-- Light opacity instruction text overlaid on the cake inside a glass pill box -->
-            <div id="cut-instruction-text" class="hidden absolute inset-x-6 top-1/2 -translate-y-1/2 bg-white/15 border border-white/30 rounded-full h-12 select-none z-30 pointer-events-auto flex items-center justify-center shadow-sm">
-              <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-800/60 pl-8 pointer-events-none animate-pulse">
-                SLIDE KNIFE RIGHT
-              </span>
+          <!-- Outer wrapper to translate cake container up by 60px in cake ceremony -->
+          <div class="transform -translate-y-[60px] pointer-events-auto flex items-center justify-center">
+            <!-- Baked Cake (Hidden Initially) - Animates in from left -->
+            <div id="baked-cake" class="hidden relative mt-4 transform -translate-x-[150%] transition-transform duration-1000 ease-out z-20 w-72 h-72 select-none">
               
-              <!-- Knife inside the track, perfectly transparent and bounded -->
-              <div id="drag-knife" class="absolute left-2 top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing select-none text-3xl transition-all duration-300">
-                🔪
+              <!-- LEFT HALF OF THE CAKE -->
+              <div id="cake-left-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(0 0, 58% 0, 58% 100%, 0 100%);">
+                <!-- Outer card box wrapper with border/shadow (no clip-path to prevent ghost lines) -->
+                <div class="w-full h-full bg-white/20 backdrop-blur-md border border-white/45 rounded-3xl flex items-center justify-center overflow-hidden">
+                  <img src="cake.png" alt="Cake Left" class="w-full h-full object-contain">
+                </div>
+              </div>
+
+              <!-- RIGHT HALF OF THE CAKE -->
+              <div id="cake-right-half" class="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out" style="clip-path: polygon(58% 0, 100% 0, 100% 100%, 58% 100%);">
+                <!-- Outer card box wrapper with border/shadow (no clip-path to prevent ghost lines) -->
+                <div class="w-full h-full bg-white/20 backdrop-blur-md border border-white/45 rounded-3xl flex items-center justify-center overflow-hidden">
+                  <img src="cake.png" alt="Cake Right" class="w-full h-full object-contain">
+                </div>
+              </div>
+
+              <!-- Flame positioned exactly on the image's candle wick -->
+              <div id="cake-candle-wrapper" onclick="extinguishCandle()" class="absolute z-30 select-none cursor-pointer w-4 h-4 transition-transform duration-[800ms] ease-out" style="left: calc(60.8% - 5px); top: calc(3.5% + 9px); transform: translate(-50%, -50%);">
+                <!-- Flame -->
+                <div id="candle-flame" class="glowing-flame" style="bottom: 8px; left: 50%; transform: translateX(-50%);"></div>
+                <!-- Smoke (hidden initially) -->
+                <div id="candle-smoke" class="candle-smoke hidden" style="bottom: 8px; left: 50%; transform: translateX(-50%);"></div>
+              </div>
+
+              <!-- Light opacity instruction text overlaid on the cake inside a glass pill box -->
+              <div id="cut-instruction-text" class="hidden absolute inset-x-6 top-1/2 -translate-y-1/2 bg-white/15 border border-white/30 rounded-full h-12 select-none z-30 pointer-events-auto flex items-center justify-center shadow-sm">
+                <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-800/60 pl-8 pointer-events-none animate-pulse">
+                  SLIDE KNIFE RIGHT
+                </span>
+                
+                <!-- Knife inside the track, perfectly transparent and bounded -->
+                <div id="drag-knife" class="absolute left-2 top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing select-none text-3xl transition-all duration-300">
+                  🔪
+                </div>
               </div>
             </div>
           </div>
@@ -903,7 +906,7 @@
       </div>
 
       <!-- Bottom button container -->
-      <div class="absolute bottom-6 w-full max-w-sm px-6 z-20 pointer-events-auto flex justify-center">
+      <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
         <!-- Bake button -->
         <button id="btn-bake-action" onclick="bakeCake()" class="hidden bg-white/55 backdrop-blur-md text-slate-900 border border-white/60 hover:bg-white/75 font-sans font-bold px-8 py-3.5 rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
           <i class="fas fa-fire-burner mr-1"></i> Bake the Cake
