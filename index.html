@@ -879,7 +879,7 @@
               </div>
 
               <!-- Light opacity instruction text overlaid on the cake inside a glass pill box -->
-              <div id="cut-instruction-text" class="hidden absolute inset-x-6 top-1/2 -translate-y-1/2 bg-white/15 border border-white/30 rounded-full h-12 select-none z-30 pointer-events-auto flex items-center justify-center shadow-sm">
+              <div id="cut-instruction-text" class="absolute inset-x-6 top-1/2 -translate-y-1/2 bg-white/15 border border-white/30 rounded-full h-12 select-none z-30 pointer-events-none flex items-center justify-center shadow-sm opacity-0 scale-90 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]">
                 <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-800/60 pl-8 pointer-events-none animate-pulse">
                   SLIDE KNIFE RIGHT
                 </span>
@@ -1765,8 +1765,10 @@
           dragKnife.style.opacity = '1';
         }
         if (cutText) {
-          cutText.classList.remove('hidden');
-          cutText.style.opacity = '1';
+          cutText.classList.remove('pointer-events-none');
+          cutText.classList.add('pointer-events-auto');
+          cutText.classList.remove('opacity-0', 'scale-90');
+          cutText.classList.add('opacity-100', 'scale-100');
         }
         unlockKnifeSlider();
       }
@@ -2088,10 +2090,6 @@
             balloon.style.transform = `translateX(${(i % 2 === 0 ? 30 : -30)}px) rotate(${(i % 2 === 0 ? 10 : -10)}deg)`;
           }, 50);
         });
-        
-        setTimeout(() => {
-          sound.playBalloonFly();
-        }, delay);
         
         setTimeout(() => {
           balloon.remove();
@@ -2742,7 +2740,10 @@
         dragKnife.style.transition = 'none';
       }
       if (cutText) {
-        cutText.classList.add('hidden');
+        cutText.classList.add('pointer-events-none');
+        cutText.classList.remove('pointer-events-auto');
+        cutText.classList.add('opacity-0', 'scale-90');
+        cutText.classList.remove('opacity-100', 'scale-100');
       }
       
       document.getElementById('bowl-mix-status').innerHTML = '';
@@ -2896,13 +2897,11 @@
         birthdayWishAudio.currentTime = 0;
         birthdayWishAudio.play().catch(e => console.log("Play blocked:", e));
         
-        // Spawn surprise balloons and confetti rain with sound effects
+        // Spawn surprise balloons and confetti rain
         spawnSurpriseBalloons();
         confetti.spawn();
-        sound.playConfettiPop();
         setTimeout(() => {
           confetti.spawn();
-          sound.playConfettiPop();
         }, 1200);
       }, 1800);
     }
@@ -3008,8 +3007,16 @@
       // Hide drag knife and instruction text
       const dragKnife = document.getElementById('drag-knife');
       const instructionText = document.getElementById('cut-instruction-text');
-      if (dragKnife) dragKnife.classList.add('hidden');
-      if (instructionText) instructionText.classList.add('hidden');
+      if (dragKnife) {
+        dragKnife.style.opacity = '0';
+        setTimeout(() => dragKnife.classList.add('hidden'), 800);
+      }
+      if (instructionText) {
+        instructionText.classList.add('pointer-events-none');
+        instructionText.classList.remove('pointer-events-auto');
+        instructionText.classList.add('opacity-0', 'scale-90');
+        instructionText.classList.remove('opacity-100', 'scale-100');
+      }
       
       // Animate the cake splitting apart realistically
       const leftHalf = document.getElementById('cake-left-half');
