@@ -1701,6 +1701,8 @@
         if (this.currentTrack === url) return;
         this.currentTrack = url;
         
+        const targetUrl = audioBlobCache[url] || url;
+        
         if (this.audio.src) {
           let volume = this.audio.volume;
           const fadeOut = setInterval(() => {
@@ -1710,7 +1712,7 @@
             } else {
               clearInterval(fadeOut);
               this.audio.pause();
-              this.audio.src = url;
+              this.audio.src = targetUrl;
               this.audio.load();
               this.audio.volume = 0;
               if (!this.isMuted) {
@@ -1720,7 +1722,7 @@
             }
           }, 30);
         } else {
-          this.audio.src = url;
+          this.audio.src = targetUrl;
           this.audio.volume = 0;
           if (!this.isMuted) {
             this.audio.play().catch(e => console.log("Music play blocked:", e));
@@ -1778,6 +1780,28 @@
       }
     }
 
+    // Global Audio Blob Caching Engine to prevent network buffer stutters/latency
+    const audioBlobCache = {};
+    
+    async function cacheAudio(url) {
+      if (audioBlobCache[url]) {
+        return audioBlobCache[url];
+      }
+      try {
+        console.log(`Starting background cache fetch: ${url}`);
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        audioBlobCache[url] = blobUrl;
+        console.log(`Successfully cached audio: ${url} -> ${blobUrl}`);
+        return blobUrl;
+      } catch (e) {
+        console.warn(`Failed to preload audio ${url}, falling back to network url:`, e);
+        return url;
+      }
+    }
+
     const sound = new SoundSynthesizer();
     const music = new AmbientMusicPlayer();
 
@@ -1792,6 +1816,14 @@
     birthdayWishAudio.src = 'Birthdaywish.mp3';
     birthdayWishAudio.loop = false;
     birthdayWishAudio.volume = 0.95;
+
+    // Start preloading critical voice notes immediately on page load
+    cacheAudio(CONFIG.voiceoverUrl).then(blobUrl => {
+      voiceoverAudio.src = blobUrl;
+    });
+    cacheAudio('Birthdaywish.mp3').then(blobUrl => {
+      birthdayWishAudio.src = blobUrl;
+    });
     
     let isCandleBlownOut = false;
     let isKnifeUnlocked = false;
@@ -2301,9 +2333,22 @@
       element.className = 'soundtrack-option bg-white/40 border border-white/50 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition-all hover:bg-white/50';
       element.querySelector('.waveform-indicator').classList.remove('opacity-0');
       
-      // Play a quick audio preview of the selected track
+      // Start background cache for this specific soundtrack!
+      cacheAudio(url).then(blobUrl => {
+        if (selectedMusicUrl === url) {
+          const currentPos = previewAudio.currentTime;
+          const wasPlaying = !previewAudio.paused;
+          previewAudio.src = blobUrl;
+          previewAudio.currentTime = currentPos;
+          if (wasPlaying) {
+            previewAudio.play().catch(e => console.log("Preview audio play error:", e));
+          }
+        }
+      });
+      
+      // Play a quick audio preview of the selected track (fallback to url initially, switches to blob dynamically)
       previewAudio.pause();
-      previewAudio.src = url;
+      previewAudio.src = audioBlobCache[url] || url;
       previewAudio.volume = 0.35;
       previewAudio.play().catch(e => console.log("Preview audio blocked:", e));
       
