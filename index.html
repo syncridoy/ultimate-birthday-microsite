@@ -865,24 +865,9 @@
       <div class="w-full max-w-sm flex-grow flex flex-col items-center justify-center z-15 py-4 pointer-events-auto">
         <!-- Mixing Bowl Area -->
         <div id="baking-arena" class="w-full relative h-48 flex items-center justify-center mb-6">
-          <!-- Floating Glass Panel Ingredients (Replaced Jars) -->
-          <div id="ingredients-container" class="absolute inset-x-0 flex justify-between px-3 z-30" style="top: -70px;">
-            <div id="ing-flour" onclick="addIngredient('flour')" class="ingredient-glass-card flex flex-col items-center cursor-pointer transition-all hover:scale-105 active:scale-95 w-[31%] text-center" style="animation-delay: 0s;">
-              <span class="text-2.5xl filter drop-shadow select-none">🫂</span>
-              <span class="text-[8px] sm:text-[9px] font-bold text-slate-700 mt-1 tracking-wide whitespace-nowrap overflow-visible">That Noapara Hug</span>
-            </div>
-            <div id="ing-sugar" onclick="addIngredient('sugar')" class="ingredient-glass-card flex flex-col items-center cursor-pointer transition-all hover:scale-105 active:scale-95 w-[31%] text-center" style="animation-delay: 0.4s;">
-              <span class="text-2.5xl filter drop-shadow select-none">🗺️</span>
-              <span class="text-[8px] sm:text-[9px] font-bold text-slate-700 mt-1 tracking-wide whitespace-nowrap overflow-visible">Our First Tour</span>
-            </div>
-            <div id="ing-essence" onclick="addIngredient('essence')" class="ingredient-glass-card flex flex-col items-center cursor-pointer transition-all hover:scale-105 active:scale-95 w-[31%] text-center" style="animation-delay: 0.8s;">
-              <span class="text-2.5xl filter drop-shadow select-none">🚲</span>
-              <span class="text-[8px] sm:text-[9px] font-bold text-slate-700 mt-1 tracking-wide whitespace-nowrap overflow-visible">Night Rides With You</span>
-            </div>
-          </div>
 
           <!-- Transparent Glass Blender -->
-          <div id="glass-blender" class="relative w-28 h-40 mt-16 flex flex-col items-center select-none">
+          <div id="glass-blender" class="relative w-28 h-40 mt-6 flex flex-col items-center select-none">
             <!-- Blender Lid -->
             <div class="w-14 h-2 bg-slate-700/80 rounded-t-full shadow-sm z-20"></div>
             
@@ -946,6 +931,26 @@
                   🔪
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ingredients Box Card with Instruction -->
+        <div id="ingredients-card" class="w-full max-w-[340px] bg-white/25 backdrop-blur-md border border-white/45 rounded-3xl p-4 shadow-sm z-30 flex flex-col items-center mb-4 transition-all duration-500">
+          <span class="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-3.5">Select ingredients to bake the cake:</span>
+          
+          <div id="ingredients-container" class="w-full flex justify-between px-1">
+            <div id="ing-flour" onclick="addIngredient('flour')" class="ingredient-glass-card flex flex-col items-center cursor-pointer transition-all hover:scale-105 active:scale-95 w-[31%] text-center" style="animation-delay: 0s;">
+              <span class="text-2.5xl filter drop-shadow select-none">🫂</span>
+              <span class="text-[8px] sm:text-[9px] font-bold text-slate-700 mt-1.5 tracking-wide whitespace-nowrap overflow-visible">That Noapara Hug</span>
+            </div>
+            <div id="ing-sugar" onclick="addIngredient('sugar')" class="ingredient-glass-card flex flex-col items-center cursor-pointer transition-all hover:scale-105 active:scale-95 w-[31%] text-center" style="animation-delay: 0.4s;">
+              <span class="text-2.5xl filter drop-shadow select-none">🗺️</span>
+              <span class="text-[8px] sm:text-[9px] font-bold text-slate-700 mt-1.5 tracking-wide whitespace-nowrap overflow-visible">Our First Tour</span>
+            </div>
+            <div id="ing-essence" onclick="addIngredient('essence')" class="ingredient-glass-card flex flex-col items-center cursor-pointer transition-all hover:scale-105 active:scale-95 w-[31%] text-center" style="animation-delay: 0.8s;">
+              <span class="text-2.5xl filter drop-shadow select-none">🚲</span>
+              <span class="text-[8px] sm:text-[9px] font-bold text-slate-700 mt-1.5 tracking-wide whitespace-nowrap overflow-visible">Night Rides With You</span>
             </div>
           </div>
         </div>
@@ -2864,7 +2869,7 @@
         }
       });
       
-      document.getElementById('ingredients-container').classList.remove('hidden');
+      document.getElementById('ingredients-card').classList.remove('hidden');
       const glassBlender = document.getElementById('glass-blender');
       if (glassBlender) glassBlender.classList.remove('hidden');
       
@@ -3052,7 +3057,7 @@
           btnEl.classList.add('bg-slate-300');
         }
         
-        document.getElementById('ingredients-container').classList.add('hidden');
+        document.getElementById('ingredients-card').classList.add('hidden');
         document.getElementById('glass-blender').classList.add('hidden');
         
         // Show baked cake container and trigger the slide-in animation from left
