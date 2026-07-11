@@ -421,18 +421,14 @@
 
   <!-- Initial Loader Overlay (Fades out when finished caching all assets) -->
   <div id="initial-loader-overlay" class="fixed inset-0 bg-[#FAF7F2] z-[100] flex flex-col items-center justify-center text-center p-8 transition-opacity duration-[800ms] ease-out select-none">
-    <!-- Fading Premium Greeting -->
-    <div class="mb-8 animate-pulse flex flex-col items-center">
-      <h2 class="font-sans text-slate-800 text-2xl font-bold tracking-wide mb-1 select-none">Ridoy 🤍</h2>
-      <p class="text-slate-500 text-[10px] font-extrabold uppercase tracking-widest">Preparing a special surprise</p>
-    </div>
+    <h2 class="font-sans text-slate-800 text-base font-semibold tracking-[0.2em] uppercase mb-6 select-none animate-pulse">Loading...</h2>
     
     <!-- Progress Bar Box -->
-    <div class="w-full max-w-[260px] bg-slate-900/5 h-[4px] rounded-full overflow-hidden mb-3">
-      <div id="loader-progress-fill" class="bg-gradient-to-r from-pink-500 to-crimson h-full w-[0%] transition-all duration-300 shadow-[0_0_8px_rgba(230,57,70,0.4)]"></div>
+    <div class="w-full max-w-[200px] bg-slate-900/5 h-[3px] rounded-full overflow-hidden mb-3.5">
+      <div id="loader-progress-fill" class="bg-slate-800 h-full w-[0%] transition-all duration-300"></div>
     </div>
     
-    <span id="loader-progress-text" class="text-[9px] font-extrabold text-slate-500 uppercase tracking-widest">Preparing memory assets... 0%</span>
+    <span id="loader-progress-text" class="text-[9px] font-extrabold text-slate-400 uppercase tracking-widest">Please wait... 0%</span>
   </div>
 
   <!-- Full-screen Background Overlay (for Phase 2 cinematic look) -->
@@ -1396,7 +1392,7 @@
         const percent = Math.min(Math.round((loadedCount / totalAssets) * 100), 100);
         
         if (progressFill) progressFill.style.width = `${percent}%`;
-        if (progressText) progressText.innerText = `Preparing surprise... ${percent}%`;
+        if (progressText) progressText.innerText = `Please wait... ${percent}%`;
 
         if (loadedCount >= totalAssets) {
           isPreloaded = true;
