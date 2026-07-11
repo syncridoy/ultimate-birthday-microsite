@@ -156,14 +156,15 @@
     
     /* Realistic 3D Balloon styles */
     .real-balloon {
-      width: 50px;
-      height: 65px;
-      border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+      width: 55px;
+      height: 70px;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
       position: absolute;
       cursor: pointer;
-      box-shadow: inset -6px -6px 12px rgba(0,0,0,0.25), 
-                  inset 4px 4px 10px rgba(255,255,255,0.4),
-                  0 8px 20px rgba(0,0,0,0.3);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      box-shadow: inset 4px 4px 10px rgba(255, 255, 255, 0.5), 0 10px 20px rgba(0, 0, 0, 0.08);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -176,9 +177,9 @@
       position: absolute;
       top: 6px;
       left: 10px;
-      width: 9px;
-      height: 15px;
-      background: rgba(255, 255, 255, 0.45);
+      width: 10px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.5);
       border-radius: 50%;
       transform: rotate(-15deg);
       pointer-events: none;
@@ -187,19 +188,19 @@
     .balloon-knot {
       width: 0;
       height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 7px solid currentColor;
-      margin-top: 64px; /* Align with bottom edge */
+      border-left: 5.5px solid transparent;
+      border-right: 5.5px solid transparent;
+      border-bottom: 7.5px solid currentColor;
+      margin-top: 69px; /* Align with bottom edge */
       pointer-events: none;
       position: absolute;
     }
     
     .balloon-string {
-      width: 1px;
-      height: 44px;
-      background: rgba(255, 255, 255, 0.35);
-      margin-top: 70px; /* Below the knot */
+      width: 1.5px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.4);
+      margin-top: 75px; /* Below the knot */
       pointer-events: none;
       position: absolute;
     }
@@ -2361,13 +2362,12 @@
         return;
       }
       
-      // Beautiful 3D pastel colors and matching knot colors (vibrant against light glass)
+      // Beautiful semi-transparent colors matching the Phase 4 surprise balloons
       const colors = [
-        { primary: '#ff5a79', knot: '#d83a56' }, // Saturated Pink
-        { primary: '#ff609f', knot: '#d83b79' }, // Saturated Rose
-        { primary: '#359aff', knot: '#1c75cc' }, // Sky Blue
-        { primary: '#e59d8c', knot: '#c67b6a' }, // Peach Gold
-        { primary: '#3adcd6', knot: '#21b2ac' }  // Saturated Mint
+        { primary: 'rgba(255, 117, 140, 0.65)', knot: 'rgba(255, 117, 140, 0.8)' }, 
+        { primary: 'rgba(79, 172, 254, 0.65)', knot: 'rgba(79, 172, 254, 0.8)' }, 
+        { primary: 'rgba(245, 87, 108, 0.65)', knot: 'rgba(245, 87, 108, 0.8)' }, 
+        { primary: 'rgba(253, 194, 219, 0.65)', knot: 'rgba(253, 194, 219, 0.8)' }
       ];
       
       const colorOption = colors[Math.floor(Math.random() * colors.length)];
