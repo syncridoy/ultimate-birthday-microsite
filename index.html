@@ -1031,12 +1031,39 @@
           <path d="M 38,3 C 75,11 75,13 62,20 C 25,27 25,29 38,36 C 75,43 75,45 62,52 C 25,59 25,61 38,68 C 75,75 75,77 62,84" fill="none" stroke="rgba(255, 255, 255, 0.75)" stroke-width="1.5" stroke-dasharray="4,6" stroke-linecap="round" vector-effect="non-scaling-stroke" />
         </svg>
 
-        <!-- 1. Sundorban Card -->
+        <!-- 1. Daulatpur Card -->
         <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-3 -translate-x-14 w-64">
           <!-- Polaroid Frame -->
           <div class="bg-white pt-[25px] pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
             <!-- Colored Tape -->
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-lime-400/70 border border-lime-300/30 rotate-2 shadow-sm z-30 pointer-events-none"></div>
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-rose-400/70 border border-rose-300/30 rotate-2 shadow-sm z-30 pointer-events-none"></div>
+
+            <!-- Photo Canvas Container -->
+            <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
+              <img class="w-full h-full object-cover" src="images/24Mar2025_Daulatpur.avif" alt="Daulatpur Memory">
+              
+              <!-- Date and Location stamp inside the photo -->
+              <div class="absolute bottom-1.5 left-1.5 text-[6px] font-bold text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] flex flex-col items-start space-y-0.5 z-0 select-none pointer-events-none">
+                <div class="flex items-center space-x-0.5">
+                  <i class="far fa-calendar-alt text-white/70 text-[5.5px]"></i> <span>24 Mar 2025</span>
+                </div>
+                <div class="flex items-center space-x-0.5">
+                  <i class="fas fa-map-marker-alt text-white/70 text-[5.5px]"></i> <span>Daulatpur</span>
+                </div>
+              </div>
+              
+              <!-- Scratch Canvas overlay -->
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#ffe4e6" data-idx="0" data-caption="Stepping out of the phone screens and late-night frequencies, into the gravity of the very first rose."></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Sundorban Card -->
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-3 translate-x-14 w-64">
+          <!-- Polaroid Frame -->
+          <div class="bg-white pt-[25px] pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
+            <!-- Colored Tape -->
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-lime-400/70 border border-lime-300/30 -rotate-3 shadow-sm z-30 pointer-events-none"></div>
 
             <!-- Photo Canvas Container -->
             <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
@@ -1053,17 +1080,17 @@
               </div>
               
               <!-- Scratch Canvas overlay -->
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#ecfccb" data-idx="0" data-caption="Stole ten hours from a ten-minute window. First meet, forever green."></canvas>
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#ecfccb" data-idx="1" data-caption="Stole ten hours from a ten-minute window. First meet, forever green."></canvas>
             </div>
           </div>
         </div>
 
-        <!-- 2. Jashore Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-3 translate-x-14 w-64">
+        <!-- 3. Jashore Card -->
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-1 -translate-x-12 w-64">
           <!-- Polaroid Frame -->
           <div class="bg-white pt-[25px] pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
             <!-- Colored Tape -->
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-pink-400/70 border border-pink-300/30 -rotate-3 shadow-sm z-30 pointer-events-none"></div>
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-pink-400/70 border border-pink-300/30 rotate-1 shadow-sm z-30 pointer-events-none"></div>
 
             <!-- Photo Canvas Container -->
             <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
@@ -1080,17 +1107,17 @@
               </div>
               
               <!-- Scratch Canvas overlay -->
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#fce7f3" data-idx="1" data-caption="Our craziest memory: walking through the empty city streets after 12 AM."></canvas>
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#fce7f3" data-idx="2" data-caption="Our craziest memory: walking through the empty city streets after 12 AM."></canvas>
             </div>
           </div>
         </div>
 
-        <!-- 3. JessGarden Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-1 -translate-x-12 w-64">
+        <!-- 4. JessGarden Card -->
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-2 translate-x-12 w-64">
           <!-- Polaroid Frame -->
           <div class="bg-white pt-[25px] pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
             <!-- Colored Tape -->
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-cyan-400/70 border border-cyan-300/30 rotate-1 shadow-sm z-30 pointer-events-none"></div>
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-cyan-400/70 border border-cyan-300/30 -rotate-2 shadow-sm z-30 pointer-events-none"></div>
 
             <!-- Photo Canvas Container -->
             <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
@@ -1107,17 +1134,17 @@
               </div>
               
               <!-- Scratch Canvas overlay -->
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#e0f2fe" data-idx="2" data-caption="The pavement was melting, the air was heavy, but inside that tiny shaded sanctuary, we were perfectly suspended in time."></canvas>
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#e0f2fe" data-idx="3" data-caption="The pavement was melting, the air was heavy, but inside that tiny shaded sanctuary, we were perfectly suspended in time."></canvas>
             </div>
           </div>
         </div>
 
-        <!-- 4. Noapara Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-2 translate-x-12 w-64">
+        <!-- 5. Noapara Card -->
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-3 -translate-x-14 w-64">
           <!-- Polaroid Frame -->
           <div class="bg-white pt-[25px] pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
             <!-- Colored Tape -->
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-amber-400/70 border border-amber-300/30 -rotate-2 shadow-sm z-30 pointer-events-none"></div>
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-amber-400/70 border border-amber-300/30 rotate-3 shadow-sm z-30 pointer-events-none"></div>
 
             <!-- Photo Canvas Container -->
             <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
@@ -1134,17 +1161,17 @@
               </div>
               
               <!-- Scratch Canvas overlay -->
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#fef3c7" data-idx="3" data-caption="Almost a memory, until your arms made us a certainty again."></canvas>
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#fef3c7" data-idx="4" data-caption="Almost a memory, until your arms made us a certainty again."></canvas>
             </div>
           </div>
         </div>
 
-        <!-- 5. Binodia Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-3 -translate-x-14 w-64">
+        <!-- 6. Binodia Card -->
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-1 translate-x-14 w-64">
           <!-- Polaroid Frame -->
           <div class="bg-white pt-[25px] pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
             <!-- Colored Tape -->
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-purple-400/70 border border-purple-300/30 rotate-3 shadow-sm z-30 pointer-events-none"></div>
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-purple-400/70 border border-purple-300/30 -rotate-1 shadow-sm z-30 pointer-events-none"></div>
 
             <!-- Photo Canvas Container -->
             <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
@@ -1161,17 +1188,17 @@
               </div>
               
               <!-- Scratch Canvas overlay -->
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#f3e8ff" data-idx="4" data-caption="Two cities, one shady bench, and a million endless stories."></canvas>
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#f3e8ff" data-idx="5" data-caption="Two cities, one shady bench, and a million endless stories."></canvas>
             </div>
           </div>
         </div>
 
-        <!-- 6. Binodia 2 Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-1 translate-x-14 w-64">
+        <!-- 7. Binodia 2 Card -->
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-2 -translate-x-10 w-64">
           <!-- Polaroid Frame -->
           <div class="bg-white pt-[25px] pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
             <!-- Colored Tape -->
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-emerald-400/70 border border-emerald-300/30 -rotate-1 shadow-sm z-30 pointer-events-none"></div>
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-emerald-400/70 border border-emerald-300/30 rotate-2 shadow-sm z-30 pointer-events-none"></div>
 
             <!-- Photo Canvas Container -->
             <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
@@ -1188,17 +1215,17 @@
               </div>
               
               <!-- Scratch Canvas overlay -->
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#dcfce7" data-idx="5" data-caption="We set the timer just to capture a memory, but accidentally stumbled into high-end cinema."></canvas>
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#dcfce7" data-idx="6" data-caption="We set the timer just to capture a memory, but accidentally stumbled into high-end cinema."></canvas>
             </div>
           </div>
         </div>
 
-        <!-- 7. Binodia 3 Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform -rotate-2 -translate-x-10 w-64">
+        <!-- 8. Binodia 3 Card -->
+        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-3 translate-x-10 w-64">
           <!-- Polaroid Frame -->
           <div class="bg-white pt-[25px] pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
             <!-- Colored Tape -->
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-teal-400/70 border border-teal-300/30 rotate-2 shadow-sm z-30 pointer-events-none"></div>
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-teal-400/70 border border-teal-300/30 -rotate-3 shadow-sm z-30 pointer-events-none"></div>
 
             <!-- Photo Canvas Container -->
             <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
@@ -1215,34 +1242,7 @@
               </div>
               
               <!-- Scratch Canvas overlay -->
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#ccfbf1" data-idx="6" data-caption="Rain-soaked shoulders, soul-soaked words. Timeless Binodia."></canvas>
-            </div>
-          </div>
-        </div>
-
-        <!-- 8. Daulatpur Card -->
-        <div class="polaroid-wrapper z-10 my-10 relative flex flex-col items-center justify-center transform rotate-3 translate-x-10 w-64">
-          <!-- Polaroid Frame -->
-          <div class="bg-white pt-[25px] pb-3 px-3 shadow-lg border border-white/60 rounded-2xl w-52 relative">
-            <!-- Colored Tape -->
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-8 bg-rose-400/70 border border-rose-300/30 -rotate-3 shadow-sm z-30 pointer-events-none"></div>
-
-            <!-- Photo Canvas Container -->
-            <div class="relative w-46 h-46 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
-              <img class="w-full h-full object-cover" src="images/24May2025_Daulatpur.avif" alt="Daulatpur Memory">
-              
-              <!-- Date and Location stamp inside the photo -->
-              <div class="absolute bottom-1.5 left-1.5 text-[6px] font-bold text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] flex flex-col items-start space-y-0.5 z-0 select-none pointer-events-none">
-                <div class="flex items-center space-x-0.5">
-                  <i class="far fa-calendar-alt text-white/70 text-[5.5px]"></i> <span>24 May 2025</span>
-                </div>
-                <div class="flex items-center space-x-0.5">
-                  <i class="fas fa-map-marker-alt text-white/70 text-[5.5px]"></i> <span>Daulatpur</span>
-                </div>
-              </div>
-              
-              <!-- Scratch Canvas overlay -->
-              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#ffe4e6" data-idx="7" data-caption="Stepping out of the phone screens and late-night frequencies, into the gravity of the very first rose."></canvas>
+              <canvas class="scratch-canvas absolute inset-0 w-full h-full cursor-crosshair z-10" data-color="#ccfbf1" data-idx="7" data-caption="Rain-soaked shoulders, soul-soaked words. Timeless Binodia."></canvas>
             </div>
           </div>
         </div>
@@ -1789,6 +1789,7 @@
         'music1_dp.avif',
         'music2_dp.avif',
         'music3_dp.avif',
+        'images/24Mar2025_Daulatpur.avif',
         'images/24Mar2025_Sundorban.avif',
         'images/31Mar2025_Jashore.avif',
         'images/04Apr2025_JessGarden.avif',
@@ -1796,7 +1797,6 @@
         'images/16May2025_Binodia.avif',
         'images/23May2025_Binodia.avif',
         'images/23May2025__Binodia.avif',
-        'images/24May2025_Daulatpur.avif',
         'images/14Jun2025_Bagherhat.avif',
         'images/15Jul2025_Jahanabad.avif',
         'images/19Jul2025_Noapara.avif',
