@@ -3898,6 +3898,9 @@
       svg.style.height = h + 'px';
 
       let d = "";
+      let prevExitX = 0;
+      let prevExitY = 0;
+      let prevExitDir = "";
 
       for (let i = 0; i < cards.length; i++) {
         const frame = cards[i].querySelector('.bg-white');
@@ -3920,20 +3923,34 @@
         const rightX = frameLeft + frameWidth;
         const rightY = frameTop + frameHeight / 2;
 
+        const exitX = (i % 2 === 0) ? rightX : leftX;
+        const exitY = (i % 2 === 0) ? rightY : leftY;
+
         if (i === 0) {
           // Card 0 (first) exits from the middle of the right edge
           d += `M ${rightX} ${rightY}`;
         } else {
-          // Connect previous card's exit to this card's top middle
-          d += ` L ${topX} ${topY}`;
+          // Connect previous card's exit to this card's top middle using a smooth cubic Bezier curve
+          const overshoot = 80; // horizontal loop depth for a premium look
+          let ctrl1X = prevExitX;
+          if (prevExitDir === 'right') {
+            ctrl1X += overshoot;
+          } else {
+            ctrl1X -= overshoot;
+          }
+          const ctrl1Y = prevExitY;
+          const ctrl2X = topX;
+          const ctrl2Y = topY - 60; // approach the top vertically
+
+          d += ` C ${ctrl1X} ${ctrl1Y}, ${ctrl2X} ${ctrl2Y}, ${topX} ${topY}`;
           
-          // Connect top middle of this card to its exit edge:
-          // Even indexes (0, 2, 4...) exit right
-          // Odd indexes (1, 3, 5...) exit left
-          const exitX = (i % 2 === 0) ? rightX : leftX;
-          const exitY = (i % 2 === 0) ? rightY : leftY;
+          // Connect top middle of this card to its exit edge
           d += ` L ${exitX} ${exitY}`;
         }
+
+        prevExitX = exitX;
+        prevExitY = exitY;
+        prevExitDir = (i % 2 === 0) ? 'right' : 'left';
       }
 
       pathBg.setAttribute('d', d);
