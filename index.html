@@ -3856,15 +3856,8 @@
       setTimeout(drawDynamicTimeline, 50);
       setTimeout(drawDynamicTimeline, 300);
       setTimeout(drawDynamicTimeline, 1000);
-
-      // Observe container for any layout shifts (fonts, images) to auto-redraw the line
-      const container = document.getElementById('timeline-cards-container');
-      if (container && !window.timelineObserver) {
-        window.timelineObserver = new ResizeObserver(() => {
-          drawDynamicTimeline();
-        });
-        window.timelineObserver.observe(container);
-      }
+      setTimeout(drawDynamicTimeline, 2000);
+      setTimeout(drawDynamicTimeline, 4000);
     }
 
     function getElementTranslation(el) {
