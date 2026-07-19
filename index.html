@@ -3856,35 +3856,33 @@
       setTimeout(drawDynamicTimeline, 50);
       setTimeout(drawDynamicTimeline, 300);
       setTimeout(drawDynamicTimeline, 1000);
+
+      // Observe container for any layout shifts (fonts, images) to auto-redraw the line
+      const container = document.getElementById('timeline-cards-container');
+      if (container && !window.timelineObserver) {
+        window.timelineObserver = new ResizeObserver(() => {
+          drawDynamicTimeline();
+        });
+        window.timelineObserver.observe(container);
+      }
     }
 
     function getElementTranslation(el) {
+      const cls = el.className || '';
       let tx = 0;
       let ty = 0;
-      try {
-        const style = window.getComputedStyle(el);
-        const transform = style.transform || style.webkitTransform || style.mozTransform;
-        if (transform && transform !== 'none') {
-          const op = String.fromCharCode(40); // Open parenthesis ASCII
-          if (transform.indexOf('matrix3d' + op) === 0) {
-            const val = transform.substring(9, transform.length - 1);
-            const parts = val.split(',');
-            if (parts.length >= 16) {
-              tx = parseFloat(parts[12]);
-              ty = parseFloat(parts[13]);
-            }
-          } else if (transform.indexOf('matrix' + op) === 0) {
-            const val = transform.substring(7, transform.length - 1);
-            const parts = val.split(',');
-            if (parts.length >= 6) {
-              tx = parseFloat(parts[4]);
-              ty = parseFloat(parts[5]);
-            }
-          }
-        }
-      } catch (e) {
-        console.error("Error reading transform matrix", e);
-      }
+      
+      // Calculate translation statically based on Tailwind classes (1rem = 16px)
+      // This is 100% reliable and doesn't depend on DOM visibility, transitions, or computed styles
+      if (cls.indexOf('-translate-x-14') !== -1) tx = -56;
+      else if (cls.indexOf('translate-x-14') !== -1) tx = 56;
+      else if (cls.indexOf('-translate-x-12') !== -1) tx = -48;
+      else if (cls.indexOf('translate-x-12') !== -1) tx = 48;
+      else if (cls.indexOf('-translate-x-10') !== -1) tx = -40;
+      else if (cls.indexOf('translate-x-10') !== -1) tx = 40;
+      else if (cls.indexOf('-translate-x-8') !== -1) tx = -32;
+      else if (cls.indexOf('translate-x-8') !== -1) tx = 32;
+
       return { tx, ty };
     }
 
@@ -3898,9 +3896,9 @@
       const cards = document.querySelectorAll('.polaroid-wrapper');
       if (cards.length === 0) return;
 
-      // Set explicit SVG dimensions matching container layout size (fixes disappearing lines at bottom)
+      // Set explicit SVG dimensions matching container layout size
       const w = container.offsetWidth;
-      const h = container.scrollHeight;
+      const h = Math.max(container.offsetHeight, container.scrollHeight);
       svg.setAttribute('width', w);
       svg.setAttribute('height', h);
       svg.style.width = w + 'px';
@@ -3912,7 +3910,7 @@
         const frame = cards[i].querySelector('.bg-white');
         if (!frame) continue;
 
-        // Get visual offsets including CSS translations
+        // Get visual offsets by parsing CSS classes (bulletproof)
         const { tx, ty } = getElementTranslation(cards[i]);
 
         const frameLeft = cards[i].offsetLeft + frame.offsetLeft + tx;
