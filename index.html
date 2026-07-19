@@ -1021,14 +1021,14 @@
       </div>
 
       <!-- Scrolling timeline container -->
-      <div class="w-full max-w-md mx-auto relative flex flex-col items-center justify-start pointer-events-auto pb-24 mt-6">
+      <div id="timeline-cards-container" class="w-full max-w-md mx-auto relative flex flex-col items-center justify-start pointer-events-auto pb-24 mt-6">
         
-        <!-- Curved glassmorphic connecting zig-zag timeline path -->
-        <svg class="absolute inset-x-0 top-10 bottom-24 w-full h-[calc(100%-140px)] pointer-events-none z-0" preserveAspectRatio="none" viewBox="0 0 100 100">
+        <!-- Dynamic glassmorphic connecting zig-zag timeline path -->
+        <svg id="timeline-svg" class="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
           <!-- Glass Tube Base Layer (semi-transparent white) -->
-          <path d="M 38,3 C 75,11 75,13 62,20 C 25,27 25,29 38,36 C 75,43 75,45 62,52 C 25,59 25,61 38,68 C 75,75 75,77 62,84" fill="none" stroke="rgba(255, 255, 255, 0.35)" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+          <path id="timeline-path-bg" fill="none" stroke="rgba(255, 255, 255, 0.35)" stroke-width="6" stroke-linecap="round" />
           <!-- Fine inner dashed highlight line -->
-          <path d="M 38,3 C 75,11 75,13 62,20 C 25,27 25,29 38,36 C 75,43 75,45 62,52 C 25,59 25,61 38,68 C 75,75 75,77 62,84" fill="none" stroke="rgba(255, 255, 255, 0.75)" stroke-width="1.5" stroke-dasharray="4,6" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+          <path id="timeline-path-fg" fill="none" stroke="rgba(255, 255, 255, 0.75)" stroke-width="1.5" stroke-dasharray="4,6" stroke-linecap="round" />
         </svg>
 
         <!-- 1. Daulatpur Card -->
@@ -3850,7 +3850,59 @@
 
       window.removeEventListener('touchend', handleScratchEnd);
       window.addEventListener('touchend', handleScratchEnd);
+
+      // Draw dynamic connecting SVG timeline lines after rendering completes
+      setTimeout(drawDynamicTimeline, 100);
     }
+
+    function drawDynamicTimeline() {
+      const container = document.getElementById('timeline-cards-container');
+      const svg = document.getElementById('timeline-svg');
+      const pathBg = document.getElementById('timeline-path-bg');
+      const pathFg = document.getElementById('timeline-path-fg');
+      if (!container || !svg || !pathBg || !pathFg) return;
+
+      const cards = document.querySelectorAll('.polaroid-wrapper');
+      if (cards.length === 0) return;
+
+      const containerRect = container.getBoundingClientRect();
+      let d = "";
+
+      for (let i = 0; i < cards.length; i++) {
+        const frame = cards[i].querySelector('.bg-white');
+        if (!frame) continue;
+        const rect = frame.getBoundingClientRect();
+
+        const topX = rect.left - containerRect.left + rect.width / 2;
+        const topY = rect.top - containerRect.top;
+
+        const leftX = rect.left - containerRect.left;
+        const leftY = rect.top - containerRect.top + rect.height / 2;
+
+        const rightX = rect.right - containerRect.left;
+        const rightY = rect.top - containerRect.top + rect.height / 2;
+
+        if (i === 0) {
+          // Card 0 (first) exits from the middle of the right edge
+          d += `M ${rightX} ${rightY}`;
+        } else {
+          // Connect previous card's exit to this card's top middle
+          d += ` L ${topX} ${topY}`;
+          
+          // Connect top middle of this card to its exit edge:
+          // Even indexes (0, 2, 4...) exit right
+          // Odd indexes (1, 3, 5...) exit left
+          const exitX = (i % 2 === 0) ? rightX : leftX;
+          const exitY = (i % 2 === 0) ? rightY : leftY;
+          d += ` L ${exitX} ${exitY}`;
+        }
+      }
+
+      pathBg.setAttribute('d', d);
+      pathFg.setAttribute('d', d);
+    }
+
+    window.addEventListener('resize', drawDynamicTimeline);
 
     function handleScratchStart(e, canvas, ctx) {
       sound.init();
