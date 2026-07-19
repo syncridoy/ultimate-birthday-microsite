@@ -3865,22 +3865,26 @@
       const cards = document.querySelectorAll('.polaroid-wrapper');
       if (cards.length === 0) return;
 
-      const containerRect = container.getBoundingClientRect();
       let d = "";
 
       for (let i = 0; i < cards.length; i++) {
         const frame = cards[i].querySelector('.bg-white');
         if (!frame) continue;
-        const rect = frame.getBoundingClientRect();
 
-        const topX = rect.left - containerRect.left + rect.width / 2;
-        const topY = rect.top - containerRect.top;
+        // Use offset positions relative to the container (100% immune to viewport scroll optimizations)
+        const frameLeft = cards[i].offsetLeft + frame.offsetLeft;
+        const frameTop = cards[i].offsetTop + frame.offsetTop;
+        const frameWidth = frame.offsetWidth || 208;
+        const frameHeight = frame.offsetHeight || 221;
 
-        const leftX = rect.left - containerRect.left;
-        const leftY = rect.top - containerRect.top + rect.height / 2;
+        const topX = frameLeft + frameWidth / 2;
+        const topY = frameTop;
 
-        const rightX = rect.right - containerRect.left;
-        const rightY = rect.top - containerRect.top + rect.height / 2;
+        const leftX = frameLeft;
+        const leftY = frameTop + frameHeight / 2;
+
+        const rightX = frameLeft + frameWidth;
+        const rightY = frameTop + frameHeight / 2;
 
         if (i === 0) {
           // Card 0 (first) exits from the middle of the right edge
