@@ -3930,17 +3930,14 @@
           // Card 0 (first) exits from the middle of the right edge
           d += `M ${rightX} ${rightY}`;
         } else {
-          // Connect previous card's exit to this card's top middle using a smooth cubic Bezier curve
-          const overshoot = 80; // horizontal loop depth for a premium look
-          let ctrl1X = prevExitX;
-          if (prevExitDir === 'right') {
-            ctrl1X += overshoot;
-          } else {
-            ctrl1X -= overshoot;
-          }
+          // Connect previous card's exit to this card's top middle using a clean, symmetric S-curve
+          const midX = prevExitX + (topX - prevExitX) * 0.5;
+          const midY = prevExitY + (topY - prevExitY) * 0.5;
+          
+          const ctrl1X = midX;
           const ctrl1Y = prevExitY;
           const ctrl2X = topX;
-          const ctrl2Y = topY - 60; // approach the top vertically
+          const ctrl2Y = midY;
 
           d += ` C ${ctrl1X} ${ctrl1Y}, ${ctrl2X} ${ctrl2Y}, ${topX} ${topY}`;
           
