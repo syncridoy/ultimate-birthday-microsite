@@ -3852,7 +3852,40 @@
       window.addEventListener('touchend', handleScratchEnd);
 
       // Draw dynamic connecting SVG timeline lines after rendering completes
-      setTimeout(drawDynamicTimeline, 100);
+      drawDynamicTimeline();
+      setTimeout(drawDynamicTimeline, 50);
+      setTimeout(drawDynamicTimeline, 300);
+      setTimeout(drawDynamicTimeline, 1000);
+    }
+
+    function getElementTranslation(el) {
+      let tx = 0;
+      let ty = 0;
+      try {
+        const style = window.getComputedStyle(el);
+        const transform = style.transform || style.webkitTransform || style.mozTransform;
+        if (transform && transform !== 'none') {
+          const op = String.fromCharCode(40); // Open parenthesis ASCII
+          if (transform.indexOf('matrix3d' + op) === 0) {
+            const val = transform.substring(9, transform.length - 1);
+            const parts = val.split(',');
+            if (parts.length >= 16) {
+              tx = parseFloat(parts[12]);
+              ty = parseFloat(parts[13]);
+            }
+          } else if (transform.indexOf('matrix' + op) === 0) {
+            const val = transform.substring(7, transform.length - 1);
+            const parts = val.split(',');
+            if (parts.length >= 6) {
+              tx = parseFloat(parts[4]);
+              ty = parseFloat(parts[5]);
+            }
+          }
+        }
+      } catch (e) {
+        console.error("Error reading transform matrix", e);
+      }
+      return { tx, ty };
     }
 
     function drawDynamicTimeline() {
@@ -3865,15 +3898,25 @@
       const cards = document.querySelectorAll('.polaroid-wrapper');
       if (cards.length === 0) return;
 
+      // Set explicit SVG dimensions matching container layout size (fixes disappearing lines at bottom)
+      const w = container.offsetWidth;
+      const h = container.scrollHeight;
+      svg.setAttribute('width', w);
+      svg.setAttribute('height', h);
+      svg.style.width = w + 'px';
+      svg.style.height = h + 'px';
+
       let d = "";
 
       for (let i = 0; i < cards.length; i++) {
         const frame = cards[i].querySelector('.bg-white');
         if (!frame) continue;
 
-        // Use offset positions relative to the container (100% immune to viewport scroll optimizations)
-        const frameLeft = cards[i].offsetLeft + frame.offsetLeft;
-        const frameTop = cards[i].offsetTop + frame.offsetTop;
+        // Get visual offsets including CSS translations
+        const { tx, ty } = getElementTranslation(cards[i]);
+
+        const frameLeft = cards[i].offsetLeft + frame.offsetLeft + tx;
+        const frameTop = cards[i].offsetTop + frame.offsetTop + ty;
         const frameWidth = frame.offsetWidth || 208;
         const frameHeight = frame.offsetHeight || 221;
 
