@@ -1721,11 +1721,11 @@
       <div id="letter-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-md flex flex-col items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-all duration-500">
         <!-- Notebook Ruled Paper Container -->
         <div id="notebook-paper-card" class="w-full max-w-sm max-h-[70vh] overflow-y-auto notebook-paper flex flex-col relative transform scale-90 transition-transform duration-500">
-          <!-- Red left margin line -->
-          <div class="absolute top-0 bottom-0 left-9 w-[1px] bg-red-400/70 pointer-events-none"></div>
-          <!-- Paper content -->
+          <!-- Paper content wrapper -->
           <div class="relative pl-12 pr-4 pt-6 pb-6 z-10 text-left select-text">
-            <h3 class="font-serif font-bold text-crimson mb-4 border-b border-dashed border-slate-300 pb-2 text-center text-sm uppercase tracking-wider">Dear Madam Jii...</h3>
+            <!-- Red left margin line (inside scrollable content to prevent cutting off on scroll) -->
+            <div class="absolute top-0 bottom-0 left-9 w-[1px] bg-red-400/70 pointer-events-none"></div>
+            
             <div id="notebook-letter-text" class="font-handwriting text-lg sm:text-xl text-slate-800 leading-[28px] whitespace-pre-line">
               <!-- Populated dynamically via JS -->
             </div>
@@ -1737,11 +1737,11 @@
 
         <!-- Action Buttons under the notebook page -->
         <div id="modal-buttons-container" class="w-full max-w-sm mt-5 px-4 flex flex-col space-y-3 pointer-events-auto transform translate-y-4 transition-transform duration-500 opacity-0">
-          <button onclick="triggerBirthdayKisses()" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-sans font-bold py-3.5 px-6 rounded-full shadow-lg transition-all transform active:scale-95 text-xs tracking-wider uppercase flex items-center justify-center space-x-2 cursor-pointer">
-            <span>💋 Need a birthday kiss?</span>
+          <button onclick="triggerBirthdayKisses()" class="w-full bg-white hover:bg-slate-100 text-slate-900 border border-slate-200/60 font-sans font-bold py-3.5 px-6 rounded-full shadow-md transition-all transform active:scale-95 text-xs tracking-wider uppercase flex items-center justify-center cursor-pointer">
+            Need a birthday kiss?
           </button>
-          <button onclick="restartSurprise()" class="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 font-sans font-bold py-3.5 px-6 rounded-full shadow-lg transition-all transform active:scale-95 text-xs tracking-wider uppercase flex items-center justify-center space-x-2 cursor-pointer">
-            <span>🔄 Explore Again</span>
+          <button onclick="restartSurprise()" class="w-full bg-white hover:bg-slate-100 text-slate-900 border border-slate-200/60 font-sans font-bold py-3.5 px-6 rounded-full shadow-md transition-all transform active:scale-95 text-xs tracking-wider uppercase flex items-center justify-center cursor-pointer">
+            Explore Again
           </button>
         </div>
       </div>
