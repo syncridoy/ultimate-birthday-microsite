@@ -6,7 +6,7 @@
   <title>Ultimate Birthday Surprise for Madam Jii</title>
   <!-- Google Fonts & Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@200;400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@200;400;600;800&family=Great+Vibes&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
     tailwind.config = {
@@ -58,6 +58,44 @@
       box-shadow: 0 8px 32px 0 rgba(224, 168, 153, 0.15);
     }
     
+    .font-handwriting {
+      font-family: 'Caveat', cursive;
+    }
+    
+    .notebook-paper {
+      background-color: #fcf8f2;
+      background-image: linear-gradient(#e2ecf7 1px, transparent 1px);
+      background-size: 100% 28px;
+      border: 1px solid #e3dcd3;
+      border-radius: 16px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+    }
+
+    @keyframes kissAnimation {
+      0% {
+        transform: translate(-50%, -50%) scale(0.1) rotate(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(-50% + var(--dx)), calc(-50% - var(--dy))) scale(2.2) rotate(var(--rot));
+        opacity: 0;
+      }
+    }
+    
+    .kiss-spawn {
+      position: fixed;
+      font-size: 2.8rem;
+      pointer-events: none;
+      z-index: 100;
+      animation: kissAnimation 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
     .glass-card-dark {
       background: rgba(15, 23, 42, 0.5);
       backdrop-filter: blur(25px);
@@ -1654,8 +1692,8 @@
             
             <!-- Envelope Front Flap -->
             <div id="envelope-flap" class="envelope-flap absolute inset-x-0 top-0 h-24 bg-rosegold-dark/90 rounded-b-xl border-t border-white/20 origin-top flex items-center justify-center z-30">
-              <!-- Wax Seal stamp inside flap -->
-              <div id="wax-seal" onclick="breakWaxSeal()" class="w-14 h-14 bg-crimson hover:bg-crimson-dark rounded-full border-4 border-gold shadow-lg flex items-center justify-center cursor-pointer transform -translate-y-2 active:scale-95 transition-all text-gold z-40">
+              <!-- Wax Seal stamp inside flap - positioned lower at the flap edge -->
+              <div id="wax-seal" onclick="breakWaxSeal()" class="absolute bottom-0 translate-y-1/2 w-14 h-14 bg-crimson hover:bg-crimson-dark rounded-full border-4 border-gold shadow-lg flex items-center justify-center cursor-pointer active:scale-95 transition-all text-gold z-40">
                 <i class="fas fa-heart text-xl animate-pulse"></i>
               </div>
             </div>
@@ -1663,26 +1701,49 @@
             <!-- Outer Envelope Sides decoration -->
             <div class="absolute inset-0 bg-gradient-to-tr from-rosegold-dark/20 to-transparent pointer-events-none rounded-b-2xl"></div>
             
-            <!-- Inside Letter Scroll -->
-            <div id="letter-scroll" class="letter-body absolute bottom-0 bg-white/95 backdrop-blur-xl border border-white/50 rounded-lg shadow-2xl p-6 w-72 h-80 overflow-y-auto text-left transform translate-y-0 opacity-0 pointer-events-none z-10 transition-all select-text">
-              <h3 class="font-serif font-bold text-crimson mb-3 border-b pb-2 text-center text-sm uppercase tracking-wider">Dear Madam Jii...</h3>
-              <p id="secret-letter-text" class="font-sans text-xs text-slate-700 leading-relaxed space-y-2 mb-4">
-                <!-- Configured letter goes here -->
-              </p>
-              <p class="font-serif text-right text-xs text-crimson font-bold italic mt-4">
-                Yours, Always & Forever ❤️
-              </p>
+            <!-- Inside Letter Scroll (Hidden to preserve JS compatibility) -->
+            <div id="letter-scroll" class="hidden">
+              <p id="secret-letter-text"></p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Bottom container -->
-      <div class="w-full max-w-sm mb-16 px-6 z-20 relative pointer-events-auto flex justify-center">
+      <!-- Hidden bottom container (Accept My Love is replaced by modal buttons) -->
+      <div class="hidden">
         <!-- Letter Next Button -->
-        <button id="btn-letter-next" onclick="nextPhase()" class="hidden bg-white/55 backdrop-blur-md text-slate-900 border border-white/60 hover:bg-white/75 font-sans font-bold px-8 py-3.5 rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 text-xs tracking-wider uppercase mb-2">
-          Accept My Love <i class="fas fa-heart ml-1"></i>
+        <button id="btn-letter-next" onclick="nextPhase()">
+          Accept My Love
         </button>
+      </div>
+
+      <!-- Dynamic Modal for the Opened Letter (ruled notebook page style) -->
+      <div id="letter-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-md flex flex-col items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-all duration-500">
+        <!-- Notebook Ruled Paper Container -->
+        <div id="notebook-paper-card" class="w-full max-w-sm max-h-[70vh] overflow-y-auto notebook-paper flex flex-col relative transform scale-90 transition-transform duration-500">
+          <!-- Red left margin line -->
+          <div class="absolute top-0 bottom-0 left-9 w-[1px] bg-red-400/70 pointer-events-none"></div>
+          <!-- Paper content -->
+          <div class="relative pl-12 pr-4 pt-6 pb-6 z-10 text-left select-text">
+            <h3 class="font-serif font-bold text-crimson mb-4 border-b border-dashed border-slate-300 pb-2 text-center text-sm uppercase tracking-wider">Dear Madam Jii...</h3>
+            <div id="notebook-letter-text" class="font-handwriting text-lg sm:text-xl text-slate-800 leading-[28px] whitespace-pre-line">
+              <!-- Populated dynamically via JS -->
+            </div>
+            <p class="font-serif text-right text-xs text-crimson font-bold italic mt-6">
+              Yours, Always & Forever ❤️
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Buttons under the notebook page -->
+        <div id="modal-buttons-container" class="w-full max-w-sm mt-5 px-4 flex flex-col space-y-3 pointer-events-auto transform translate-y-4 transition-transform duration-500 opacity-0">
+          <button onclick="triggerBirthdayKisses()" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-sans font-bold py-3.5 px-6 rounded-full shadow-lg transition-all transform active:scale-95 text-xs tracking-wider uppercase flex items-center justify-center space-x-2 cursor-pointer">
+            <span>💋 Need a birthday kiss?</span>
+          </button>
+          <button onclick="restartSurprise()" class="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 font-sans font-bold py-3.5 px-6 rounded-full shadow-lg transition-all transform active:scale-95 text-xs tracking-wider uppercase flex items-center justify-center space-x-2 cursor-pointer">
+            <span>🔄 Explore Again</span>
+          </button>
+        </div>
       </div>
 
     </section>
@@ -1771,10 +1832,21 @@
         }
       ],
       // The royal secret letter content
-      secretLetter: `Hey Madam Jii,<br><br>
-        On this beautiful and special day, I want to write this little note to tell you how incredibly much you mean to me.<br><br>
-        You are the warmth in my mornings, the laughter in my days, and the brightest star in my night sky. May this birthday bring you infinite joy, laughter, and all the magical dreams your heart can hold.<br><br>
-        Thank you for being you, and for gracing my life with your love. Let's celebrate many more birthdays together!`
+      secretLetter: `My Lubu Pakhi,
+Happy Birthday.
+
+Today marks exactly 489 days of our journey together. A beautiful quote comes to mind today: "When I look at you, I see the rest of my life in your eyes." For the past 489 days, you have given me this exact feeling.
+
+From the start, I have deeply felt how you changed yourself every day and gave 100% to be the best for our relationship. Your incredible love is the greatest gift of my life. Believe me, I love you so much.
+
+I know life has put you in a very tough situation right now. I feel your pain of pausing so close to your dream and the hurt of losing everyone’s trust. But remember, a tree doesn’t die just because of a storm. A temporary setback cannot ruin your future.
+
+You are so strong, Lubu. This is not the end, but the start of a fresh comeback. Don't give up, even if everything tries to pull you down. I know you can do this, and everything will be perfectly fine very soon. Your dreams will be colorful again, I am absolutely sure of it.
+
+No matter the situation or what family says, I am right here, holding your hand tightly forever. I love you endlessly. Happy Birthday again, my love.
+
+With love,
+Your ridoy`
     };
 
     /* =========================================================================
@@ -4058,12 +4130,32 @@
        ========================================================================= */
     function initPhase6Letter() {
       document.getElementById('secret-letter-text').innerHTML = CONFIG.secretLetter;
+      document.getElementById('notebook-letter-text').innerHTML = CONFIG.secretLetter;
       
       document.getElementById('wax-seal').classList.remove('hidden');
+      document.getElementById('wax-seal').classList.remove('animate-ping', 'bg-red-400');
       document.getElementById('envelope-flap').classList.remove('open');
       document.getElementById('letter-scroll').classList.remove('extracted');
       document.getElementById('letter-scroll').style.opacity = '0';
       document.getElementById('btn-letter-next').classList.add('hidden');
+      
+      // Reset Modal elements
+      const modal = document.getElementById('letter-modal');
+      if (modal) {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        modal.classList.remove('opacity-100', 'pointer-events-auto');
+      }
+      const paper = document.getElementById('notebook-paper-card');
+      if (paper) {
+        paper.classList.add('scale-90');
+        paper.classList.remove('scale-100');
+      }
+      const btns = document.getElementById('modal-buttons-container');
+      if (btns) {
+        btns.classList.add('opacity-0', 'translate-y-4');
+        btns.classList.remove('opacity-100', 'translate-y-0');
+      }
+
       document.getElementById('letter-prompt').innerText = "A royal letter sealed with love. Tap the red wax heart seal to melt it and open the letter.";
     }
 
@@ -4080,15 +4172,63 @@
         
         setTimeout(() => {
           sound.playPaperFlip();
-          const letter = document.getElementById('letter-scroll');
-          letter.style.opacity = '1';
-          letter.classList.add('extracted');
-          letter.style.pointerEvents = 'auto';
           
+          // Show the notebook paper letter modal with blur effect
+          const modal = document.getElementById('letter-modal');
+          const paper = document.getElementById('notebook-paper-card');
+          const btns = document.getElementById('modal-buttons-container');
+          
+          if (modal) {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+          }
+          if (paper) {
+            paper.classList.remove('scale-90');
+            paper.classList.add('scale-100');
+          }
+          setTimeout(() => {
+            if (btns) {
+              btns.classList.remove('opacity-0', 'translate-y-4');
+              btns.classList.add('opacity-100', 'translate-y-0');
+            }
+          }, 400);
+
           document.getElementById('letter-prompt').innerText = "May your day be filled with warm smiles and sweet surprises.";
-          document.getElementById('btn-letter-next').classList.remove('hidden');
         }, 800);
       }, 500);
+    }
+
+    function triggerBirthdayKisses() {
+      sound.playChime(1.0);
+      
+      const count = 25;
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.className = 'kiss-spawn select-none';
+          el.innerText = '💋';
+          
+          // Spawn centered horizontally but scattered vertically
+          const startX = Math.random() * window.innerWidth;
+          const startY = Math.random() * window.innerHeight;
+          
+          el.style.left = startX + 'px';
+          el.style.top = startY + 'px';
+          
+          // Compute CSS variable translations
+          const dx = (Math.random() - 0.5) * 160 + 'px';
+          const dy = (Math.random() * 250 + 150) + 'px';
+          const rot = (Math.random() - 0.5) * 70 + 'deg';
+          
+          el.style.setProperty('--dx', dx);
+          el.style.setProperty('--dy', dy);
+          el.style.setProperty('--rot', rot);
+          
+          document.body.appendChild(el);
+          
+          setTimeout(() => el.remove(), 2200);
+        }, i * 70);
+      }
     }
 
     /* =========================================================================
@@ -4199,6 +4339,23 @@
     function restartSurprise() {
       isStormActive = false;
       stormCanvas.classList.add('hidden');
+      
+      // Reset letter modal
+      const modal = document.getElementById('letter-modal');
+      if (modal) {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        modal.classList.remove('opacity-100', 'pointer-events-auto');
+      }
+      const paper = document.getElementById('notebook-paper-card');
+      if (paper) {
+        paper.classList.add('scale-90');
+        paper.classList.remove('scale-100');
+      }
+      const btns = document.getElementById('modal-buttons-container');
+      if (btns) {
+        btns.classList.add('opacity-0', 'translate-y-4');
+        btns.classList.remove('opacity-100', 'translate-y-0');
+      }
       
       isUnlocked = false;
       addedIngredients.length = 0;
